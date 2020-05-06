@@ -42,6 +42,31 @@ app.get('/admin/categories', (req, res) => {
 	res.sendFile(__dirname + "/public/admin/categories.html")
 })
 
+/// admin images ///
+app.get('/admin/test-image', (req, res) => {
+	res.sendFile(__dirname + "/public/admin/images/test.jpg")
+})
+/// admin icons ///
+app.get('/admin/edit-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/admin/icons/edit.png")
+})
+app.get('/admin/delete-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/admin/icons/bin.png")
+})
+app.get('/admin/home-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/admin/icons/home.png")
+})
+app.get('/admin/user-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/admin/icons/user.svg")
+})
+app.get('/admin/calendar-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/admin/icons/calendar.svg")
+})
+app.get('/admin/cubes-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/admin/icons/cubes.svg")
+})
+
+
 
 
 

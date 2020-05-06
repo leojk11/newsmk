@@ -43,11 +43,25 @@ a {
 	padding: 20px;
 	padding-left: 10px;
 	background: #1b1b1b;
+	align-items: center;
+	display: flex;
+}
+.menu-item img {
+	width: 20px;
+	color: white;
+	/*filter: opacity(1) drop-shadow(0 0 0 white);*/
+}
+.menu-item-text {
+	margin-left: 10px;
 }
 .menu-item:hover {
 	background: #10c398;
 	cursor: pointer;
+	transition: all .4s ease;
+	-webkit-transition: all .4s ease;
+	color: black;
 }
+/*.menu-item:hover*/
 .label {
 	background: gray;
 	color: black;
@@ -130,4 +144,74 @@ a {
 .user-name {
 	width: 300px;
 	text-align: center;
+}
+
+.all-posts {
+	width: 700px;
+	/*border: 1px solid whitesmoke;*/
+	padding: 3px;
+}
+.post-wrapper {
+	width: 680px;
+	border:1px solid whitesmoke;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+}
+.post-image-wrapper {
+	width: 200px;
+}
+.post-image-wrapper img {
+	width: 100%;
+}
+.post-other-info {
+	width: 300px;
+}
+.buttons {
+	width: 100px;
+	border-left: 1px solid whitesmoke;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.buttons a {
+	height: 50%;
+}
+.edit-wrapper {
+	width: 100px;
+	height: 100%;
+	text-align: center;
+	border-bottom: 1px solid whitesmoke;
+	padding-top: 14px;
+}
+.edit-wrapper:hover {
+	background: whitesmoke;
+	cursor: pointer;
+	transition: all .4s ease;
+	-webkit-transition: all .4s ease;
+}
+.delete-wrapper {
+	width: 100px;
+	text-align: center;
+	height: 100%;
+	padding-top: 14px;
+	/*border-bottom: 1px solid whitesmoke;*/
+}
+.delete-wrapper:hover {
+	background: whitesmoke;
+	cursor: pointer;
+	transition: all .4s ease;
+	-webkit-transition: all .4s ease;
+}
+.edit-wrapper img {
+	width: 30%;
+	margin: 0 auto;
+}
+.delete-wrapper img {
+	width: 30%;
+	margin: 0 auto;
+}
+
+.post-other-info div {
+	margin-top: 10px;
 }
