@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<base href="/">
+	<meta charset="utf-8">
+	<title>Admin | Dashboard</title>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="admin/css">
+</head>
+<body>
+	<div class="left-menu">
+		<div class="left-menu-title">newsMK Admin</div>
+
+		<a href="admin/dashboard"><div class="menu-item">Dashboard</div></a>
+
+		<div class="label">Live activity</div>
+		<a href="admin/user-activity"><div class="menu-item">User activity</div></a>
+
+		<div class="label">Web-app managment</div>
+		<a href="admin/posts"><div class="menu-item">Manage posts</div></a>
+		<a href="admin/categories"><div class="menu-item">Categories</div></a>
+	</div>
+
+	<div class="right">
+		<div class="right-wrapper">
+			<div class="dashboard-title">User activity</div><br> <!-- dashboard title -->
+
+			<div class="todays-results" style="width: 700px">
+				<label>Today's results</label>
+				<div class="boxes" style="justify-content: space-between;">
+					<div class="dashboard-box">
+						<div class="box-title">Today's Users</div>
+						<div class="box-number">1222</div>
+					</div>
+
+					<div class="dashboard-box">
+						<div class="box-title">Overall users</div>
+						<div class="box-number">1222</div>
+					</div>
+				</div> <!-- boxes -->
+			</div> <!-- todays results -->
+
+			<div class="search">
+				<input class="search" type="text" name="Users" placeholder="Search users..">
+			</div> <!-- search -->
+
+			<div class="users-wrapper">
+				<div class="users-header">
+					<div class="signup-date">Signup date</div>
+					<div class="user-id">User ID</div>
+					<div class="user-name">User Full Name</div>
+				</div> <!-- users header -->
+
+				<div class="all-users">
+					<div class="single-user">
+						<div class="signup-date">2020-05-06</div>
+						<div class="user-id">#23</div>
+						<div class="user-name">Leo Jakimovski</div>
+					</div>
+
+					<div class="single-user">
+						<div class="signup-date">2020-05-06</div>
+						<div class="user-id">#23</div>
+						<div class="user-name">Leo Jakimovski</div>
+					</div>
+
+					<div class="single-user">
+						<div class="signup-date">2020-05-06</div>
+						<div class="user-id">#23</div>
+						<div class="user-name">Leo Jakimovski</div>
+					</div>
+				</div> <!-- all users form databas -->
+			</div> <!-- users wrapper -->
+		</div> <!-- right wrapper -->
+	</div> <!-- right -->
+</body>
+</html>

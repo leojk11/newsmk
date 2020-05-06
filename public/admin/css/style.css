@@ -1,0 +1,133 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+}
+a {
+	text-decoration: none;
+	color: white;
+}
+
+/*.header {
+	width: 100%;
+	background: whitesmoke;
+}
+.categories {
+	width: 500px;
+	background: orange;
+	display: flex;
+}
+.category {
+	font-size: 1.3rem;
+	padding: 20px;
+	border-right: 1px solid whitesmoke;
+	border-left: 1px solid whitesmoke;
+}*/
+
+.left-menu {
+	background: black;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	color: whitesmoke;
+	width: 270px;
+}
+.left-menu-title {
+	padding: 20px;
+	font-size: 1.4rem;
+}
+.menu-item {
+	width: 100%;
+	padding: 20px;
+	padding-left: 10px;
+	background: #1b1b1b;
+}
+.menu-item:hover {
+	background: #10c398;
+	cursor: pointer;
+}
+.label {
+	background: gray;
+	color: black;
+	padding: 10px;
+	padding-left: 10px;
+}
+
+/* cyan color #10c398 */
+
+.right {
+	margin-left: 300px;
+}
+.dashboard-title {
+	font-size: 1.5rem;
+	/*border-bottom: 1px solid whitesmoke;*/
+}
+.right-wrapper {
+	padding: 20px;
+}
+
+.boxes {
+	display: flex;
+	margin-top: 5px;
+}
+.dashboard-box {
+	width: 300px;
+	padding: 30px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	border: 1px solid whitesmoke;
+	box-shadow: 0 7px 2px 0 rgba(80, 86, 85, 0.2), 0 0 1px 0 rgba(64, 64, 64, 0.71)
+}
+.dashboard-box-small {
+	width: 200px;
+	padding: 30px;
+	border: 1px solid whitesmoke;
+	box-shadow: 0 7px 2px 0 rgba(80, 86, 85, 0.2), 0 0 1px 0 rgba(64, 64, 64, 0.71)
+}
+.box-title {
+	text-align: center;
+	font-size: 1.5rem;
+	color: #10c398;
+}
+.box-number {
+	text-align: center;
+	font-size: 3rem;
+}
+.todays-results {
+	margin-top: 30px;
+}
+.search {
+	padding: 20px;
+	padding-left: 0px;
+	font-size: 1.5rem;
+	width: 700px;
+}
+
+.users-header {
+	width: 700px;
+	padding: 20px;
+	background: whitesmoke;
+	display: flex;
+	justify-content: space-between;
+}
+.single-user {
+	width: 700px;
+	padding: 20px;
+	/*background: whitesmoke;*/
+	display: flex;
+	justify-content: space-between;
+}
+.signup-date {
+	width: 200px;
+	text-align: center;
+}
+.user-id {
+	width: 200px;
+	text-align: center;
+}
+.user-name {
+	width: 300px;
+	text-align: center;
+}

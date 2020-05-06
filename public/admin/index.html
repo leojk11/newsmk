@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<base href="/">
+	<meta charset="utf-8">
+	<title>Admin | Dashboard</title>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="admin/css">
+</head>
+<body>
+	<div class="left-menu">
+		<div class="left-menu-title">newsMK Admin</div>
+
+		<a href="admin/dashboard"><div class="menu-item">Dashboard</div></a>
+
+		<div class="label">Live activity</div>
+		<a href="admin/user-activity"><div class="menu-item">User activity</div></a>
+
+		<div class="label">Web-app managment</div>
+		<a href="admin/posts"><div class="menu-item">Manage posts</div></a>
+		<a href="admin/categories"><div class="menu-item">Categories</div></a>
+	</div> <!--left menu-->
+
+	<div class="right">
+		<div class="right-wrapper">
+			<div class="dashboard-title">Dashboard</div><br>
+
+			<div class="todays-results">
+				<label>Today's results</label>
+				<div class="boxes">
+
+					<div class="dashboard-box">
+						<div class="box-title">Today's Views</div>
+						<div class="box-number">1222</div>
+					</div>
+
+					<div class="dashboard-box">
+						<div class="box-title">Today's Posts</div>
+						<div class="box-number">1222</div>
+					</div>
+
+					<div class="dashboard-box">
+						<div class="box-title">Today's new users</div>
+						<div class="box-number">1222</div>
+					</div>
+				</div> <!-- boxes -->
+			</div> <!-- todays results -->
+
+			<div class="todays-results" style="margin-top: 30px;">
+				<label>Overall results</label>
+				<div class="boxes">
+
+					<div class="dashboard-box-small">
+						<div class="box-title" style="font-size: 1rem">7 Days Views</div>
+						<div id="weekly-views" class="box-number" style="font-size: 2.5rem">1222</div>
+					</div>
+
+					<div class="dashboard-box-small">
+						<div class="box-title" style="font-size: 1rem">30 Days Views</div>
+						<div id="mounthly-views" class="box-number" style="font-size: 2.5rem">1222</div>
+					</div>
+
+					<div class="dashboard-box-small">
+						<div class="box-title" style="font-size: 1rem">7 Days Users</div>
+						<div id="weekly-users" class="box-number" style="font-size: 2.5rem">1222</div>
+					</div>
+
+					<div class="dashboard-box-small">
+						<div class="box-title" style="font-size: 1rem">30 Days Users</div>
+						<div id="mounthly-users" class="box-number" style="font-size: 2.5rem">1222</div>
+					</div>
+				</div> <!-- boxes -->
+			</div> <!-- todays results -->
+
+			
+		</div> <!-- right wrapper-->
+	</div> <!--right-->
+</body>
+</html>
