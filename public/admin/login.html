@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="/">
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin | Login</title>
+    
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin/css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body style="background: #eeeeeea8">
+    <div class="login_wrapper">
+        <div class="login-form">
+            <h1>Welcome</h1>
+
+            <input id="username" type="text" name="Email" placeholder="Username" style="margin-top: 14px;" required><br><br>
+            <input id="password" type="password" name="Password" placeholder="Password" required><br><br> 
+
+            <div class="login-btn" id="logbtn" name="Login">Login</div>
+        </div> <!-- login form -->
+    </div> <!-- login wrapper -->
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#logbtn').click(function(event){
+                console.log('leo')
+            })
+        })
+    </script>
+</body>
+</html>

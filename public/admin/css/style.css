@@ -9,6 +9,39 @@ a {
 	color: white;
 }
 
+
+.login-form {
+	width: 300px;
+	position: absolute;
+    top:  50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.login-form h1 {
+	text-align: center;
+}
+.login-form input {
+	width: 100%;
+	padding: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 1rem;
+	outline-color: #10c398;
+}
+.login-btn {
+	padding: 20px;
+	width: 100%;
+	text-align: center;
+	color: white;
+	background: #1b1b1b;
+}
+.login-btn:hover {
+	color: black;
+	background: #10c398;
+	cursor: pointer;
+	transition: all .4s ease;
+	-webkit-transition: all .4s ease;
+}
 /*.header {
 	width: 100%;
 	background: whitesmoke;
@@ -61,7 +94,6 @@ a {
 	-webkit-transition: all .4s ease;
 	color: black;
 }
-/*.menu-item:hover*/
 .label {
 	background: gray;
 	color: black;
