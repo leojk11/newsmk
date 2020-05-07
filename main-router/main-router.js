@@ -3,6 +3,6 @@ const adminRouter = require('../admin/routes');
 
 const mainRouter = express();
 
-mainRouter.use('/admin', adminRouter);
+mainRouter.use('/admins', adminRouter);
 
 module.exports = mainRouter;

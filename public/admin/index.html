@@ -6,6 +6,8 @@
 	<title>Admin | Dashboard</title>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="admin/css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="left-menu">
@@ -23,7 +25,25 @@
 		<div class="label">Post categories</div>
 		<a href="admin/categories"><div class="menu-item"><img src="admin/cubes-icon" style="filter: invert(100%);"><div class="menu-item-text">Categories</div></div></a>
 		<a href="admin/new-category"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new category</div></div></a>
+		<br>
+		<a id="logout-btn"><div class="menu-item"><img src="admin/login-icon"><div class="menu-item-text">Logout</div></div></a>
 	</div> <!--left menu-->
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#logout-btn').click(function(event){
+				// console.log('leo');
+				$.ajax({
+					url: 'admins/logout',
+					success: function(data){
+						if(data.message == 'logged out'){
+							location.href = 'admin';
+						}
+					}
+				})
+			})
+		})
+	</script>
 
 	<div class="right">
 		<div class="right-wrapper">

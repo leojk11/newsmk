@@ -1,77 +1,109 @@
 const con = require('../DB/db');
+const jwt = require('jsonwebtoken');
 
 // admin login
 adminLogin = async (req, res) => {
-    const username = req.body.username
-    const password = req.body.password
+    const username = req.body.user;
+    const password = req.body.pass;
 
-    const adminUsernames = await queries.getAllAdminUsernameQuery();
+    getAdminUsernamesQuery = () => {
+        return new Promise((res, rej) => {
+            con.query('SELECT * FROM admin_users', (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    };
 
-    // getAdminUsernameesQuery = () => {
-    //     const query = 
-    // }
-
+    const adminUsernames = await getAdminUsernamesQuery();
     const adminExists = adminUsernames.some(admin => {
-        return username == admin.Username
+        return username == admin.username
     });
 
     if (username == '') {
-        res.status(400);
-        res.json({
-            message: 'Please enter username.'
-        });
+        res.status(200).json({ message: 'username missing' });
     } else if (password == '') {
-        res.status(400);
-        res.json({
-            message: 'Please enter your password.'
-        })
+        res.status(200).json({ message: 'pass missing' });
     } else if (adminExists == false) {
-        res.status(400);
-        res.json({
-            message: 'You have entered wrong username.'
-        });
+        res.status(200).json({ message: 'wrong username' });
     }
     try {
-        const admin = await queries.adminLoginQuery(username);
-        // const adminPassword = admin[0].Password;
+        ademinLoginQuery = (username) => {
+            return new Promise((res, rej) => {
+                con.query('SELECT * FROM admin_users WHERE username = ?', [username], (error, results, fields) => {
+                    if(error){
+                        rej(error)
+                    } else {
+                        res(results)
+                    }
+                })
+            })
+        };
+
+        const admin = await ademinLoginQuery(username);
         const adminId = admin[0].ID;
-        // const matchPassword = bcrypt.compareSync(password, adminPassword);
         const matchPassword = admin.some(admin => {
-            return password == admin.Password
+            return password == admin.password
         });
 
         if (matchPassword == true) {
-            const payload = {
-                adminId: adminId
-            };
+            const payload = { adminId: adminId };
 
             const token = jwt.sign(payload, process.env.SECRET);
-            res.cookie('access_token', token, {
-                maxAge: 365 * 24 * 60 * 60 * 1000,
+            res.cookie('admin_token', token, {
+                maxAge: 3600000,
                 httpOnly: true
             });
 
-            res.status(200);
-            res.json({
-                message: 'logged in',
-                token
-            });
+            res.status(200).json({ message: 'logged in', token });
         } else {
-            res.status(400);
-            res.json({
-                message: 'Password that you have entered is incorrect.'
-            });
-            // res.redirect('http://localhost:3000/superadmin/dashboard');
+            res.status(200).json({ message: 'incorrect pass' });
         };
     } catch (error) {
-        const errorMsg = error.message;
-        res.status(500);
-        res.json({
-            message: errorMsg
-        });
+        console.log(error);
+        res.status(500).send(error);
     };
+};
+adminLogout = async(req, res) => {
+    res.clearCookie('admin_token');
+
+    try {
+        res.status(200).json({ message: 'logged out' });
+    } catch (error) {
+        res.status(200).json({ error });
+    }
+}
+
+getAllAdmins = async(req, res) => {
+    const adminId = req.admin.adminId;
+    console.log(adminId);
+
+    getAllAdminsQuery = () => {
+        return new Promise((res, rej) => {
+            con.query('SELECT * FROM admin_users', (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    const admins = await getAllAdminsQuery();
+    try {
+        res.status(200).json({ admins });
+    } catch (error) {
+        res.status(500).json({ error });
+    }
 }
 
 module.exports = {
-    adminLogin
+    adminLogin,
+    adminLogout,
+    
+    getAllAdmins
 }

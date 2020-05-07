@@ -17,18 +17,74 @@
     <div class="login_wrapper">
         <div class="login-form">
             <h1>Welcome</h1>
-
             <input id="username" type="text" name="Email" placeholder="Username" style="margin-top: 14px;" required><br><br>
             <input id="password" type="password" name="Password" placeholder="Password" required><br><br> 
-
             <div class="login-btn" id="logbtn" name="Login">Login</div>
+            <br>
+            <div id="login-error" class="error-div"></div> <!-- logine error -->
         </div> <!-- login form -->
     </div> <!-- login wrapper -->
 
     <script type="text/javascript">
         $(document).ready(function(){
             $('#logbtn').click(function(event){
-                console.log('leo')
+                const username = $('#username').val();
+                const pass = $('#password').val();
+
+                $.ajax({
+                    url: 'admins/login',
+                    method: 'post',
+                    data: {
+                        user: username,
+                        pass: pass
+                    },
+                    success: function(data){
+                        // console.log(data.message);
+                        if(data.message == 'logged in'){
+                            location.href = 'admin/dashboard';
+                        } else if (data.message == 'username missing'){
+                            $('#login-error').fadeIn("slow");
+                            setTimeout(function(){
+                                $('#login-error').fadeOut("slow");
+                            }, 5000);
+                            $('#login-error').html('');
+                            $('#login-error').append('Enter your username');
+                        } else if (data.message == 'pass missing'){
+                            $('#login-error').fadeIn("slow");
+                            setTimeout(function(){
+                                $('#login-error').fadeOut("slow");
+                            }, 5000);
+                            $('#login-error').html('');
+                            $('#login-error').append('Enter your password');
+                        } else if (data.message == 'wrong username'){
+                            $('#login-error').fadeIn("slow");
+                            setTimeout(function(){
+                                $('#login-error').fadeOut("slow");
+                            }, 5000);
+                            $('#login-error').html('');
+                            $('#login-error').append('Incorrect username');
+                        } else if (data.message == 'incorrect pass'){
+                            $('#login-error').fadeIn("slow");
+                            setTimeout(function(){
+                                $('#login-error').fadeOut("slow");
+                            }, 5000);
+                            $('#login-error').html('');
+                            $('#login-error').append('Incorrect password');
+                        }
+                    }
+                })
+            })
+
+            $('#username').keyup(function(event){
+                if(event.keyCode == 13){
+                    $('#logbtn').click();
+                }
+            })
+
+            $('#password').keyup(function(event){
+                if(event.keyCode == 13){
+                    $('#logbtn').click();
+                }
             })
         })
     </script>

@@ -12,6 +12,7 @@ a {
 
 .login-form {
 	width: 300px;
+	height: 300px;
 	position: absolute;
     top:  50%;
     left: 50%;
@@ -246,4 +247,12 @@ a {
 
 .post-other-info div {
 	margin-top: 10px;
+}
+.error-div {
+	display: none;
+	width: 100%;
+	background: red;
+	color: whitesmoke;
+	padding: 10px;
+	text-align: center;
 }

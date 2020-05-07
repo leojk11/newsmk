@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 require('dotenv/config');
 const mainRouter = require('./main-router/main-router');
+const middlewares = require('./middlewares/middlewares');
 // const publicRoutes = require('./routes');
 
 const app = express();
@@ -33,22 +34,22 @@ app.get('/admin/css', (req, res) => {
 app.get('/admin', (req, res) => {
 	res.sendFile(__dirname + "/public/admin/login.html");
 })
-app.get('/admin/dashboard', (req, res) => {
+app.get('/admin/dashboard', middlewares.verifyTokenAdmin, (req, res) => {
 	res.sendFile(__dirname + "/public/admin/index.html");
 })
-app.get('/admin/users', (req, res) => {
+app.get('/admin/users', middlewares.verifyTokenAdmin, (req, res) => {
 	res.sendFile(__dirname + "/public/admin/user-activity.html");
 })
-app.get('/admin/posts', (req, res) => {
+app.get('/admin/posts', middlewares.verifyTokenAdmin, (req, res) => {
 	res.sendFile(__dirname + "/public/admin/manage-posts.html");
 })
-app.get('/admin/new-post', (req, res) => {
+app.get('/admin/new-post', middlewares.verifyTokenAdmin, (req, res) => {
 	res.sendFile(__dirname + "/public/admin/add-post.html");
 })
-app.get('/admin/categories', (req, res) => {
+app.get('/admin/categories', middlewares.verifyTokenAdmin, (req, res) => {
 	res.sendFile(__dirname + "/public/admin/categories.html");
 })
-app.get('/admin/new-category', (req, res) => {
+app.get('/admin/new-category', middlewares.verifyTokenAdmin, (req, res) => {
 	res.sendFile(__dirname + "/public/admin/add-category.html");
 })
 
@@ -79,10 +80,9 @@ app.get('/admin/cubes-icon', (req, res) => {
 app.get('/admin/add-new-icon', (req, res) => {
 	res.sendFile(__dirname + "/public/admin/icons/plus-square.svg")
 })
-app.get('/admin/globus-icon', (req, res) => {
-	res.sendFile(__dirname + "/public/admin/icons/globus.webp")
+app.get('/admin/login-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/admin/icons/login.svg")
 })
-
 
 
 app.use(mainRouter);
