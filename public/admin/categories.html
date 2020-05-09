@@ -6,6 +6,8 @@
 	<title>Admin | Categories</title>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="admin/css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="left-menu">
@@ -15,6 +17,7 @@
 
 		<div class="label">Live activity</div>
 		<a href="admin/users"><div class="menu-item"><img src="admin/user-icon" style="filter: invert(100%);"><div class="menu-item-text">Users</div></div></a>
+		<a href="admin/new-user"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new user</div></div></a>
 
 		<div class="label">Posts</div>
 		<a href="admin/posts"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage posts</div></div></a>
@@ -46,8 +49,88 @@
 	<div class="right">
 		<div class="right-wrapper">
 			<div class="dashboard-title">Categories</div><br> <!-- dashboard title -->
-			
+			<div class="all-cats"></div><!-- all cats -->
 		</div> <!-- right wrapper -->
 	</div> <!-- right -->
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$.ajax({
+				url: 'admins/categories',
+				success: function(data){
+					console.log(data);
+					const categories = data.categories;
+
+					var i = 0;
+					while(i < categories.length){
+						const catWrapper = $('<div>').addClass('cat-wrapper');
+							const catTitle = $('<div>').addClass('cat-title').append(categories[i].name);
+						catWrapper.append(catTitle);
+							const catMoreInfo = $('<div>').addClass('more-info');
+								const position = $('<div>').addClass('position');
+									const positionNum = $('<div>').addClass('number').append('#' + categories[i].position);
+									const positionLabel = $('<div>').addClass('cat-label').append('POSITION');
+								position.append(positionNum);
+								position.append(positionLabel);
+							catMoreInfo.append(position);
+
+								const views = $('<div>').addClass('position').css({ 'border-left':'1px solid whitesmoke', 'border-right':'1px solid whitesmoke' });
+									const viewsNum = $('<div>').addClass('number').append(categories[i].views);
+									const viewsLabel = $('<div>').addClass('cat-label').append('VIEWS');
+								views.append(viewsNum);
+								views.append(viewsLabel);
+							catMoreInfo.append(views);
+								
+								const posts = $('<div>').addClass('position');
+									const postsNum = $('<div>').addClass('number').append(categories[i].posts);
+									const postsLabel = $('<div>').addClass('cat-label').append('POSTS');
+								posts.append(postsNum);
+								posts.append(postsLabel);
+							catMoreInfo.append(posts);
+						catWrapper.append(catMoreInfo);
+
+							const buttons = $('<div>').addClass('buttons');
+								const editBtnLink = $('<a>').attr({ 'href':'admin/edit-category?catId=' + categories[i].ID });
+									const editBtnWrapper = $('<div>').addClass('edit-wrapper').attr({ 'id':categories[i].ID });
+										const editIcon = $('<img>').attr({ 'src':'admin/edit-icon'});
+									editBtnWrapper.append(editIcon);
+								editBtnLink.append(editBtnWrapper);
+							buttons.append(editBtnLink);
+								const deleteBtnLink = $('<a>');
+									const deleteBtnWrapper = $('<div>').addClass('delete-wrapper').attr({ 'id':categories[i].ID });
+										const binIcon = $('<img>').attr({ 'src':'admin/delete-icon'});
+									deleteBtnWrapper.append(binIcon);
+								deleteBtnLink.append(deleteBtnWrapper);
+							buttons.append(deleteBtnLink);
+						catWrapper.append(buttons);
+
+						$('.all-cats').append(catWrapper);
+
+						i++;
+					}
+
+					$('.edit-wrapper').click(function(event){
+						const catId = this.id;
+						console.log(catId);
+					})
+					$('.delete-wrapper').click(function(event){
+						const catId = this.id;
+
+						$.ajax({
+							url: 'admins/delete-cat?catId=' + catId,
+							method: 'delete',
+							success: function(data){
+								console.log(data);
+							}, error: function(error){
+								console.log(error);
+							}
+						})
+					})
+				}, error: function(error){
+					console.log(error);
+				}
+			})
+		})
+	</script>
 </body>
 </html>

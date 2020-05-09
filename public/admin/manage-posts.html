@@ -6,6 +6,8 @@
 	<title>Admin | Posts</title>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="admin/css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="left-menu">
@@ -15,6 +17,7 @@
 
 		<div class="label">Live activity</div>
 		<a href="admin/users"><div class="menu-item"><img src="admin/user-icon" style="filter: invert(100%);"><div class="menu-item-text">Users</div></div></a>
+		<a href="admin/new-user"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new user</div></div></a>
 
 		<div class="label">Posts</div>
 		<a href="admin/posts"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage posts</div></div></a>
@@ -51,135 +54,91 @@
 				<input class="search" type="text" name="Posts" placeholder="Search posts..">
 			</div> <!-- search -->
 
-			<div class="all-posts">
-				<div class="post-wrapper">
-					<div class="post-image-wrapper">
-						<img src="admin/test-image">
-					</div> <!-- image wrapper -->
-
-					<div class="post-other-info">
-						<div class="post-title">
-							<b>Наслов: </b>
-							teska soobrakjaja se sluci pred 10 min
-						</div> <!-- post title -->
-
-						<div class="post-cat">
-							<b>Категорија: </b>
-							makedonija
-						</div> <!-- post cat -->
-
-						<div class="time-date-posted">
-							<b>Дата: </b>
-							2020-06-05
-						</div> <!-- time and date posted -->
-
-						<div class="who-posted">
-							<b>Кој постирал: </b>
-							Leo jakimovski
-						</div> <!-- who posted -->
-					</div> <!-- other info -->
-
-					<div class="buttons">
-						<a href="#">
-							<div class="edit-wrapper">
-								<img src="admin/edit-icon">
-							</div> <!-- edit button wrapper -->
-						</a> <!-- link to edit page -->
-
-						<a>
-							<div class="delete-wrapper">
-								<img src="admin/delete-icon">
-							</div> <!-- delete button wrapper -->
-						</a>
-					</div> <!-- buttons -->
-				</div> <!-- post wrapper -->
-
-				<div class="post-wrapper">
-					<div class="post-image-wrapper">
-						<img src="admin/test-image">
-					</div> <!-- image wrapper -->
-
-					<div class="post-other-info">
-						<div class="post-title">
-							<b>Наслов: </b>
-							teska soobrakjaja se sluci pred 10 min
-						</div> <!-- post title -->
-
-						<div class="post-cat">
-							<b>Категорија: </b>
-							makedonija
-						</div> <!-- post cat -->
-
-						<div class="time-date-posted">
-							<b>Дата: </b>
-							2020-06-05
-						</div> <!-- time and date posted -->
-
-						<div class="who-posted">
-							<b>Кој постирал: </b>
-							Leo jakimovski
-						</div> <!-- who posted -->
-					</div> <!-- other info -->
-
-					<div class="buttons">
-						<a href="#">
-							<div class="edit-wrapper">
-								<img src="admin/edit-icon">
-							</div> <!-- edit button wrapper -->
-						</a> <!-- link to edit page -->
-
-						<a>
-							<div class="delete-wrapper">
-								<img src="admin/delete-icon">
-							</div> <!-- delete button wrapper -->
-						</a>
-					</div> <!-- buttons -->
-				</div> <!-- post wrapper -->
-
-				<div class="post-wrapper">
-					<div class="post-image-wrapper">
-						<img src="admin/test-image">
-					</div> <!-- image wrapper -->
-
-					<div class="post-other-info">
-						<div class="post-title">
-							<b>Наслов: </b>
-							teska soobrakjaja se sluci pred 10 min
-						</div> <!-- post title -->
-
-						<div class="post-cat">
-							<b>Категорија: </b>
-							makedonija
-						</div> <!-- post cat -->
-
-						<div class="time-date-posted">
-							<b>Дата: </b>
-							2020-06-05
-						</div> <!-- time and date posted -->
-
-						<div class="who-posted">
-							<b>Кој постирал: </b>
-							Leo jakimovski
-						</div> <!-- who posted -->
-					</div> <!-- other info -->
-
-					<div class="buttons">
-						<a href="#">
-							<div class="edit-wrapper">
-								<img src="admin/edit-icon">
-							</div> <!-- edit button wrapper -->
-						</a> <!-- link to edit page -->
-
-						<a>
-							<div class="delete-wrapper">
-								<img src="admin/delete-icon">
-							</div> <!-- delete button wrapper -->
-						</a>
-					</div> <!-- buttons -->
-				</div> <!-- post wrapper -->
-			</div> <!-- all posts -->
+			<div class="all-posts"></div> <!-- all posts -->
 			
 		</div> <!-- right wrapper-->
 	</div> <!--right-->
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$.ajax({
+				url: 'admins/posts',
+				success: function(data){
+					console.log(data)
+					const posts = data.posts;
+
+					var i = 0;
+					while(i < posts.length){
+						const postWrapper = $('<div>').addClass('post-wrapper');
+							const imageWrapper = $('<div>').addClass('post-image-wrapper');
+								const postImage = $('<img>').attr({ 'src':'admin/post-image?image=' + posts[i].image });
+							imageWrapper.append(postImage);
+						postWrapper.append(imageWrapper);
+
+							const otherInfo = $('<div>').addClass('post-other-info');
+								const postTitle = $('<div>').addClass('post-title');
+									const titleLabel = $('<b>').append('Наслов: ');
+								postTitle.append(titleLabel);
+								postTitle.append(posts[i].title);
+							otherInfo.append(postTitle);
+								const postCategory = $('<div>').addClass('post-cat');
+									const postCatLabel = $('<b>').append('Категоруја: ');
+								postCategory.append(postCatLabel);
+								postCategory.append(posts[i].category);
+							otherInfo.append(postCategory);
+								const postDate = $('<div>').addClass('time-date-posted');
+									const postDateLabel = $('<b>').append('Дата: ');
+								postDate.append(postDateLabel);
+								postDate.append(posts[i].date_posted);
+							otherInfo.append(postDate);
+								const writer = $('<div>').addClass('who-posted');
+									const writerLabel = $('<b>').append('Писател: ');
+								writer.append(writerLabel);
+								writer.append(posts[i].writer);
+							otherInfo.append(writer);
+						postWrapper.append(otherInfo);
+
+							const buttons = $('<div>').addClass('buttons');
+								const editBtnLink = $('<a>').attr({});
+									const editBtnWrapper = $('<div>').addClass('edit-wrapper').attr({ 'id':posts[i].ID });
+										const editIcon = $('<img>').attr({ 'src':'admin/edit-icon'});
+									editBtnWrapper.append(editIcon);
+								editBtnLink.append(editBtnWrapper);
+							buttons.append(editBtnLink);
+								const deleteBtnLink = $('<a>');
+									const deleteBtnWrapper = $('<div>').addClass('delete-wrapper').attr({ 'id':posts[i].ID });
+										const binIcon = $('<img>').attr({ 'src':'admin/delete-icon'});
+									deleteBtnWrapper.append(binIcon);
+								deleteBtnLink.append(deleteBtnWrapper);
+							buttons.append(deleteBtnLink);
+						postWrapper.append(buttons);
+
+						$('.all-posts').append(postWrapper);
+						i++;
+					}
+
+					$('.delete-wrapper').click(function(event){
+						const postId = this.id;
+						console.log(postId);
+
+						$.ajax({
+							url: 'admins/delete-post?postId=' + postId,
+							method: 'delete',
+							success: function(data){
+								console.log(data);
+								if(data.message == 'post deleted'){
+									location.reload();
+								}
+							}, error: function(data){
+								console.log(data);
+							}
+						})
+					})
+				}, error: function(error){
+					console.log(error);
+				}
+			})
+		})
+	</script>
 </body>
 </html>

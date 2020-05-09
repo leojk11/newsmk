@@ -6,6 +6,8 @@
 	<title>Admin | Add new category</title>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="admin/css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="left-menu">
@@ -15,6 +17,7 @@
 
 		<div class="label">Live activity</div>
 		<a href="admin/users"><div class="menu-item"><img src="admin/user-icon" style="filter: invert(100%);"><div class="menu-item-text">Users</div></div></a>
+		<a href="admin/new-user"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new user</div></div></a>
 
 		<div class="label">Posts</div>
 		<a href="admin/posts"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage posts</div></div></a>
@@ -46,8 +49,37 @@
 	<div class="right">
 		<div class="right-wrapper">
 			<div class="dashboard-title">Add new category</div><br> <!-- dashboard title -->
-			
+
+			<div class="row">
+				<input id="name" class="new-post-input" type="text" placeholder="Title">
+			</div>
+			<br>
+			<br>
+			<button class="save-btn"><img src="admin/add-new-icon" style="margin-left: 38px"><span>Add category</span></button>
 		</div> <!-- right wrapper -->
 	</div> <!-- right -->
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.save-btn').click(function(event){
+				console.log('leo');
+				const title = $('#name').val();
+
+				$.ajax({
+					url: 'admins/new-cat',
+					method: 'post',
+					data: { title: title },
+					success: function(data){
+						console.log(data.message);
+						if(data.message == 'cat added'){
+							location.href = 'admin/categories'
+						}
+					}, error: function(error){
+						console.log(error);
+					}
+				})
+			})
+		})
+	</script>
 </body>
 </html>

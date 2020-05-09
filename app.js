@@ -30,6 +30,10 @@ app.get(express.static(__dirname + "/public"));
 app.get('/admin/css', (req, res) => {
 	res.sendFile(__dirname + "/public/admin/css/style.css");
 })
+app.get('/admin/post-image', (req, res) => {
+	const imageQuery = req.query.image;
+	res.sendFile(__dirname + '/images/posts/' + imageQuery);
+})
 /// admin public routes ///
 app.get('/admin', (req, res) => {
 	res.sendFile(__dirname + "/public/admin/login.html");
@@ -52,7 +56,12 @@ app.get('/admin/categories', middlewares.verifyTokenAdmin, (req, res) => {
 app.get('/admin/new-category', middlewares.verifyTokenAdmin, (req, res) => {
 	res.sendFile(__dirname + "/public/admin/add-category.html");
 })
-
+app.get('/admin/new-user', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/add-user.html");
+})
+app.get('/admin/edit-category', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/edit-category.html");
+})
 
 /// admin images ///
 app.get('/admin/test-image', (req, res) => {
@@ -83,6 +92,32 @@ app.get('/admin/add-new-icon', (req, res) => {
 app.get('/admin/login-icon', (req, res) => {
 	res.sendFile(__dirname + "/public/admin/icons/login.svg")
 })
+app.get('/admin/noimg-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/admin/images/noimg.png")
+})
+app.get('/admin/circle-plus-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/admin/icons/more.png")
+})
+
+
+/// upload images ///
+app.post('/post-img', (req, res) => {
+	if(req.files){
+		var file = req.files.fileToUpload,
+			filename = file.name;
+
+		file.mv('./images/posts/' + filename, function(error){
+			if(error){
+				res.json({ error });
+			} else {
+				res.redirect('http://localhost:3000/admin/posts');
+			}
+		})
+	} else {
+		res.redirect('http://localhost:3000/admin/posts');
+	}
+})
+
 
 
 app.use(mainRouter);

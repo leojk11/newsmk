@@ -3,7 +3,7 @@
 <head>
 	<base href="/">
 	<meta charset="utf-8">
-	<title>Admin | User managment</title>
+	<title>Admin | Edit category</title>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="admin/css">
 
@@ -48,68 +48,70 @@
 
 	<div class="right">
 		<div class="right-wrapper">
-			<div class="dashboard-title">User activity</div><br> <!-- dashboard title -->
+			<div class="dashboard-title">Edit category</div><br> <!-- dashboard title -->
 
-			<div class="todays-results" style="width: 700px">
-				<label>Today's results</label>
-				<div class="boxes" style="justify-content: space-between;">
-					<div class="dashboard-box">
-						<div class="box-title">Today's Users</div>
-						<div class="box-number">1222</div>
-					</div>
-
-					<div class="dashboard-box">
-						<div class="box-title">Overall users</div>
-						<div class="box-number">1222</div>
-					</div>
-				</div> <!-- boxes -->
-			</div> <!-- todays results -->
-
-			<div class="search">
-				<input class="search" type="text" name="Users" placeholder="Search users..">
-			</div> <!-- search -->
-
-			<div class="users-wrapper">
-				<div class="users-header">
-					<div class="signup-date">Signup date</div>
-					<div class="user-id">User ID</div>
-					<div class="user-name">User Full Name</div>
-					<!-- <div class="user-name">User Email</div> -->
-				</div> <!-- users header -->
-
-				<div class="all-users"></div> <!-- all users form databas -->
-			</div> <!-- users wrapper -->
+			<div class="row">
+				<input id="name" class="new-post-input" type="text" placeholder="Title">
+			</div>
+			<br>
+			<br>
+			<button class="save-btn"><img src="admin/add-new-icon" style="margin-left: 38px"><span>Add category</span></button>
 		</div> <!-- right wrapper -->
-	</div> <!-- right -->
+    </div> <!-- right -->
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
 
-	<script type="text/javascript">
-		$(document).ready(function(){
+            // get item from url
+            var url = document.location.href,
+                params = url.split('?')[1].split('&'),
+                data = {}, tmp;
+            for (var i = 0, l = params.length; i < l; i++) {
+                tmp = params[i].split('=');
+                data[tmp[0]] = tmp[1];
+            }
 
-			$.ajax({
-				url: 'admins/users',
-				success: function(data){
-					console.log(data)
-					const users = data.users;
+            const catId = data.catId;
 
-					var i = 0;
-					while(i < users.length){
-						const singleUser = $('<div>').addClass('single-user');
-							const signupDate = $('<div>').addClass('signup-date').append(users[i].date_registered);
-							const userId = $('<div>').addClass('user-id').append('#' + users[i].ID);
-							const userName = $('<div>').addClass('user-name').append(users[i].firstname + ' ' + users[i].lastname);
-						singleUser.append(signupDate);
-						singleUser.append(userId);
-						singleUser.append(userName);
+            $.ajax({
+                url: 'admins/single-cat?catId=' + catId,
+                success: function(data){
+                    const category = data.category;
+                    $('#name').val(category[0].name);
+                }, error: function(error){
+                    console.log(error);
+                }
+            })
 
-						$('.all-users').append(singleUser);
+            $('.save-btn').click(function(event){
+                event.preventDefault();
+                console.log('leo')
 
-						i++;
-					}
-				}, error: function(error){
-					console.log(error);
-				}
-			})
-		})
-	</script>
+                const name = $('#name').val();
+
+                $.ajax({
+                    url: 'admins/edit-cat?catId=' + catId,
+                    method: 'patch',
+                    data: {
+                        name: name
+                    },
+                    success: function(data){
+                        // console.log(data);
+                        if(data.message == 'cat edited'){
+                            location.href = 'admin/categories';
+                        }
+                    }, error: function(error){
+                        console.log(error);
+                    }
+                })
+            })
+
+            $('#name').keyup(function(event){
+                if(event.keyCode == 13){
+                    $('.save-btn').click();
+                }
+            })
+        })
+    </script>
 </body>
 </html>

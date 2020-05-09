@@ -6,6 +6,8 @@
 	<title>Admin | Add new post</title>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="admin/css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="left-menu">
@@ -15,6 +17,7 @@
 
 		<div class="label">Live activity</div>
 		<a href="admin/users"><div class="menu-item"><img src="admin/user-icon" style="filter: invert(100%);"><div class="menu-item-text">Users</div></div></a>
+		<a href="admin/new-user"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new user</div></div></a>
 
 		<div class="label">Posts</div>
 		<a href="admin/posts"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage posts</div></div></a>
@@ -46,8 +49,96 @@
 	<div class="right">
 		<div class="right-wrapper">
 			<div class="dashboard-title">Add new post</div><br> <!-- dashboard title -->
+
+			<form action="post-img" method="POST" enctype="multipart/form-data">
+				<div class="imghi">
+					<img id="custom-button" onclick="clickimg()" src="admin/noimg-icon">
+					<input class="insert_image" type="file" id="real-file" onchange="addimg(this)" hidden="hidden" name="fileToUpload">
+				</div>
+				<br>
+				<div class="row">
+					<input id="title" class="new-post-input" type="text" placeholder="Title">
+				</div>
+				<br>
+				<div class="row">
+					<!-- <input id="category" class="new-post-input" type="text" placeholder="Category"> -->
+					<select name="category" id="category" class="new-post-input" placeholder="Select category">
+						<option value="">Select category</option>
+					</select>
+				</div>
+				<br>
+				<textarea id="text" class="new-post-input" name="text" id="text" cols="30" rows="10" placeholder="Text"></textarea>
+				<br>
+				<br>
+				<button class="save-btn"><img src="admin/add-new-icon"><span>Add post</span></button>
+			</form>
 			
 		</div> <!-- right wrapper -->
 	</div> <!-- right -->
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.save-btn').click(function(event){
+				// event.preventDefault();
+				const title = $('#title').val();
+				const text = $('#text').val();
+				const category = $('#category').find(":selected").text();
+
+				var input = $('#real-file')[0];
+				var file = input.files[0];
+				var fileName = file.name;
+				// console.log(fileName);
+
+
+				$.ajax({
+					url: 'admins/new-post',
+					method: 'post',
+					data: {
+						title: title,
+						text: text,
+						category: category,
+						image: fileName
+					},
+					success: function(data){
+						console.log(data);
+					}, error: function(error){
+						console.log(error);
+					}
+				})
+			})
+
+			$.ajax({
+				url: 'admins/categories',
+				success: function(data){
+					console.log(data);
+					const categories = data.categories;
+					console.log(categories);
+
+					var i = 0;
+					while(i < categories.length){
+						const categoryOption = $('<option>').attr({ 'value':categories[i].ID }).append(categories[i].name);
+							$('#category').append(categoryOption);
+						i++;
+					}
+
+				}, error: function(error){
+					console.log(error);
+				}
+			})
+		})
+	</script>
+
+
+
+	<script type="text/javascript">
+		function clickimg(){ $('#real-file').click(); }
+		function addimg(e){
+			var input = $('#real-file')[0];
+			var file = input.files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function(e){ $('#custom-button').attr('src', e.target.result); }
+		};
+	</script>
 </body>
 </html>
