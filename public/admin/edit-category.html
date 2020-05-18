@@ -4,28 +4,115 @@
 	<base href="/">
 	<meta charset="utf-8">
 	<title>Admin | Edit category</title>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 	<link rel="stylesheet" href="admin/css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
+	<div class="page-mask"></div><!--page mask-->
+
+	<div id="category-popup" class="popup">
+		<div class="popup-wrapper">
+			<div class="popup-input">
+				<input id="category" class="new-post-input" type="text" style="width: 100%;" placeholder="Enter category name">
+			</div><!-- popup input -->
+			<br>
+			<div id="edit-cat" class="save-btn" style="margin: 0 auto;"><img src="admin/edit-svg" style="margin-left: 80px"><span style="margin-left: 8px;">Edit</span></div>
+		</div>
+		<br>
+		<div class="cat-error-div">
+			<div class="error">Category does not exist</div>
+		</div> <!-- error div -->
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#edit-cat').click(function(event){
+				event.preventDefault();
+				const info = $('#category').val();
+
+				$.ajax({
+					url: 'admins/single-cat-edit?info=' + info,
+					success: function(data){
+						console.log(data);
+						if(data.message !== 'not exist'){
+							const category = data.category;
+							const catId = category[0].ID;
+							
+							location.href = 'admin/edit-category?catId=' + catId;
+						} else {
+							$('.cat-error-div').fadeIn('slow');
+							setTimeout(function(){
+                                $('.cat-error-div').fadeOut("slow");
+                            }, 5000);
+						}
+					}, error: function(error){
+						console.log(error);
+					}
+				})
+			})
+		})
+	</script>
+
+	<div id="users-popup" class="popup">
+		<div class="popup-wrapper">
+			<div class="popup-input">
+				<input id="user-id" class="new-post-input" type="text" style="width: 100%;" placeholder="Enter user ID">
+			</div><!-- popup input -->
+			<br>
+			<div id="edit-user-loc" class="save-btn" style="margin: 0 auto;"><img src="admin/edit-svg" style="margin-left: 80px"><span style="margin-left: 8px;">Edit</span></div>
+		</div>
+		<br>
+		<div class="cat-error-div">
+			<div class="error">Category does not exist</div>
+		</div> <!-- error div -->
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#edit-user-loc').click(function(event){
+				event.preventDefault();
+				// console.log('leo')
+
+				const userId = $('#user-id').val();
+				location.href = 'admin/edit-user?userId=' + userId;
+			})
+		})
+	</script>
+
 	<div class="left-menu">
 		<div class="left-menu-title">newsMK Admin</div>
+		<div class="logged-in-admin">
+			<div class="admin-image">
+				<img src="admin/leo-test" alt="">
+			</div> <!-- admin image -->
 
-		<a href="admin/dashboard"><div class="menu-item"><img src="admin/home-icon"><div class="menu-item-text">Home</div></div></a>
+			<div class="admin-name-wrapper">
+				<div class="admin-name">Leo Jakimovski</div>
+				<div class="admin-status"><span class="indicator indicator-color"></span><span class="online-status">ONLINE</span></div>
+			</div> <!-- admin name wrapper -->
+		</div><!-- logged in admin -->
 
-		<div class="label">Live activity</div>
+		<a href="admin/dashboard"><div class="menu-item"><img src="admin/home-icon" width="50"><div class="menu-item-text">Home</div></div></a>
+
+		<div class="label">Users</div>
 		<a href="admin/users"><div class="menu-item"><img src="admin/user-icon" style="filter: invert(100%);"><div class="menu-item-text">Users</div></div></a>
 		<a href="admin/new-user"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new user</div></div></a>
+		<a id="edit-user"><div class="menu-item"><img src="admin/edit-svg" style="filter: invert(100%);"><div class="menu-item-text">Edit user</div></div></a>
 
 		<div class="label">Posts</div>
 		<a href="admin/posts"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage posts</div></div></a>
 		<a href="admin/new-post"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new post</div></div></a>
 
+		<div class="label">Slider posts</div>
+		<a href="admin/slider-post"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage posts</div></div></a>
+		<a href="admin/add-slider-post"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new slider post</div></div></a>
+
 		<div class="label">Post categories</div>
 		<a href="admin/categories"><div class="menu-item"><img src="admin/cubes-icon" style="filter: invert(100%);"><div class="menu-item-text">Categories</div></div></a>
 		<a href="admin/new-category"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new category</div></div></a>
+		<a id="edit-category"><div class="menu-item active-menu-item"><img src="admin/edit-svg" style="filter: invert(100%);"><div class="menu-item-text">Edit category</div></div></a>
 		<br>
 		<a id="logout-btn"><div class="menu-item"><img src="admin/login-icon"><div class="menu-item-text">Logout</div></div></a>
 	</div> <!--left menu-->
@@ -42,6 +129,28 @@
 						}
 					}
 				})
+			})
+
+			$('#edit-category').click(function(event){
+				event.preventDefault();
+
+				$('.page-mask').fadeIn('fast');
+				$('#category-popup').fadeIn('fast');
+			})
+
+			$('#edit-user').click(function(event){
+				event.preventDefault();
+
+				$('.page-mask').fadeIn('fast');
+				$('#users-popup').fadeIn('fast');
+			})
+
+			$('.page-mask').click(function(event){
+				event.preventDefault();
+
+				$('.page-mask').fadeOut('fast');
+				$('#category-popup').fadeOut('fast');
+				$('#users-popup').fadeOut('fast');
 			})
 		})
 	</script>

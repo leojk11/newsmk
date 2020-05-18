@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<base href="/">
+	<meta charset="utf-8">
+	<title>single post</title>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body onload="startTime()">
+    <div class="header">
+        <div class="header-wrapper">
+            <div class="logo">
+                newsMK
+            </div> <!-- logo -->
+
+            <div class="categories">
+                <div class="single-category">
+                    <div class="cat-name">Македонија</div>
+                    <div class="cat-name">Свет</div>
+                    <div class="cat-name">Спорт</div>
+                    <div class="cat-name">Магазин</div>
+                    <div class="cat-name">Забава</div>
+                </div><!-- single category -->
+            </div><!-- categories -->
+
+            <div class="clock-wrapper">
+                <div class="clock-icon">
+                    <img src="client/clock-icon" alt="">
+                </div> <!-- clock icon -->
+                <div class="clock"></div><!-- clock -->
+            </div>
+
+            <div id="show-dropdown" class="user-menu">
+                <div class="user-menu-icon"><img src="client/user-icon" alt=""></div>
+                <div class="user-menu-down"><img src="client/down-arrow-icon" alt=""></div>
+            </div> <!-- user menu -->
+
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $('#show-dropdown').click(function(event){
+                        event.preventDefault();
+
+                        $('#dropdown-menu').slideToggle(500);
+                    })
+                })
+            </script>
+        </div><!-- header wrapper -->
+    </div> <!-- header -->
+
+    <div id="dropdown-menu" class="user-dropdown">
+        <div class="dropdown-item">Регистрирај се</div>
+        <div class="dropdown-item">Логирај се</div>
+    </div><!-- user dropdown -->
+
+    <div class="main">
+        <div class="middle">
+            <div class="category-small-post-title">
+                <div class="category-post-title">Македонија > </div> <!-- category post title -->
+                <div class="single-post-small-title"> На отворено и под маски дебатираат лидерите на политилките партии</div> <!-- post small title -->
+            </div> <!-- small category and post title -->
+
+            <div class="single-post-img">
+                <img src="client/test-img7" alt="">
+            </div><!-- post image -->
+
+            <div class="single-post-title">НА ОТВОРЕНО И ПОД МАСКИ ДЕБАТИРААТ ЛИДЕРИТЕ НА ПОЛИТИЧКИТЕ ПАРТИИ</div><!-- post title -->
+
+            <div class="single-post-date-time">
+                <div class="single-post-date-wrapper">
+                    <div class="date-icon"><img src="client/calendar-icon" alt=""></div>
+                    <div class="single-post-date">12.05.2020</div>
+                </div>
+                <div class="single-post-comments">
+                    <div class="single-post-comm-icon"><img src="client/comment-icon" alt=""></div>
+                    <div class="single-post-comm-num">0 коментари</div>
+                </div>
+            </div>
+
+            <div class="single-post-text">
+                Повеќе од два часа дебатираат лидерите на политичките партии и премиерот Оливер Спасовски и претседателот на Собранието Талат Џафери на средба кај претседателот Стево Пендаровски во Вила Водно за терминот за парламентарните избори. Поради запазување на мерките за превенција од коронавирусот средбата се одржува на отворено под тенди, на балкон од Вилата Водно. Сите учесници на средбата се со маски и седат на растојание еден од друг. 
+
+                На средбата присуствуваат претседателите на СДСМ Зоран Заев, на ВМРО-ДПМНЕ Христијан Мицкоски, на ДУИ Али Ахмети, на Алијанса за Албанците, Зиадин Села, на Алтернатива Африм Гаши, на Движење Беса Билал Касами, како и претставници на ДПА. 
+
+                Главна тема на лидерската средба е терминот на одржување на предвремените парламентарни избори, кои беа закажани на 12 април, но беа одложени со уредба на Владата поради прогласувањето вонредна состојба и ширењето на ковид-19. Лидерите исто така се очекува да зборуваат и за евентуално продолжување на вонредната состојба, за состојбата со коронавирусот во земјата и препораките на здравствените власти, и како да се спроведе кампања и гласање, а да се заштитат граѓаните. 
+
+                Позициите на партиите се познати во јавноста, а партиски извори веќе информираат дека нивните лидери, главно официјално ги соопштиле на средбата. Лидерот на СДСМ Зора Заев кажал дека тие и нивните коалициски партнери се за избори на 14 јуни, додека од ВМРО-ДПМНЕ дека претставиле свој план од неколку точки. 
+
+                Медиумските екипи се во очекување на крајот на средбата, по која се очекуваат изјави од лидерите.
+            </div><!-- post text -->
+
+            <div class="share-buttons">
+                <span class="facebook-share" data-js="facebook-share"><img src="client/facebook-icon"><span>Share</span></span>
+                <span class="twitter-share" data-js="twitter-share"><img src="client/twitter-icon"><span>Share</span></span>
+            </div><!-- share buttons -->
+
+
+            <div class="single-posts-comments-section">
+                <div class="all-comments-numb-label"><span>0 КОМЕНТАРИ</span></div> <!-- all comments numb -->
+                <br>
+                <div class="all-comments">
+                    <div class="comment-box">
+                        <div class="comment-user-name">
+                            <div class="person-icon"><img src="client/user-icon" alt=""></div> <!-- person icon -->
+                            <div class="person-name">Leo</div> <!-- person name -->
+                            <div class="comment-date">
+                                <div class="date-icon"><img src="client/calendar-icon" alt=""></div>
+                                <div class="date">12.05.2020</div>
+                            </div> <!-- comment date -->
+                        </div> <!-- commen t user name -->
+
+                        <div class="comment-text">
+                            testtesttesttesttesttesttesttesttesttesttesttesttest testtesttesttesttesttesttesttesttestt esttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+                        </div> <!-- comment text -->
+                    </div> <!-- comment box -->
+                </div> <!-- all comments -->
+                <br>
+                <div class="leave-comment-label"><span>ОСТАВИ КОМЕНТАР</span></div>
+                <br>
+                <div class="leave-comment-form">
+                    <div class="name-input-wrapper">
+                        <input type="text" placeholder="Име">
+                    </div>
+                    <br>
+                    <div class="name-input-wrapper">
+                        <textarea name="" id="" cols="30" rows="10" placeholder="Коментар"></textarea>
+                    </div>
+                </div><!-- leave comment form -->
+
+                <div class="leave-comment-btn">Остави коментар</div><!-- leave comment btn -->
+            </div> <!-- comments section -->
+
+
+            <div class="category-post">
+                <div class="cat-title">
+                   <a class="title-cat-link" href="#">Македонија</a> 
+                </div> <!-- cat title -->
+
+                <div class="posts-wrapper">
+                    <div class="single-post-cat">
+                        <div class="post-image">
+                            <div class="see-more">
+                                <div class="see-more-btn">see more</div><!-- see more btn -->
+                            </div><!-- see more -->
+                            <img src="client/test-img2" alt="">
+                        </div><!-- post image -->
+                        
+                        <div class="post-other-info">
+                            <div class="post-title">
+                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
+                            </div><!-- post title -->
+                            <div class="today-date">
+                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                                <div class="date">11-05-2020</div>
+                            </div> <!-- today date -->
+                        </div><!-- post other info-->
+                    </div><!-- single post cat -->
+    
+                    <div class="single-post-cat">
+                        <div class="post-image">
+                            <div class="see-more">
+                                <div class="see-more-btn">see more</div><!-- see more btn -->
+                            </div><!-- see more -->
+
+                            <img src="client/test-img2" alt="">
+                        </div><!-- post image -->
+                        
+                        <div class="post-other-info">
+                            <div class="post-title">
+                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
+                            </div><!-- post title -->
+                            <div class="today-date">
+                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                                <div class="date">11-05-2020</div>
+                            </div> <!-- today date -->
+                        </div><!-- post other info-->
+                    </div><!-- single post cat -->
+    
+                    <div class="single-post-cat">
+                        <div class="post-image">
+                            <div class="see-more">
+                                <div class="see-more-btn">see more</div><!-- see more btn -->
+                            </div><!-- see more -->
+
+                            <img src="client/test-img2" alt="">
+                        </div><!-- post image -->
+                        
+                        <div class="post-other-info">
+                            <div class="post-title">
+                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
+                            </div><!-- post title -->
+                            <div class="today-date">
+                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                                <div class="date">11-05-2020</div>
+                            </div> <!-- today date -->
+                        </div><!-- post other info-->
+                    </div><!-- single post cat -->
+                </div><!-- posts wrapper -->
+            </div><!-- category post-->
+
+            <div class="category-post">
+                <div class="cat-title">
+                    <a class="title-cat-link" href="#">Свет</a> 
+                 </div> <!-- cat title -->
+
+                <div class="posts-wrapper">
+                    <div class="single-post-cat">
+                        <div class="post-image">
+                            <div class="see-more">
+                                <div class="see-more-btn">see more</div><!-- see more btn -->
+                            </div><!-- see more -->
+
+                            <img src="client/test-img4" alt="">
+                        </div><!-- post image -->
+                        
+                        <div class="post-other-info">
+                            <div class="post-title">
+                                <b>Претседателката на ЕК најави можност за почнување правна постапка против Германија</b>
+                            </div><!-- post title -->
+                            <div class="today-date">
+                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                                <div class="date">11-05-2020</div>
+                            </div> <!-- today date -->
+                        </div><!-- post other info-->
+                    </div><!-- single post cat -->
+    
+                    <div class="single-post-cat">
+                        <div class="post-image">
+                            <div class="see-more">
+                                <div class="see-more-btn">see more</div><!-- see more btn -->
+                            </div><!-- see more -->
+
+                            <img src="client/test-img4" alt="">
+                        </div><!-- post image -->
+                        
+                        <div class="post-other-info">
+                            <div class="post-title">
+                                <b>Претседателката на ЕК најави можност за почнување правна постапка против Германија</b>
+                            </div><!-- post title -->
+                            <div class="today-date">
+                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                                <div class="date">11-05-2020</div>
+                            </div> <!-- today date -->
+                        </div><!-- post other info-->
+                    </div><!-- single post cat -->
+    
+                    <div class="single-post-cat">
+                        <div class="post-image">
+                            <div class="see-more">
+                                <div class="see-more-btn">see more</div><!-- see more btn -->
+                            </div><!-- see more -->
+
+                            <img src="client/test-img4" alt="">
+                        </div><!-- post image -->
+                        
+                        <div class="post-other-info">
+                            <div class="post-title">
+                                <b>Претседателката на ЕК најави можност за почнување правна постапка против Германија</b>
+                            </div><!-- post title -->
+                            <div class="today-date">
+                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                                <div class="date">11-05-2020</div>
+                            </div> <!-- today date -->
+                        </div><!-- post other info-->
+                    </div><!-- single post cat -->
+                </div>
+            </div><!-- category post-->
+
+            <div class="category-post">
+                <div class="cat-title">
+                    <a class="title-cat-link" href="#">Спорт</a> 
+                </div> <!-- cat title -->
+
+                <div class="posts-wrapper">
+                    <div class="single-post-cat">
+                        <div class="post-image">
+                            <div class="see-more">
+                                <div class="see-more-btn">see more</div><!-- see more btn -->
+                            </div><!-- see more -->
+
+                            <img src="client/test-img5" alt="">
+                        </div><!-- post image -->
+                        
+                        <div class="post-other-info">
+                            <div class="post-title">
+                                <b>Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</b>
+                            </div><!-- post title -->
+                            <div class="today-date">
+                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                                <div class="date">11-05-2020</div>
+                            </div> <!-- today date -->
+                        </div><!-- post other info-->
+                    </div><!-- single post cat -->
+    
+                    <div class="single-post-cat">
+                        <div class="post-image">
+                            <div class="see-more">
+                                <div class="see-more-btn">see more</div><!-- see more btn -->
+                            </div><!-- see more -->
+
+                            <img src="client/test-img5" alt="">
+                        </div><!-- post image -->
+                        
+                        <div class="post-other-info">
+                            <div class="post-title">
+                                <b>Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</b>
+                            </div><!-- post title -->
+                            <div class="today-date">
+                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                                <div class="date">11-05-2020</div>
+                            </div> <!-- today date -->
+                        </div><!-- post other info-->
+                    </div><!-- single post cat -->
+    
+                    <div class="single-post-cat">
+                        <div class="post-image">
+                            <div class="see-more">
+                                <div class="see-more-btn">see more</div><!-- see more btn -->
+                            </div><!-- see more -->
+                            
+                            <img src="client/test-img5" alt="">
+                        </div><!-- post image -->
+                        
+                        <div class="post-other-info">
+                            <div class="post-title">
+                                <b>Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</b>
+                            </div><!-- post title -->
+                            <div class="today-date">
+                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                                <div class="date">11-05-2020</div>
+                            </div> <!-- today date -->
+                        </div><!-- post other info-->
+                    </div><!-- single post cat -->
+                </div><!-- posts wrapper -->
+            </div><!-- category post-->
+        </div><!-- middle -->
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                var facebookShare = document.querySelector('[data-js="facebook-share"]');
+                facebookShare.onclick = function(e) {
+                e.preventDefault();
+                var facebookWindow = window.open('https://www.facebook.com/sharer/sharer.php?u=' + document.URL, 'facebook-popup', 'height=350,width=600');
+                if(facebookWindow.focus) { facebookWindow.focus(); }
+                    return false;
+                }
+
+                var twitterShare = document.querySelector('[data-js="twitter-share"]');
+                twitterShare.onclick = function(e) {
+                e.preventDefault();
+                var twitterWindow = window.open('https://twitter.com/share?url=' + document.URL, 'twitter-popup', 'height=350,width=600');
+                if(twitterWindow.focus) { twitterWindow.focus(); }
+                    return false;
+                }
+            })
+        </script>
+
+        <div class="left">
+            <div class="latest-news">
+                <div class="latest-label">
+                    Последни
+                </div><!-- latest label-->
+
+                <div class="single-post">
+                    <a href="#" class="latest-category">Македонија</a>
+                    <a href="#" class="post-title-link">
+                        <div class="post-title">
+                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
+                        </div><!-- post title -->
+                    </a> <!-- title link -->
+
+                    <div class="today-date">
+                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                        <div class="date">13:50, 11-05-2020</div>
+                    </div> <!-- today date -->
+                </div><!-- single post -->
+
+                <div class="single-post">
+                    <a href="#" class="latest-category">Македонија</a>
+                    <a href="#" class="post-title-link">
+                        <div class="post-title">
+                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
+                        </div><!-- post title -->
+                    </a> <!-- title link -->
+
+                    <div class="today-date">
+                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                        <div class="date">13:50, 11-05-2020</div>
+                    </div> <!-- today date -->
+                </div><!-- single post -->
+
+                <div class="single-post">
+                    <a href="#" class="latest-category">Македонија</a>
+                    <a href="#" class="post-title-link">
+                        <div class="post-title">
+                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
+                        </div><!-- post title -->
+                    </a> <!-- title link -->
+
+                    <div class="today-date">
+                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                        <div class="date">11-05-2020</div>
+                    </div> <!-- today date -->
+                </div><!-- single post -->
+            </div><!-- latest -->
+
+            <div class="latest-news">
+                <div class="latest-label">
+                    Магазин
+                </div><!-- latest label-->
+
+                <div class="single-post">
+                    <div class="post-image">
+                        <div class="see-more">
+                            <div class="see-more-btn">see more</div><!-- see more btn -->
+                        </div><!-- see more -->
+
+                        <img src="client/test-img6" alt="">
+                    </div><!-- post image -->
+
+                    <div class="post-title">
+                        <b>Армани ги преместува работните простории од Париз во Милано</b>
+                    </div><!-- post title -->
+                </div><!-- single post -->
+
+                <div class="single-post">
+                    <div class="post-image">
+                        <div class="see-more">
+                            <div class="see-more-btn">see more</div><!-- see more btn -->
+                        </div><!-- see more -->
+
+                        <img src="client/test-img6" alt="">
+                    </div><!-- post image -->
+
+                    <div class="post-title">
+                        <b>Армани ги преместува работните простории од Париз во Милано</b>
+                    </div><!-- post title -->
+                </div><!-- single post -->
+
+                <div class="single-post">
+                    <div class="post-image">
+                        <div class="see-more">
+                            <div class="see-more-btn">see more</div><!-- see more btn -->
+                        </div><!-- see more -->
+                        
+                        <img src="client/test-img6" alt="">
+                    </div><!-- post image -->
+
+                    <div class="post-title">
+                        <b>Армани ги преместува работните простории од Париз во Милано</b>
+                    </div><!-- post title -->
+                </div><!-- single post -->
+            </div><!-- latest -->
+        </div><!-- left -->
+        
+
+
+        <div class="right">
+            <div class="latest-news">
+                <div class="latest-label">
+                    Топ вести
+                </div><!-- latest label-->
+
+                <div class="single-post">
+                    <a href="#" class="latest-category">Македонија</a>
+                    <a href="#" class="post-title-link">
+                        <div class="post-title">
+                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
+                        </div><!-- post title -->
+                    </a> <!-- title link -->
+
+                    <div class="today-date">
+                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                        <div class="date">13:50, 11-05-2020</div>
+                    </div> <!-- today date -->
+                </div><!-- single post -->
+
+                <div class="single-post">
+                    <a href="#" class="latest-category">Македонија</a>
+                    <a href="#" class="post-title-link">
+                        <div class="post-title">
+                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
+                        </div><!-- post title -->
+                    </a> <!-- title link -->
+
+                    <div class="today-date">
+                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                        <div class="date">13:50, 11-05-2020</div>
+                    </div> <!-- today date -->
+                </div><!-- single post -->
+
+                <div class="single-post">
+                    <a href="#" class="latest-category">Македонија</a>
+                    <a href="#" class="post-title-link">
+                        <div class="post-title">
+                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
+                        </div><!-- post title -->
+                    </a> <!-- title link -->
+
+                    <div class="today-date">
+                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
+                        <div class="date">11-05-2020</div>
+                    </div> <!-- today date -->
+                </div><!-- single post -->
+            </div><!-- latest -->
+
+            <div class="latest-news space-arount">
+                <div class="latest-label">
+                    Спорт
+                </div><!-- latest label-->
+
+                <div class="single-post-small">
+                    <div class="post-small-image">
+                        <img src="client/test-img5" alt="">
+                    </div> <!-- small post image -->
+
+                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
+                </div><!-- small post -->
+
+                <div class="single-post-small">
+                    <div class="post-small-image">
+                        <img src="client/test-img5" alt="">
+                    </div> <!-- small post image -->
+
+                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
+                </div><!-- small post -->
+
+                <div class="single-post-small">
+                    <div class="post-small-image">
+                        <img src="client/test-img5" alt="">
+                    </div> <!-- small post image -->
+
+                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
+                </div><!-- small post -->
+
+                <div class="single-post-small">
+                    <div class="post-small-image">
+                        <img src="client/test-img5" alt="">
+                    </div> <!-- small post image -->
+
+                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
+                </div><!-- small post -->
+                <div class="single-post-small">
+                    <div class="post-small-image">
+                        <img src="client/test-img5" alt="">
+                    </div> <!-- small post image -->
+
+                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
+                </div><!-- small post -->
+                <div class="single-post-small">
+                    <div class="post-small-image">
+                        <img src="client/test-img5" alt="">
+                    </div> <!-- small post image -->
+
+                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
+                </div><!-- small post -->
+                <div class="single-post-small">
+                    <div class="post-small-image">
+                        <img src="client/test-img5" alt="">
+                    </div> <!-- small post image -->
+
+                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
+                </div><!-- small post -->
+                <div class="single-post-small">
+                    <div class="post-small-image">
+                        <img src="client/test-img5" alt="">
+                    </div> <!-- small post image -->
+
+                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
+                </div><!-- small post -->
+                <div class="single-post-small">
+                    <div class="post-small-image">
+                        <img src="client/test-img5" alt="">
+                    </div> <!-- small post image -->
+
+                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
+                </div><!-- small post -->
+                <div class="single-post-small">
+                    <div class="post-small-image">
+                        <img src="client/test-img5" alt="">
+                    </div> <!-- small post image -->
+
+                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
+                </div><!-- small post -->
+            </div><!-- latest -->
+        </div><!-- right -->
+    </div><!-- main -->
+
+    <div class="footer">
+        <div class="menu">
+            <div class="footer-item">
+                КОНТАКТ
+            </div>
+        </div> <!-- menu -->
+
+        <div class="social-media-top-menu">
+            <div class="social-menu-item"><img src="client/facebook-icon"></div>
+            <div class="social-menu-item"><img src="client/twitter-icon"></div>
+            <div class="social-menu-item"><img src="client/insta-icon"></div>
+            <!-- <div class="social-menu-item"><img src="client/phone-icon"></div> -->
+        </div><!-- social media top menu -->
+
+        <div class="copyright">
+            © Copyright 2020 newsmk.mk
+        </div> <!-- copyright -->
+    </div> <!-- footer -->
+
+    <script>
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.querySelector('.clock').innerHTML = h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+        }
+        function checkTime(i) {
+            if (i < 10) {i = "0" + i};
+            return i;
+        }
+    </script>
+</body>
+</html>

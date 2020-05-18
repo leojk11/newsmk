@@ -26,7 +26,7 @@ app.get(express.static(__dirname + "/public"));
 
 
 
-/// admin css /// .webp
+/// admin css ///
 app.get('/admin/css', (req, res) => {
 	res.sendFile(__dirname + "/public/admin/css/style.css");
 })
@@ -50,6 +50,9 @@ app.get('/admin/posts', middlewares.verifyTokenAdmin, (req, res) => {
 app.get('/admin/new-post', middlewares.verifyTokenAdmin, (req, res) => {
 	res.sendFile(__dirname + "/public/admin/add-post.html");
 })
+app.get('/admin/edit-post', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/edit-post.html");
+})
 app.get('/admin/categories', middlewares.verifyTokenAdmin, (req, res) => {
 	res.sendFile(__dirname + "/public/admin/categories.html");
 })
@@ -61,6 +64,15 @@ app.get('/admin/new-user', middlewares.verifyTokenAdmin, (req, res) => {
 })
 app.get('/admin/edit-category', middlewares.verifyTokenAdmin, (req, res) => {
 	res.sendFile(__dirname + "/public/admin/edit-category.html");
+})
+app.get('/admin/edit-user', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/edit-user.html");
+})
+app.get('/admin/add-slider-post', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/add-slider-posts.html");
+})
+app.get('/admin/slider-post', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/slider-posts.html");
 })
 
 /// admin images ///
@@ -98,8 +110,15 @@ app.get('/admin/noimg-icon', (req, res) => {
 app.get('/admin/circle-plus-icon', (req, res) => {
 	res.sendFile(__dirname + "/public/admin/icons/more.png")
 })
-
-
+app.get('/admin/edit-svg', (req, res) => {
+	res.sendFile(__dirname + "/public/admin/icons/edit.svg")
+})
+app.get('/admin/leo-test', (req, res) => {
+	res.sendFile(__dirname + "/public/admin/images/leo-test.jpg")
+})
+app.get('/admin/eye-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/admin/icons/eye.svg")
+})
 /// upload images ///
 app.post('/post-img', (req, res) => {
 	if(req.files){
@@ -119,6 +138,76 @@ app.post('/post-img', (req, res) => {
 })
 
 
+/// client side css ///
+app.get('/css', (req, res) => {
+	res.sendFile(__dirname + "/public/user/css/style.css");
+})
+/// client side front routes ///
+app.get('/home', (req, res) => {
+	res.sendFile(__dirname + "/public/user/index.html");
+})
+app.get('/post', (req, res) => {
+	res.sendFile(__dirname + "/public/user/post.html");
+})
+app.get('/category', (req, res) => {
+	res.sendFile(__dirname + "/public/user/category.html");
+})
+
+/// client side images ///
+app.get('/client/facebook-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/facebook.svg");
+})
+app.get('/client/twitter-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/twitter.svg");
+})
+app.get('/client/insta-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/instagram.svg");
+})
+app.get('/client/clock-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/clock.svg");
+})
+app.get('/client/calendar-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/calendar-alt.svg");
+})
+app.get('/client/comment-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/comment.svg");
+})
+app.get('/client/user-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/user.svg");
+})
+app.get('/client/down-arrow-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/angle-down.svg");
+})
+app.get('/client/phone-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/phone.svg");
+})
+app.get('/client/login-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/login.svg");
+})
+app.get('/client/test-img', (req, res) => {
+	res.sendFile(__dirname + "/public/user/images/test-img.jpg");
+})
+app.get('/client/test-img1', (req, res) => {
+	res.sendFile(__dirname + "/public/user/images/test-img1.jpg");
+})
+app.get('/client/test-img2', (req, res) => {
+	res.sendFile(__dirname + "/public/user/images/test-img2.jpg");
+})
+app.get('/client/test-img3', (req, res) => {
+	res.sendFile(__dirname + "/public/user/images/test-img3.jpg");
+})
+app.get('/client/test-img4', (req, res) => {
+	res.sendFile(__dirname + "/public/user/images/test-img4.jpg");
+})
+app.get('/client/test-img5', (req, res) => {
+	res.sendFile(__dirname + "/public/user/images/test-img5.jpg");
+})
+app.get('/client/test-img6', (req, res) => {
+	res.sendFile(__dirname + "/public/user/images/test-img6.png");
+})
+app.get('/client/test-img7', (req, res) => {
+	res.sendFile(__dirname + "/public/user/images/test-img7.png");
+})
 
 app.use(mainRouter);
 
