@@ -3,107 +3,250 @@
 <head>
 	<base href="/">
 	<meta charset="utf-8">
-	<title>WELCOME</title>
+	<title>newsMK</title>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
     <script src="user-header-js"></script>
+    <script src="user-footer-js"></script>
 </head>
 <body>
+
+    <div id="page-mask"></div> <!-- page mask -->
+
     <div id="header-place"></div> <!-- header place -->
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#show-login').click(function(){
+                $('#page-mask').fadeIn('fast');
+                $('.login-wrapper').fadeIn('fast');
+            })
+
+            $('#page-mask').click(function(){
+                $('.login-wrapper').fadeOut('slow');
+                $('#page-mask').fadeOut('slow');
+            })
+        })
+
+        $(document).keyup(function(e) {
+            if (e.key === "Escape") {
+                $('.login-wrapper').fadeOut('slow');
+                $('#page-mask').fadeOut('slow');
+            }
+        });
+    </script>
+
+    
+
+    <div class="login-wrapper">
+        <div class="login-top">
+            <div class="person-icon"><img src="client/user-icon" alt="user" style="filter:invert(100%)"></div> <!-- person icon -->
+
+            <div class="close-icon"></div> <!-- close icon -->
+        </div><!-- login top -->
+
+        <div class="login-title">
+            <div class="login">Log In</div> <!-- log in -->
+
+            <div class="register">Need newsMK accound? <a href="#">Sign up</a></div><!-- register -->
+        </div> <!-- login title -->
+
+        <div class="login-form">
+            <div class="row">
+                <div class="label">Email</div>
+                <input type="text">
+            </div>
+
+            <div class="row">
+                <div class="label">Password</div>
+                <input type="text">
+            </div>
+
+            <div class="forgot-password"><a href="#">Forgot password?</a></div>
+
+            <div class="stay-logged">
+                <div id='checkbox' class="checkbox"></div> <!-- check box -->
+
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $('#checkbox').click(function(event){
+                            event.preventDefault();
+
+                            $('.checkbox').css({ 'background':'whitesmoke' })
+
+                        })
+                    })
+                </script>
+
+                <!-- <input type="checkbox"> -->
+                <div class="stay-logged-label">Stay logged in</div>
+            </div> <!-- stay logged in -->
+
+            <div class="login-btn">Log In</div><!-- login btn-->
+        </div> <!-- login form -->
+    </div><!-- login form -->
 
     <div class="main-section">
         <div class="main-first">
-            <div class="big-post">
-                <div class="big-post-info">
-                    <div class="big-post-title">Europe virus cases rise 'for the first time in months'</div> <!-- big post title -->
-                    <div class="big-post-small-title">The WHO warms of a "significant" resurgence as restrictions ease across Europe.</div><!-- big post small title -->
-                    <div class="big-post-category">World</div> <!-- big post category -->
-                </div> <!-- big post info -->
-                
-                <div class="big-post-image">
-                    <img src="client/test-img" alt="">
-                </div> <!-- big post image -->
-            </div><!-- big post -->
-    
-            <div class="two-posts">
-                <div class="single-post">
-                    <div class="post-image"><img src="client/test-img2"></div>
-                    <div class="post-title">Images show China stuctures on India borders</div>
-                    <div class="post-small-title">Constuctions along the dusputed frontier is near the site if clashes that killed 20 Indian troops.</div>
-                    <div class="post-cat-time">1h | Asia</div>
-                </div><!-- single post -->
+            <a href="" class="big-post-wrapper">
+                <div id="big-post" class="big-post"></div><!-- big post -->
+            </a>
 
-                <div class="single-post">
-                    <div class="post-image"><img src="client/test-img2"></div>
-                    <div class="post-title">Images show China stuctures on India borders</div>
-                    <div class="post-small-title">Constuctions along the dusputed frontier is near the site if clashes that killed 20 Indian troops.</div>
-                    <div class="post-cat-time">1h | Asia</div>
-                </div><!-- single post -->
-            </div> <!-- two posts -->
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $.ajax({
+                        url: 'users/big-post',
+                        success: function(data){
+                            const bigPost = data.bigPost;
+
+                            const bigPostInfo = $('<div>').addClass('big-post-info');
+                                const bigPostTitle = $('<div>').addClass('big-post-title').append(bigPost[0].title);
+                            bigPostInfo.append(bigPostTitle);
+                                const bigPostSmallTitle = $('<div>').addClass('big-post-small-title').append(bigPost[0].small_title);
+                            bigPostInfo.append(bigPostSmallTitle);
+                                const bigPostCategory = $('<div>').addClass('big-post-category').append('Спорт');
+                            bigPostInfo.append(bigPostCategory);
+
+                            $('#big-post').append(bigPostInfo);
+
+                            const bigPostImageDiv = $('<div>').addClass('big-post-image');
+                                const bigPostImage = $('<img>').attr({ 'src':'admin/post-image?image=' + bigPost[0].image });
+                            bigPostImageDiv.append(bigPostImage);
+
+                            $('#big-post').append(bigPostImageDiv);
+
+                            $('.big-post-wrapper').attr({ 'id': bigPost[0].ID });
+
+                        }, error: function(error){
+                            console.log(error);
+                        }
+                    })
+                })
+            </script>
+    
+            <div id="first-two" class="two-posts"></div>
+
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $.ajax({
+                        url: 'users/two-posts',
+                        success: function(data){
+                            console.log(data)
+                            const posts = data.posts;
+
+                            var i = 0;
+                            while(i < posts.length){
+
+                                const singlePost = $('<div>').addClass('single-post');
+                                    const postImageDiv = $('<div>').addClass('post-image');
+                                        const postImage = $('<img>').attr({ 'src': 'admin/post-image?image=' + posts[i].image });
+                                    postImageDiv.append(postImage);
+                                    
+                                    const postTitle = $('<div>').addClass('post-title').append(posts[i].title);
+                                    const postSmallTitle = $('<div>').addClass('post-small-title').append(posts[i].title);
+                                    const postCategory = $('<a>').attr({ 'href':'category?catId=' + posts[i].category_id }).append(posts[i].category).css({ 'font-weight':'bold' });
+                                    const postCatTile = $('<div>').addClass('post-cat-time').append(posts[i].time_posted + ' ' + '|' + ' ');
+                                        postCatTile.append(postCategory)
+                                singlePost.append(postImageDiv)
+                                singlePost.append(postTitle)
+                                singlePost.append(postSmallTitle)
+                                singlePost.append(postCatTile)
+
+                                $('#first-two').append(singlePost);
+
+                                i++;
+                            }
+
+                        }, error: function(error){
+                            console.log(error)
+                        }
+                    })
+                })
+            </script>
+
         </div> <!-- main first -->
 
         <div class="main-first">
-            <div class="three-posts">
-                <div class="single-post">
-                    <div class="post-image"><img src="client/test-img2"></div>
-                    <div class="post-title">Images show China stuctures on India borders</div>
-                    <div class="post-small-title">Constuctions along the dusputed frontier is near the site if clashes that killed 20 Indian troops.</div>
-                    <div class="post-cat-time">1h | Asia</div>
-                </div><!-- single post -->
+            <div id="last-three" class="three-posts">
 
-                <div class="single-post">
-                    <div class="post-image"><img src="client/test-img2"></div>
-                    <div class="post-title">Images show China stuctures on India borders</div>
-                    <div class="post-small-title">Constuctions along the dusputed frontier is near the site if clashes that killed 20 Indian troops.</div>
-                    <div class="post-cat-time">1h | Asia</div>
-                </div><!-- single post -->
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $.ajax({
+                            url: 'users/last-posts',
+                            success: function(data){
+                                console.log(data);
+                                const posts = data.lastPosts;
 
-                <div class="single-post">
-                    <div class="post-image"><img src="client/test-img2"></div>
-                    <div class="post-title">Images show China stuctures on India borders</div>
-                    <div class="post-small-title">Constuctions along the dusputed frontier is near the site if clashes that killed 20 Indian troops.</div>
-                    <div class="post-cat-time">1h | Asia</div>
-                </div><!-- single post -->
+                                var i = 0;
+                                while(i < posts.length){
+
+                                    const singlePost = $('<div>').addClass('single-post');
+                                    const postImageDiv = $('<div>').addClass('post-image');
+                                        const postImage = $('<img>').attr({ 'src': 'admin/post-image?image=' + posts[i].image });
+                                    postImageDiv.append(postImage);
+                                    
+                                        const postTitle = $('<div>').addClass('post-title').append(posts[i].title);
+                                        const postSmallTitle = $('<div>').addClass('post-small-title').append(posts[i].title);
+                                        const postCategory = $('<a>').attr({ 'href':'category?catId=' + posts[i].category_id }).append(posts[i].category).css({ 'font-weight':'bold' });
+                                        const postCatTile = $('<div>').addClass('post-cat-time').append(posts[i].time_posted + ' ' + '|' + ' ');
+                                            postCatTile.append(postCategory);
+                                    singlePost.append(postImageDiv)
+                                    singlePost.append(postTitle)
+                                    singlePost.append(postSmallTitle)
+                                    singlePost.append(postCatTile)
+
+                                    $('#last-three').append(singlePost);
+
+                                    i++;
+                                }
+                            }, error: function(error){
+                                console.log(error)
+                            }
+                        })
+                    })
+
+                </script>
+
             </div><!-- three posts -->
 
-            <div class="only-title-posts">
+            <!-- <div class="only-title-posts">
                 <div class="left-posts">
                     <div class="single-post">
-                        <div class="post-title">US sent $1.4bn of pandemic aid to dead people</div> <!-- post title -->
-                        <div class="post-cat-time">1h | Business</div> <!-- post added time and category-->
-                    </div> <!-- single post -->
+                        <div class="post-title">US sent $1.4bn of pandemic aid to dead people</div> 
+                        <div class="post-cat-time">1h | <a href="#">Asia</a></div>
+                    </div> 
 
                     <div class="single-post">
-                        <div class="post-title">US sent $1.4bn of pandemic aid to dead people</div> <!-- post title -->
-                        <div class="post-cat-time">1h | Business</div> <!-- post added time and category-->
-                    </div> <!-- single post -->
+                        <div class="post-title">US sent $1.4bn of pandemic aid to dead people</div> 
+                        <div class="post-cat-time">1h | <a href="#">Asia</a></div>
+                    </div> 
 
                     <div class="single-post">
-                        <div class="post-title">US sent $1.4bn of pandemic aid to dead people</div> <!-- post title -->
-                        <div class="post-cat-time">1h | Business</div> <!-- post added time and category-->
-                    </div> <!-- single post -->
-                </div> <!-- left posts -->
+                        <div class="post-title">US sent $1.4bn of pandemic aid to dead people</div> 
+                        <div class="post-cat-time">1h | <a href="#">Asia</a></div>
+                    </div> 
+                </div> 
                
                 <div class="right-posts">
                     <div class="single-post">
-                        <div class="post-title">US sent $1.4bn of pandemic aid to dead people</div> <!-- post title -->
-                        <div class="post-cat-time">1h | Business</div> <!-- post added time and category-->
-                    </div> <!-- single post -->
+                        <div class="post-title">US sent $1.4bn of pandemic aid to dead people</div> 
+                        <div class="post-cat-time">1h | <a href="#">Asia</a></div>
+                    </div> 
 
                     <div class="single-post">
-                        <div class="post-title">US sent $1.4bn of pandemic aid to dead people</div> <!-- post title -->
-                        <div class="post-cat-time">1h | Business</div> <!-- post added time and category-->
-                    </div> <!-- single post -->
+                        <div class="post-title">US sent $1.4bn of pandemic aid to dead people</div> 
+                        <div class="post-cat-time">1h | <a href="#">Asia</a></div>
+                    </div> 
 
                     <div class="single-post">
-                        <div class="post-title">US sent $1.4bn of pandemic aid to dead people</div> <!-- post title -->
-                        <div class="post-cat-time">1h | Business</div> <!-- post added time and category-->
-                    </div> <!-- single post -->
-                </div> <!-- right posts -->
-            </div> <!-- only title posts -->
+                        <div class="post-title">US sent $1.4bn of pandemic aid to dead people</div> 
+                        <div class="post-cat-time">1h | <a href="#">Asia</a></div>
+                    </div> 
+                </div> 
+            </div>  -->
         </div> <!-- main first -->
 
         <div class="main-first">
@@ -435,28 +578,7 @@
         
     </div><!-- main section -->
 
-    <div class="footer">
-        <div class="footer-wrapper">
-            <div class="footer-logo">newsMK</div> <!-- footer logo -->
-
-            <div class="footer-right-wrapper">
-                <div class="follow-us"></div> <!-- follow us -->
-
-                <div class="social-media">
-                    <div class="social-media-icon">
-                        <img src="client/facebook-icon">
-                    </div>
-
-                    <div class="social-media-icon">
-                        <img src="client/insta-icon">
-                    </div>
-
-                    <div class="social-media-icon">
-                        <img src="client/twitter-icon">
-                    </div>
-                </div> <!-- social media -->
-            </div>
-        </div> <!-- footer wrapper -->
-    </div> <!-- footer -->
+    <div id="footer-place"></div> <!-- footer place -->
+    
 </body>
 </html>

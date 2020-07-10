@@ -25,7 +25,7 @@ $(document).ready(function(){
                 const search = $('<div>').addClass('menu-item');
                     const searchIcon = $('<img>').attr({ 'src':'client/search-icon' }).css({ 'filter':'invert(100%)' });
                 search.append(searchIcon);
-                const user = $('<div>').addClass('menu-item');
+                const user = $('<div>').addClass('menu-item').attr({ 'id':'show-login' });
                     const menuIcon = $('<img>').attr({ 'src':'client/user-icon' }).css({ 'filter':'invert(100%)' });
                 user.append(menuIcon);
                 const hamb = $('<div>').addClass('menu-item');

@@ -4,14 +4,151 @@
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
+/* body {
+    background: black;
+    color: white;
+} */
 a {
 	text-decoration: none;
 	color: white;
 }
+#page-mask {
+    display: none;
+    background: rgba(0, 0, 0, 0.63);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 998;
+    left: 0;
+}
+.login-wrapper {
+    display: none;
+    width: 500px;
+    background: black;
+    margin: 0 auto;
+    color: white;
+    z-index: 999;
+    position: absolute;
+    top:  50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.login-top {
+    display: flex;
+    width: 100%;
+    border-bottom: 4px solid red;
+}
+.login-top .person-icon {
+    width: 66px;
+    height: 66px;
+    margin: 0 auto;
+    margin-bottom: -30px;
+    background: black;
+    /* border: 1px solid red; */
+    border-radius: 100%;
+    padding: 16px;
+}
+.login-top .person-icon img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.login-title {
+    width: 100%;
+    margin-top: 50px;
+    text-align: center;
+}
+.login {
+    padding: 10px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.register a {
+    font-weight: bold;
+}
+.register a:hover {
+    text-decoration: underline;
+}
+
+.login-form {
+    width:60%;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+.row {
+    width: 100%;
+    margin-top: 10px;
+}
+.row .label {
+    font-size: 13px;
+}
+.row input {
+    width: 100%;
+    background: black;
+    border-color: whitesmoke;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 8px;
+    color: rgb(254, 254, 254);
+    outline: none;
+    transition: border-color 0.2s linear 0s;
+    height: 40px;
+    margin-top: 8px;
+}
+
+.forgot-password {
+    margin-top: 30px;
+    font-size: 13px;
+    font-weight: bold;
+}
+.forgot-password:hover {
+    /* font-weight: bold; */
+    text-decoration: underline;
+}
+.stay-logged {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+.stay-logged .checkbox {
+    width: 20px;
+    height: 20px;
+    border: 1px solid whitesmoke;
+    transition: 0.4s;
+}
+.stay-logged .checkbox:hover {
+    cursor: pointer;
+    background: whitesmoke;
+}
+.stay-logged-label {
+    margin-left: 5px;
+
+}
+
+.login-btn {
+    background: white;
+    color: black;
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+.login-btn:hover {
+    cursor: pointer;
+    background: rgb(74, 74, 74);
+    color: whitesmoke;
+    transition: 0.4s;
+}
+
+
 
 .header-wrapper {
     width: 100%;
-    background: #000000;
+    /* background: #5a5a5a; */
+    background: black;
     color: #ffffff;
 }
 .header {
@@ -67,7 +204,7 @@ a {
 }
 .big-post {
     display: flex;
-    width: 59%;
+    /* width: 59%; */
     justify-content: space-between;
 }
 .big-post-info {
@@ -76,6 +213,15 @@ a {
 .big-post-title {
     font-size: 2.2rem;
     font-weight: bold;
+    color: black;
+}
+.big-post:hover {
+    cursor: pointer;
+}
+.big-post:hover .big-post-title {
+    cursor: pointer;
+    color: #ab0000;
+    transition: 0.4s;
 }
 .big-post-small-title {
     margin-top: 4px;
@@ -84,6 +230,14 @@ a {
 .big-post-category {
     margin-top: 10px;
     color: #5a5a5a;
+    font-weight: bold;
+}
+.big-post-category a {
+    color: #5a5a5a;
+}
+.big-post-category:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 .big-post-image {
     width: 500px;
@@ -101,11 +255,22 @@ a {
 .single-post {
     width: 260px;
 }
+.single-post:hover {
+    cursor: pointer;
+}
+.single-post:hover .post-title {
+    color: #2f9fa1;
+    text-decoration: underline;
+    cursor: pointer;
+    /* transition: 0.4s; */
+}
 .single-post .post-image {
     width: 100%;
+    height: 153px;
 }
 .single-post .post-image img {
     width: 100%;
+    height: 150px;
     object-fit: cover;
 }
 .single-post .post-title {
@@ -121,8 +286,14 @@ a {
     color: #5a5a5a;
     margin-top: 10px;
 }
+.post-cat-time a {
+    color: #5a5a5a;
+}
+.post-cat-time a:hover {
+    text-decoration: underline;
+}
 .three-posts {
-    width: 59%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     margin-top: 20px;

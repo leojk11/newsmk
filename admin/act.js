@@ -790,6 +790,20 @@ editPost = async(req, res) => {
     }
 }
 
+makePostPrimary = async(req, res) => {
+    const postId = req.query.postId;
+
+    makePrimaryPostQuery = (postId) => {
+
+    }
+
+    try {
+        
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+}
+
 
 /// delete ///
 deleteCategory = async(req, res) => {

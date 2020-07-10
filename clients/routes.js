@@ -16,6 +16,9 @@ router.get('/s-s-posts', actions.getAllSmallSportPosts);
 router.get('/p-posts', actions.getAllPartyPosts);
 router.get('/post', actions.getSinglePost);
 router.get('/post-comments', actions.getCommentsForSinglePost);
+router.get('/big-post', actions.getOneBigPost);
+router.get('/two-posts', actions.firstTwoPostsFromToday);
+router.get('/random-posts', actions.getRandomPosts);
 
 /// post ///
 router.post('/add-comment', actions.addComment);

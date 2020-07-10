@@ -27,7 +27,7 @@ getAllCategories = async(req, res) => {
 }
 getLastPosts = async(req, res) => {
     getLastThreePostsQuery = () => {
-        const query = 'SELECT * FROM posts ORDER BY ID DESC LIMIT 3';
+        const query = 'SELECT * FROM posts ORDER BY ID DESC LIMIT 5';
         return new Promise((res, rej) => {
             con.query(query, (error, results, fields) => {
                 if(error){
@@ -268,6 +268,74 @@ getCommentsForSinglePost = async(req, res) => {
         res.status(500).json({ error: error });
     }
 }
+getOneBigPost = async(req, res) => {
+
+    getBigPostQuery = () => {
+        const query = 'SELECT * FROM big_posts ORDER BY ID DESC LIMIT 1';
+        return new Promise((res, rej) => {
+            con.query(query, (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    try {
+        const bigPost = await getBigPostQuery();
+        res.status(200).json({ bigPost });
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+}
+
+firstTwoPostsFromToday = async(req, res) => {
+
+    firstTwoPostsQuery = () => {
+        const query = 'SELECT * FROM posts WHERE date_posted = CURRENT_DATE() LIMIT 2';
+        return new Promise((res, rej) => {
+            con.query(query, (error, results, fields) => {
+                if(error) {
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    try {
+        const posts = await firstTwoPostsQuery();
+        res.status(200).json({ posts });
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+}
+
+getRandomPosts = async(req, res) => {
+
+    getRandomPostsQuery = () => {
+        const query = 'SELECT * FROM posts ORDER BY RAND() LIMIT 6';
+        return new Promise((res, rej) => {
+            con.query(query, (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    try {
+        const posts = await getRandomPostsQuery();
+        res.status(200).json({ posts });
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+}
 
 /// post ///
 addComment = async(req, res) => {
@@ -313,6 +381,9 @@ module.exports = {
     getAllPartyPosts,
     getSinglePost,
     getCommentsForSinglePost,
+    getOneBigPost,
+    firstTwoPostsFromToday,
+    getRandomPosts,
 
     /// post ///
     addComment

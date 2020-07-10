@@ -205,6 +205,9 @@ app.get('/category', (req, res) => {
 app.get('/user-header-js', (req, res) => {
 	res.sendFile(__dirname + "/public/user/js/user-header.js");
 })
+app.get('/user-footer-js', (req, res) => {
+	res.sendFile(__dirname + "/public/user/js/user-footer.js");
+})
 
 /// client side images ///
 app.get('/client/facebook-icon', (req, res) => {
@@ -257,6 +260,9 @@ app.get('/client/test-img3', (req, res) => {
 })
 app.get('/client/test-img4', (req, res) => {
 	res.sendFile(__dirname + "/public/user/images/test-img4.jpg");
+})
+app.get('/client/test-img5', (req, res) => {
+	res.sendFile(__dirname + "/public/user/images/test-img5.jpg");
 })
 
 app.use(mainRouter);
