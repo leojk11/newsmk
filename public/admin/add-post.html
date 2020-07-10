@@ -8,6 +8,12 @@
 	<link rel="stylesheet" href="admin/css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script src="admin-js/edit-cat-popup"></script>
+	<script src="admin-js/edit-user-popup"></script>
+	<script src="admin-js/logged-in-admin-info"></script>
+	<script src="admin-js/logout"></script>
+	<script src="admin-js/add-post"></script>
 </head>
 <body>
 	<div class="page-mask"></div><!--page mask-->
@@ -24,36 +30,7 @@
 		<div class="cat-error-div">
 			<div class="error">Category does not exist</div>
 		</div> <!-- error div -->
-	</div>
-
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#edit-cat').click(function(event){
-				event.preventDefault();
-				const info = $('#category').val();
-
-				$.ajax({
-					url: 'admins/single-cat-edit?info=' + info,
-					success: function(data){
-						console.log(data);
-						if(data.message !== 'not exist'){
-							const category = data.category;
-							const catId = category[0].ID;
-							
-							location.href = 'admin/edit-category?catId=' + catId;
-						} else {
-							$('.cat-error-div').fadeIn('slow');
-							setTimeout(function(){
-                                $('.cat-error-div').fadeOut("slow");
-                            }, 5000);
-						}
-					}, error: function(error){
-						console.log(error);
-					}
-				})
-			})
-		})
-	</script>
+	</div> <!-- category popup -->
 
 	<div id="users-popup" class="popup">
 		<div class="popup-wrapper">
@@ -67,32 +44,21 @@
 		<div class="cat-error-div">
 			<div class="error">Category does not exist</div>
 		</div> <!-- error div -->
-	</div>
-
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#edit-user-loc').click(function(event){
-				event.preventDefault();
-				// console.log('leo')
-
-				const userId = $('#user-id').val();
-				location.href = 'admin/edit-user?userId=' + userId;
-			})
-		})
-	</script>
+	</div> <!-- users popup -->
 
 	<div class="left-menu">
 		<div class="left-menu-title">newsMK Admin</div>
 		<div class="logged-in-admin">
 			<div class="admin-image">
-				<img src="admin/leo-test" alt="">
+				<img id="admin-img" alt="">
 			</div> <!-- admin image -->
 
 			<div class="admin-name-wrapper">
-				<div class="admin-name">Leo Jakimovski</div>
-				<div class="admin-status"><span class="indicator indicator-color"></span><span class="online-status">ONLINE</span></div>
+				<div class="admin-name"></div>
+				<div class="admin-status"><span class="indicator indicator-color"></span><span class="online-status"></span></div>
 			</div> <!-- admin name wrapper -->
 		</div><!-- logged in admin -->
+		<br>
 
 		<a href="admin/dashboard"><div class="menu-item"><img src="admin/home-icon" width="50"><div class="menu-item-text">Home</div></div></a>
 
@@ -106,45 +72,20 @@
 		<a href="admin/new-post"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new post</div></div></a>
 
 		<div class="label">Slider posts</div>
-		<a href="admin/slider-post"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage posts</div></div></a>
+		<a href="admin/slider-post"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage slider posts</div></div></a>
 		<a href="admin/add-slider-post"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new slider post</div></div></a>
 
 		<div class="label">Post categories</div>
 		<a href="admin/categories"><div class="menu-item"><img src="admin/cubes-icon" style="filter: invert(100%);"><div class="menu-item-text">Categories</div></div></a>
 		<a href="admin/new-category"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new category</div></div></a>
 		<a id="edit-category"><div class="menu-item"><img src="admin/edit-svg" style="filter: invert(100%);"><div class="menu-item-text">Edit category</div></div></a>
+		<div class="add-new-admin-func"></div> <!-- head admin options -->
 		<br>
 		<a id="logout-btn"><div class="menu-item"><img src="admin/login-icon"><div class="menu-item-text">Logout</div></div></a>
 	</div> <!--left menu-->
 
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#logout-btn').click(function(event){
-				// console.log('leo');
-				$.ajax({
-					url: 'admins/logout',
-					success: function(data){
-						if(data.message == 'logged out'){
-							location.href = 'admin';
-						}
-					}
-				})
-			})
-
-			$('#edit-category').click(function(event){
-				event.preventDefault();
-
-				$('.page-mask').fadeIn('fast');
-				$('#category-popup').fadeIn('fast');
-			})
-
-			$('#edit-user').click(function(event){
-				event.preventDefault();
-
-				$('.page-mask').fadeIn('fast');
-				$('#users-popup').fadeIn('fast');
-			})
-
 			$('.page-mask').click(function(event){
 				event.preventDefault();
 
@@ -184,60 +125,6 @@
 			
 		</div> <!-- right wrapper -->
 	</div> <!-- right -->
-
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('.save-btn').click(function(event){
-				// event.preventDefault();
-				const title = $('#title').val();
-				const text = $('#text').val();
-				const category = $('#post-category').find(":selected").text();
-
-				var input = $('#real-file')[0];
-				var file = input.files[0];
-				var fileName = file.name;
-				// console.log(fileName);
-
-
-				$.ajax({
-					url: 'admins/new-post',
-					method: 'post',
-					data: {
-						title: title,
-						text: text,
-						category: category,
-						image: fileName
-					},
-					success: function(data){
-						console.log(data);
-					}, error: function(error){
-						console.log(error);
-					}
-				})
-			})
-
-			$.ajax({
-				url: 'admins/categories',
-				success: function(data){
-					console.log(data);
-					const categories = data.categories;
-					console.log(categories);
-
-					var i = 0;
-					while(i < categories.length){
-						const categoryOption = $('<option>').attr({ 'value':categories[i].ID }).append(categories[i].name);
-							$('#post-category').append(categoryOption);
-						i++;
-					}
-
-				}, error: function(error){
-					console.log(error);
-				}
-			})
-		})
-	</script>
-
-
 
 	<script type="text/javascript">
 		function clickimg(){ $('#real-file').click(); }

@@ -10,21 +10,56 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body onload="startTime()">
-    <div class="header">
+    <div class="page-mask"></div><!-- page mask -->
+    <div class="login-form">
+        <div class="login-form-title">Логирај се</div>
+        <br>
+        <div class="login-inputs">
+            <div class="row">
+                <input type="text" placeholder="Емаил">
+            </div> <!-- row -->
+            <div class="row">
+                <input type="password" placeholder="Лозинка">
+            </div> <!-- row -->
+            
+        </div><!-- login inputs -->
+
+        <div class="button-wrapper">
+            <div id="login-btn" class="button">ЛОГИРАЈ СЕ</div> <!-- button -->
+            <div class="forget-pass">
+                <a href=""><div class="forgotten-pass">Заборавена лозинка?</div><!-- forgotten pass --></a>
+            </div><!-- forget pass -->
+        </div><!-- button wrapper -->
+    </div> <!-- login form -->
+	<div class="header">
         <div class="header-wrapper">
             <div class="logo">
                 newsMK
             </div> <!-- logo -->
 
             <div class="categories">
-                <div class="single-category">
-                    <div class="cat-name">Македонија</div>
-                    <div class="cat-name">Свет</div>
-                    <div class="cat-name">Спорт</div>
-                    <div class="cat-name">Магазин</div>
-                    <div class="cat-name">Забава</div>
+                <div id="all-cats" class="single-category">
                 </div><!-- single category -->
             </div><!-- categories -->
+
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $.ajax({
+                        url: 'users/all-categories',
+                        success: function(data){
+                            // console.log(data);
+                            const categories = data.categories;
+
+                            var i = 0;
+                            while(i < categories.length){
+                                const category = $('<div>').addClass('cat-name').append(categories[i].name);
+                                    $('.single-category').append(category);
+                                i++;
+                            }
+                        }
+                    })
+                })
+            </script>
 
             <div class="clock-wrapper">
                 <div class="clock-icon">
@@ -49,47 +84,83 @@
             </script>
         </div><!-- header wrapper -->
     </div> <!-- header -->
-
     <div id="dropdown-menu" class="user-dropdown">
         <div class="dropdown-item">Регистрирај се</div>
-        <div class="dropdown-item">Логирај се</div>
+        <div id="login-menu" class="dropdown-item"><img src="client/login-icon"><span>Логирај се</span></div>
     </div><!-- user dropdown -->
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#login-menu').click(function(event){
+                console.log('leo')
+                $('.page-mask').fadeIn('slow');
+                $('.login-form').fadeIn('slow');
+            });
+
+            $('.page-mask').click(function(event){
+                $('.page-mask').fadeOut('slow');
+                $('.login-form').fadeOut('slow');
+            })
+        })
+    </script>
 
     <div class="main">
         <div class="middle">
             <div class="category-small-post-title">
-                <div class="category-post-title">Македонија > </div> <!-- category post title -->
-                <div class="single-post-small-title"> На отворено и под маски дебатираат лидерите на политилките партии</div> <!-- post small title -->
+                <a class="category-post-title"></a> <!-- category post title -->
+                <div class="right-arrow">></div> <!-- right arrow -->
+                <div class="single-post-small-title"></div> <!-- post small title -->
             </div> <!-- small category and post title -->
 
             <div class="single-post-img">
-                <img src="client/test-img7" alt="">
+                <img id="single-post-image" alt="">
             </div><!-- post image -->
 
-            <div class="single-post-title">НА ОТВОРЕНО И ПОД МАСКИ ДЕБАТИРААТ ЛИДЕРИТЕ НА ПОЛИТИЧКИТЕ ПАРТИИ</div><!-- post title -->
+            <div class="single-post-title"></div><!-- post title -->
 
             <div class="single-post-date-time">
                 <div class="single-post-date-wrapper">
                     <div class="date-icon"><img src="client/calendar-icon" alt=""></div>
-                    <div class="single-post-date">12.05.2020</div>
+                    <div id="posted-date" class="single-post-date"></div>
                 </div>
                 <div class="single-post-comments">
                     <div class="single-post-comm-icon"><img src="client/comment-icon" alt=""></div>
-                    <div class="single-post-comm-num">0 коментари</div>
+                    <div id="small-comments" class="single-post-comm-num"></div>
                 </div>
             </div>
 
-            <div class="single-post-text">
-                Повеќе од два часа дебатираат лидерите на политичките партии и премиерот Оливер Спасовски и претседателот на Собранието Талат Џафери на средба кај претседателот Стево Пендаровски во Вила Водно за терминот за парламентарните избори. Поради запазување на мерките за превенција од коронавирусот средбата се одржува на отворено под тенди, на балкон од Вилата Водно. Сите учесници на средбата се со маски и седат на растојание еден од друг. 
+            <div id="post-text" class="single-post-text"></div><!-- post text -->
 
-                На средбата присуствуваат претседателите на СДСМ Зоран Заев, на ВМРО-ДПМНЕ Христијан Мицкоски, на ДУИ Али Ахмети, на Алијанса за Албанците, Зиадин Села, на Алтернатива Африм Гаши, на Движење Беса Билал Касами, како и претставници на ДПА. 
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    var url = document.location.href,
+                    params = url.split('?')[1].split('&'),
+                    data = {}, tmp;
+                    for (var i = 0, l = params.length; i < l; i++) {
+                        tmp = params[i].split('=');
+                        data[tmp[0]] = tmp[1];
+                    }
 
-                Главна тема на лидерската средба е терминот на одржување на предвремените парламентарни избори, кои беа закажани на 12 април, но беа одложени со уредба на Владата поради прогласувањето вонредна состојба и ширењето на ковид-19. Лидерите исто така се очекува да зборуваат и за евентуално продолжување на вонредната состојба, за состојбата со коронавирусот во земјата и препораките на здравствените власти, и како да се спроведе кампања и гласање, а да се заштитат граѓаните. 
+                    const postId = data.postId;
+                    console.log(postId);
 
-                Позициите на партиите се познати во јавноста, а партиски извори веќе информираат дека нивните лидери, главно официјално ги соопштиле на средбата. Лидерот на СДСМ Зора Заев кажал дека тие и нивните коалициски партнери се за избори на 14 јуни, додека од ВМРО-ДПМНЕ дека претставиле свој план од неколку точки. 
+                    $.ajax({
+                        url: 'users/post?postId=' + postId,
+                        success: function(data){
+                            console.log(data);
+                            const post = data.singlePost;
 
-                Медиумските екипи се во очекување на крајот на средбата, по која се очекуваат изјави од лидерите.
-            </div><!-- post text -->
+                            $('.category-post-title').append(post[0].category).attr({ 'href':'category?catId=' + post[0].category_id });
+                            $('.single-post-small-title').append(post[0].title);
+                            $('#single-post-image').attr({ 'src':'admin/post-image?image=' + post[0].image });
+                            $('.single-post-title').append(post[0].title);
+                            $('#posted-date').append(post[0].date_posted);
+                            $('#post-text').append(post[0].text);
+                        }
+                    })
+
+                })
+            </script>
 
             <div class="share-buttons">
                 <span class="facebook-share" data-js="facebook-share"><img src="client/facebook-icon"><span>Share</span></span>
@@ -98,39 +169,101 @@
 
 
             <div class="single-posts-comments-section">
-                <div class="all-comments-numb-label"><span>0 КОМЕНТАРИ</span></div> <!-- all comments numb -->
+                <div class="all-comments-numb-label"><span id="comments_numb"></span></div> <!-- all comments numb -->
                 <br>
-                <div class="all-comments">
-                    <div class="comment-box">
-                        <div class="comment-user-name">
-                            <div class="person-icon"><img src="client/user-icon" alt=""></div> <!-- person icon -->
-                            <div class="person-name">Leo</div> <!-- person name -->
-                            <div class="comment-date">
-                                <div class="date-icon"><img src="client/calendar-icon" alt=""></div>
-                                <div class="date">12.05.2020</div>
-                            </div> <!-- comment date -->
-                        </div> <!-- commen t user name -->
-
-                        <div class="comment-text">
-                            testtesttesttesttesttesttesttesttesttesttesttesttest testtesttesttesttesttesttesttesttestt esttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
-                        </div> <!-- comment text -->
-                    </div> <!-- comment box -->
-                </div> <!-- all comments -->
+                <div class="all-comments"></div> <!-- all comments -->
                 <br>
                 <div class="leave-comment-label"><span>ОСТАВИ КОМЕНТАР</span></div>
                 <br>
                 <div class="leave-comment-form">
                     <div class="name-input-wrapper">
-                        <input type="text" placeholder="Име">
+                        <input id="comment-user-name" type="text" placeholder="Име">
                     </div>
                     <br>
                     <div class="name-input-wrapper">
-                        <textarea name="" id="" cols="30" rows="10" placeholder="Коментар"></textarea>
+                        <textarea name="" id="comment" cols="30" rows="10" placeholder="Коментар"></textarea>
                     </div>
                 </div><!-- leave comment form -->
 
                 <div class="leave-comment-btn">Остави коментар</div><!-- leave comment btn -->
             </div> <!-- comments section -->
+
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    var url = document.location.href,
+                    params = url.split('?')[1].split('&'),
+                    data = {}, tmp;
+                    for (var i = 0, l = params.length; i < l; i++) {
+                        tmp = params[i].split('=');
+                        data[tmp[0]] = tmp[1];
+                    }
+
+                    const postId = data.postId;
+
+                    $('.leave-comment-btn').click(function(event){
+                        const commentUserName = $('#comment-user-name').val();
+                        const commentText = $('#comment').val();
+
+                        $.ajax({
+                            url: 'users/add-comment?postId=' + postId,
+                            method: 'post',
+                            data: {
+                                name: commentUserName,
+                                text: commentText
+                            },
+                            success: function(data){
+                                console.log(data);
+                            }, error: function(error){
+                                console.log(error);
+                            }
+                        })
+                    })
+
+                    $.ajax({
+                        url: 'users/post-comments?postId=' + postId,
+                        success: function(data){
+                            console.log(data);
+                            const comments = data.postComments;
+                            
+                            const commentsNumb = comments.length;
+                            if(commentsNumb == 1){
+                                $('#comments_numb').append(commentsNumb + ' ' + 'КОМЕНТАР');
+                                $('#small-comments').append(commentsNumb + ' ' + 'коментар');
+                            } else {
+                                $('#comments_numb').append(commentsNumb + ' ' + 'КОМЕНТАРИ');
+                                $('#small-comments').append(commentsNumb + ' ' + 'коментари');
+                            }
+
+                            var i = 0;
+                            while(i < comments.length){
+                                const commentBox = $('<div>').addClass('comment-box');
+                                    const commentUserName = $('<div>').addClass('comment-user-name');
+                                        const personIconDiv = $('<div>').addClass('person-icon');
+                                            const personIcon = $('<img>').attr({ 'src' : 'client/user-icon' });
+                                        personIconDiv.append(personIcon);
+                                            const personName = $('<div>').addClass('person-name').append(comments[i].user_name);
+                                        commentUserName.append(personIconDiv);
+                                        commentUserName.append(personName);
+                                            const commentDate = $('<div>').addClass('comment-date');
+                                                const dateIconDiv = $('<div>').addClass('date-icon');
+                                                    const dateIcon = $('<img>').attr({ 'src':'client/calendar-icon' });
+                                                dateIconDiv.append(dateIcon);
+                                                const date = $('<div>').addClass('date').append(comments[i].date_posted);
+                                            commentDate.append(dateIconDiv);
+                                            commentDate.append(date);
+                                        commentUserName.append(commentDate);
+                                commentBox.append(commentUserName);
+                                    const commentText = $('<div>').addClass('comment-text').append(comments[i].text);
+                                commentBox.append(commentText);
+
+                                $('.all-comments').append(commentBox);
+                                            
+                                i++;
+                            }
+                        }
+                    })
+                })
+            </script>
 
 
             <div class="category-post">
@@ -138,66 +271,51 @@
                    <a class="title-cat-link" href="#">Македонија</a> 
                 </div> <!-- cat title -->
 
-                <div class="posts-wrapper">
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
-    
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $.ajax({
+                            url: 'users/mk-posts',
+                            success: function(data){
+                                // console.log(data);
+                                const catPosts = data.categoryPosts;
 
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
-    
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+                                var i = 0;
+                                while(i < catPosts.length){
+                                    const singlePostCat = $('<div>').addClass('single-post-cat');
+                                        const postImageDiv = $('<div>').addClass('post-image');
+                                            const seeMoreDiv = $('<a>').addClass('see-more').attr({ 'href':'post?postId=' + catPosts[i].ID });
+                                                const seeMoreBtn = $('<div>').addClass('see-more-btn').append('see more').attr({ 'id': catPosts[i].ID });
+                                            seeMoreDiv.append(seeMoreBtn);
+                                        postImageDiv.append(seeMoreDiv);
+                                            const postImage = $('<img>').attr({ 'src':'admin/post-image?image=' + catPosts[i].image });
+                                        postImageDiv.append(postImage);
+                                    singlePostCat.append(postImageDiv);
 
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
-                </div><!-- posts wrapper -->
+                                        const postOtherInfo = $('<div>').addClass('post-other-info');
+                                            const postTitle = $('<div>').addClass('post-title').attr({ 'id': catPosts[i].ID });
+                                                const boldedText = $('<b>').append(catPosts[i].title);
+                                            postTitle.append(boldedText);
+                                        postOtherInfo.append(postTitle);
+
+                                            const todayDate = $('<div>').addClass('today-date');
+                                                const clockIconDiv = $('<div>').addClass('clock-icon');
+                                                    const clockIcon = $('<img>').attr({ 'src':'client/clock-icon' });
+                                                clockIconDiv.append(clockIcon);
+                                            todayDate.append(clockIconDiv);
+                                                const date = $('<div>').addClass('date').append(catPosts[i].date_posted);
+                                            todayDate.append(date);
+                                        postOtherInfo.append(todayDate);
+                                    singlePostCat.append(postOtherInfo);
+
+                                    $('#mk-posts').append(singlePostCat);
+                                    i++;
+                                }
+                            }
+                        })
+                    })
+                </script>
+
+                <div id="mk-posts" class="posts-wrapper"></div><!-- posts wrapper -->
             </div><!-- category post-->
 
             <div class="category-post">
@@ -205,67 +323,51 @@
                     <a class="title-cat-link" href="#">Свет</a> 
                  </div> <!-- cat title -->
 
-                <div class="posts-wrapper">
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+                 <script type="text/javascript">
+                    $(document).ready(function(){
+                        $.ajax({
+                            url: 'users/w-posts',
+                            success: function(data){
+                                // console.log(data);
+                                const catPosts = data.categoryPosts;
 
-                            <img src="client/test-img4" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>Претседателката на ЕК најави можност за почнување правна постапка против Германија</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
-    
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+                                var i = 0;
+                                while(i < catPosts.length){
+                                    const singlePostCat = $('<div>').addClass('single-post-cat');
+                                        const postImageDiv = $('<div>').addClass('post-image');
+                                            const seeMoreDiv = $('<a>').addClass('see-more').attr({ 'href':'post?postId=' + catPosts[i].ID });
+                                                const seeMoreBtn = $('<div>').addClass('see-more-btn').append('see more').attr({ 'id': catPosts[i].ID });
+                                            seeMoreDiv.append(seeMoreBtn);
+                                        postImageDiv.append(seeMoreDiv);
+                                            const postImage = $('<img>').attr({ 'src':'admin/post-image?image=' + catPosts[i].image });
+                                        postImageDiv.append(postImage);
+                                    singlePostCat.append(postImageDiv);
 
-                            <img src="client/test-img4" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>Претседателката на ЕК најави можност за почнување правна постапка против Германија</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
-    
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+                                        const postOtherInfo = $('<div>').addClass('post-other-info');
+                                            const postTitle = $('<div>').addClass('post-title').attr({ 'id': catPosts[i].ID });
+                                                const boldedText = $('<b>').append(catPosts[i].title);
+                                            postTitle.append(boldedText);
+                                        postOtherInfo.append(postTitle);
 
-                            <img src="client/test-img4" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>Претседателката на ЕК најави можност за почнување правна постапка против Германија</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
-                </div>
+                                            const todayDate = $('<div>').addClass('today-date');
+                                                const clockIconDiv = $('<div>').addClass('clock-icon');
+                                                    const clockIcon = $('<img>').attr({ 'src':'client/clock-icon' });
+                                                clockIconDiv.append(clockIcon);
+                                            todayDate.append(clockIconDiv);
+                                                const date = $('<div>').addClass('date').append(catPosts[i].date_posted);
+                                            todayDate.append(date);
+                                        postOtherInfo.append(todayDate);
+                                    singlePostCat.append(postOtherInfo);
+
+                                    $('#w-posts').append(singlePostCat);
+                                    i++;
+                                }
+                            }
+                        })
+                    })
+                </script>
+
+                <div id="w-posts" class="posts-wrapper"></div> <!-- posts wrapper -->
             </div><!-- category post-->
 
             <div class="category-post">
@@ -273,67 +375,51 @@
                     <a class="title-cat-link" href="#">Спорт</a> 
                 </div> <!-- cat title -->
 
-                <div class="posts-wrapper">
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $.ajax({
+                            url: 'users/s-posts',
+                            success: function(data){
+                                // console.log(data);
+                                const catPosts = data.categoryPosts;
 
-                            <img src="client/test-img5" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
-    
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+                                var i = 0;
+                                while(i < catPosts.length){
+                                    const singlePostCat = $('<div>').addClass('single-post-cat');
+                                        const postImageDiv = $('<div>').addClass('post-image');
+                                            const seeMoreDiv = $('<a>').addClass('see-more').attr({ 'href':'post?postId=' + catPosts[i].ID });
+                                                const seeMoreBtn = $('<div>').addClass('see-more-btn').append('see more').attr({ 'id': catPosts[i].ID });
+                                            seeMoreDiv.append(seeMoreBtn);
+                                        postImageDiv.append(seeMoreDiv);
+                                            const postImage = $('<img>').attr({ 'src':'admin/post-image?image=' + catPosts[i].image });
+                                        postImageDiv.append(postImage);
+                                    singlePostCat.append(postImageDiv);
 
-                            <img src="client/test-img5" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
-    
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
-                            
-                            <img src="client/test-img5" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
-                </div><!-- posts wrapper -->
+                                        const postOtherInfo = $('<div>').addClass('post-other-info');
+                                            const postTitle = $('<div>').addClass('post-title').attr({ 'id': catPosts[i].ID });
+                                                const boldedText = $('<b>').append(catPosts[i].title);
+                                            postTitle.append(boldedText);
+                                        postOtherInfo.append(postTitle);
+
+                                            const todayDate = $('<div>').addClass('today-date');
+                                                const clockIconDiv = $('<div>').addClass('clock-icon');
+                                                    const clockIcon = $('<img>').attr({ 'src':'client/clock-icon' });
+                                                clockIconDiv.append(clockIcon);
+                                            todayDate.append(clockIconDiv);
+                                                const date = $('<div>').addClass('date').append(catPosts[i].date_posted);
+                                            todayDate.append(date);
+                                        postOtherInfo.append(todayDate);
+                                    singlePostCat.append(postOtherInfo);
+
+                                    $('#s-posts').append(singlePostCat);
+                                    i++;
+                                }
+                            }
+                        })
+                    })
+                </script>
+
+                <div id="s-posts" class="posts-wrapper"></div><!-- posts wrapper -->
             </div><!-- category post-->
         </div><!-- middle -->
 
@@ -358,232 +444,164 @@
         </script>
 
         <div class="left">
-            <div class="latest-news">
+            <div id="latest_posts" class="latest-news">
                 <div class="latest-label">
                     Последни
                 </div><!-- latest label-->
 
-                <div class="single-post">
-                    <a href="#" class="latest-category">Македонија</a>
-                    <a href="#" class="post-title-link">
-                        <div class="post-title">
-                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
-                        </div><!-- post title -->
-                    </a> <!-- title link -->
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $.ajax({
+                            url: 'users/last-posts',
+                            success: function(data){
+                                // console.log(data);
+                                const lastPosts = data.lastPosts;
 
-                    <div class="today-date">
-                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                        <div class="date">13:50, 11-05-2020</div>
-                    </div> <!-- today date -->
-                </div><!-- single post -->
+                                var i = 0;
+                                while(i < lastPosts.length){
+                                    const singlePostDiv = $('<div>').addClass('single-post');
+                                        const latestCategory = $('<a>').addClass('latest-category').append(lastPosts[i].category).attr({ 'href': 'category?catId=' + lastPosts[i].category_id,  });
+                                    singlePostDiv.append(latestCategory);
+                                        const postTitleLink = $('<a>').addClass('post-title-link').attr({ 'href':'post?postId=' + lastPosts[i].ID });
+                                            const postTitle = $('<div>').addClass('post-title');
+                                                const boldedText = $('<b>').append(lastPosts[i].title);
+                                            postTitle.append(boldedText);
+                                        postTitleLink.append(postTitle);
+                                    singlePostDiv.append(postTitleLink);
+                                        const todayDate = $('<div>').addClass('today-date');
+                                            const clockIconDiv = $('<div>').addClass('clock-icon');
+                                                const clockIcon = $('<img>').attr({ 'src':'client/clock-icon' });
+                                            clockIconDiv.append(clockIcon);
+                                        todayDate.append(clockIconDiv);
+                                            const date = $('<div>').addClass('date').append(lastPosts[i].time_posted + ',' + ' ' + lastPosts[i].date_posted);
+                                        todayDate.append(date);
+                                    singlePostDiv.append(todayDate);
 
-                <div class="single-post">
-                    <a href="#" class="latest-category">Македонија</a>
-                    <a href="#" class="post-title-link">
-                        <div class="post-title">
-                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
-                        </div><!-- post title -->
-                    </a> <!-- title link -->
-
-                    <div class="today-date">
-                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                        <div class="date">13:50, 11-05-2020</div>
-                    </div> <!-- today date -->
-                </div><!-- single post -->
-
-                <div class="single-post">
-                    <a href="#" class="latest-category">Македонија</a>
-                    <a href="#" class="post-title-link">
-                        <div class="post-title">
-                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
-                        </div><!-- post title -->
-                    </a> <!-- title link -->
-
-                    <div class="today-date">
-                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                        <div class="date">11-05-2020</div>
-                    </div> <!-- today date -->
-                </div><!-- single post -->
+                                    $('#latest_posts').append(singlePostDiv);
+                                    i++;
+                                }
+                            }
+                        })
+                    })
+                </script>
             </div><!-- latest -->
 
-            <div class="latest-news">
+            <div id="magasine-posts" class="latest-news">
                 <div class="latest-label">
                     Магазин
                 </div><!-- latest label-->
 
-                <div class="single-post">
-                    <div class="post-image">
-                        <div class="see-more">
-                            <div class="see-more-btn">see more</div><!-- see more btn -->
-                        </div><!-- see more -->
+                <script tyle="text/javascript">
+                    $(document).ready(function(){
+                        $.ajax({
+                            url: 'users/magasine-posts',
+                            success: function(data){
+                                console.log(data);
+                                const magasinePosts = data.magasinePosts;
 
-                        <img src="client/test-img6" alt="">
-                    </div><!-- post image -->
+                                var i = 0;
+                                while(i < magasinePosts.length){
+                                    const singlePost = $('<div>').addClass('single-post');
+                                        const postImageDiv = $('<div>').addClass('post-image');
+                                            const seeMoreDiv = $('<a>').addClass('see-more').attr({ 'href':'post?postId=' + magasinePosts[i].ID });
+                                                const seeMoreBtn = $('<div>').addClass('see-more-btn').append('see more').attr({ 'id': magasinePosts[i].ID });
+                                            seeMoreDiv.append(seeMoreBtn);
+                                        postImageDiv.append(seeMoreDiv);
+                                            const postImage = $('<img>').attr({ 'src':'admin/post-image?image=' + magasinePosts[i].image });
+                                        postImageDiv.append(postImage);
+                                    singlePost.append(postImageDiv);
 
-                    <div class="post-title">
-                        <b>Армани ги преместува работните простории од Париз во Милано</b>
-                    </div><!-- post title -->
-                </div><!-- single post -->
+                                        const postTitle = $('<div>').addClass('post-title').attr({ 'id': magasinePosts[i].ID });
+                                            const boldedText = $('<b>').append(magasinePosts[i].title);
+                                        postTitle.append(boldedText);
+                                    singlePost.append(postTitle);
 
-                <div class="single-post">
-                    <div class="post-image">
-                        <div class="see-more">
-                            <div class="see-more-btn">see more</div><!-- see more btn -->
-                        </div><!-- see more -->
-
-                        <img src="client/test-img6" alt="">
-                    </div><!-- post image -->
-
-                    <div class="post-title">
-                        <b>Армани ги преместува работните простории од Париз во Милано</b>
-                    </div><!-- post title -->
-                </div><!-- single post -->
-
-                <div class="single-post">
-                    <div class="post-image">
-                        <div class="see-more">
-                            <div class="see-more-btn">see more</div><!-- see more btn -->
-                        </div><!-- see more -->
-                        
-                        <img src="client/test-img6" alt="">
-                    </div><!-- post image -->
-
-                    <div class="post-title">
-                        <b>Армани ги преместува работните простории од Париз во Милано</b>
-                    </div><!-- post title -->
-                </div><!-- single post -->
+                                    $('#magasine-posts').append(singlePost);
+                                    i++;
+                                }
+                            }
+                        })
+                    })
+                </script>
             </div><!-- latest -->
         </div><!-- left -->
         
 
 
         <div class="right">
-            <div class="latest-news">
+            <div id="top-news" class="latest-news">
                 <div class="latest-label">
                     Топ вести
                 </div><!-- latest label-->
 
-                <div class="single-post">
-                    <a href="#" class="latest-category">Македонија</a>
-                    <a href="#" class="post-title-link">
-                        <div class="post-title">
-                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
-                        </div><!-- post title -->
-                    </a> <!-- title link -->
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $.ajax({
+                            url: 'users/last-posts',
+                            success: function(data){
+                                // console.log(data);
+                                const lastPosts = data.lastPosts;
 
-                    <div class="today-date">
-                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                        <div class="date">13:50, 11-05-2020</div>
-                    </div> <!-- today date -->
-                </div><!-- single post -->
+                                var i = 0;
+                                while(i < lastPosts.length){
+                                    const singlePostDiv = $('<div>').addClass('single-post');
+                                        const latestCategory = $('<a>').addClass('latest-category').append(lastPosts[i].category).attr({ 'id': lastPosts[i].category_id, 'href':'#' });
+                                    singlePostDiv.append(latestCategory);
+                                        const postTitleLink = $('<a>').addClass('post-title-link').attr({ 'href':'#', 'id': lastPosts[i].ID });
+                                            const postTitle = $('<div>').addClass('post-title');
+                                                const boldedText = $('<b>').append(lastPosts[i].title);
+                                            postTitle.append(boldedText);
+                                        postTitleLink.append(postTitle);
+                                    singlePostDiv.append(postTitleLink);
+                                        const todayDate = $('<div>').addClass('today-date');
+                                            const clockIconDiv = $('<div>').addClass('clock-icon');
+                                                const clockIcon = $('<img>').attr({ 'src':'client/clock-icon' });
+                                            clockIconDiv.append(clockIcon);
+                                        todayDate.append(clockIconDiv);
+                                            const date = $('<div>').addClass('date').append(lastPosts[i].time_posted + ',' + ' ' + lastPosts[i].date_posted);
+                                        todayDate.append(date);
+                                    singlePostDiv.append(todayDate);
 
-                <div class="single-post">
-                    <a href="#" class="latest-category">Македонија</a>
-                    <a href="#" class="post-title-link">
-                        <div class="post-title">
-                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
-                        </div><!-- post title -->
-                    </a> <!-- title link -->
-
-                    <div class="today-date">
-                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                        <div class="date">13:50, 11-05-2020</div>
-                    </div> <!-- today date -->
-                </div><!-- single post -->
-
-                <div class="single-post">
-                    <a href="#" class="latest-category">Македонија</a>
-                    <a href="#" class="post-title-link">
-                        <div class="post-title">
-                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
-                        </div><!-- post title -->
-                    </a> <!-- title link -->
-
-                    <div class="today-date">
-                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                        <div class="date">11-05-2020</div>
-                    </div> <!-- today date -->
-                </div><!-- single post -->
+                                    $('#top-news').append(singlePostDiv);
+                                    i++;
+                                }
+                            }
+                        })
+                    })
+                </script>
             </div><!-- latest -->
 
-            <div class="latest-news space-arount">
+            <div id="sport-small" class="latest-news space-arount">
                 <div class="latest-label">
                     Спорт
                 </div><!-- latest label-->
 
-                <div class="single-post-small">
-                    <div class="post-small-image">
-                        <img src="client/test-img5" alt="">
-                    </div> <!-- small post image -->
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $.ajax({
+                            url: 'users/s-s-posts',
+                            success: function(data){
+                                // console.log(data);
+                                const catPosts = data.categoryPosts;
 
-                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
-                </div><!-- small post -->
+                                var i = 0;
+                                while(i < catPosts.length){
+                                    const singlePostSmall = $('<div>').addClass('single-post-small');
+                                        const postSmallImgDiv = $('<div>').addClass('post-small-image');
+                                            const postImg = $('<img>').attr({ 'src':'admin/post-image?image=' + catPosts[i].image });
+                                        postSmallImgDiv.append(postImg);
+                                    singlePostSmall.append(postSmallImgDiv);
+                                        
+                                        const postSmallTitle = $('<div>').addClass('post-small-title').append(catPosts[i].title);
+                                    singlePostSmall.append(postSmallTitle);
 
-                <div class="single-post-small">
-                    <div class="post-small-image">
-                        <img src="client/test-img5" alt="">
-                    </div> <!-- small post image -->
-
-                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
-                </div><!-- small post -->
-
-                <div class="single-post-small">
-                    <div class="post-small-image">
-                        <img src="client/test-img5" alt="">
-                    </div> <!-- small post image -->
-
-                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
-                </div><!-- small post -->
-
-                <div class="single-post-small">
-                    <div class="post-small-image">
-                        <img src="client/test-img5" alt="">
-                    </div> <!-- small post image -->
-
-                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
-                </div><!-- small post -->
-                <div class="single-post-small">
-                    <div class="post-small-image">
-                        <img src="client/test-img5" alt="">
-                    </div> <!-- small post image -->
-
-                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
-                </div><!-- small post -->
-                <div class="single-post-small">
-                    <div class="post-small-image">
-                        <img src="client/test-img5" alt="">
-                    </div> <!-- small post image -->
-
-                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
-                </div><!-- small post -->
-                <div class="single-post-small">
-                    <div class="post-small-image">
-                        <img src="client/test-img5" alt="">
-                    </div> <!-- small post image -->
-
-                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
-                </div><!-- small post -->
-                <div class="single-post-small">
-                    <div class="post-small-image">
-                        <img src="client/test-img5" alt="">
-                    </div> <!-- small post image -->
-
-                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
-                </div><!-- small post -->
-                <div class="single-post-small">
-                    <div class="post-small-image">
-                        <img src="client/test-img5" alt="">
-                    </div> <!-- small post image -->
-
-                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
-                </div><!-- small post -->
-                <div class="single-post-small">
-                    <div class="post-small-image">
-                        <img src="client/test-img5" alt="">
-                    </div> <!-- small post image -->
-
-                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
-                </div><!-- small post -->
+                                    $('#sport-small').append(singlePostSmall);
+                                    i++;
+                                }
+                            }
+                        })
+                    })
+                </script>
             </div><!-- latest -->
         </div><!-- right -->
     </div><!-- main -->

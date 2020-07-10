@@ -85,14 +85,31 @@
 	<div class="left-menu-title">newsMK Admin</div>
 	<div class="logged-in-admin">
 		<div class="admin-image">
-			<img src="admin/leo-test" alt="">
+			<img id="admin-img" alt="">
 		</div> <!-- admin image -->
 
 		<div class="admin-name-wrapper">
-			<div class="admin-name">Leo Jakimovski</div>
-			<div class="admin-status"><span class="indicator indicator-color"></span><span class="online-status">ONLINE</span></div>
+			<div class="admin-name"></div>
+			<div class="admin-status"><span class="indicator indicator-color"></span><span class="online-status"></span></div>
 		</div> <!-- admin name wrapper -->
 	</div><!-- logged in admin -->
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$.ajax({
+				url: 'admins/admin-info',
+				success: function(data){
+					console.log(data);
+					const admin = data.admin;
+
+					$('.admin-name').append(admin[0].firstname + ' ' + admin[0].lastname);
+					$('.online-status').append(admin[0].status.toUpperCase());
+
+					$('#admin-img').attr({ 'src':'admin/admin-image?image=' + admin[0].image });
+				}
+			})
+		})
+	</script>
 
 	<a href="admin/dashboard"><div class="menu-item"><img src="admin/home-icon" width="50"><div class="menu-item-text">Home</div></div></a>
 
@@ -106,7 +123,7 @@
 	<a href="admin/new-post"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new post</div></div></a>
 
 	<div class="label">Slider posts</div>
-	<a href="admin/slider-post"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage posts</div></div></a>
+	<a href="admin/slider-post"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage slider posts</div></div></a>
 	<a href="admin/add-slider-post"><div class="menu-item active-menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new slider post</div></div></a>
 
 	<div class="label">Post categories</div>
@@ -159,7 +176,7 @@
 		<div class="right-wrapper">
 			<div class="dashboard-title">Add new slider post</div><br> <!-- dashboard title -->
 
-			<form action="post-img" method="POST" enctype="multipart/form-data">
+			<form action="slider-img" method="POST" enctype="multipart/form-data">
 				<div class="imghi">
 					<img id="custom-button" onclick="clickimg()" src="admin/noimg-icon">
 					<input class="insert_image" type="file" id="real-file" onchange="addimg(this)" hidden="hidden" name="fileToUpload">
@@ -186,7 +203,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('.save-btn').click(function(event){
-				event.preventDefault();
+				// event.preventDefault();
 				const title = $('#title').val();
 				const category = $('#post-category').find(":selected").text();
 

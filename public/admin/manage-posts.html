@@ -8,6 +8,11 @@
 	<link rel="stylesheet" href="admin/css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script src="admin-js/edit-cat-popup"></script>
+	<script src="admin-js/edit-user-popup"></script>
+	<script src="admin-js/logged-in-admin-info"></script>
+	<script src="admin-js/logout"></script>
 </head>
 <body>
 	<div class="page-mask"></div><!--page mask-->
@@ -26,35 +31,6 @@
 		</div> <!-- error div -->
 	</div>
 
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#edit-cat').click(function(event){
-				event.preventDefault();
-				const info = $('#category').val();
-
-				$.ajax({
-					url: 'admins/single-cat-edit?info=' + info,
-					success: function(data){
-						console.log(data);
-						if(data.message !== 'not exist'){
-							const category = data.category;
-							const catId = category[0].ID;
-							
-							location.href = 'admin/edit-category?catId=' + catId;
-						} else {
-							$('.cat-error-div').fadeIn('slow');
-							setTimeout(function(){
-                                $('.cat-error-div').fadeOut("slow");
-                            }, 5000);
-						}
-					}, error: function(error){
-						console.log(error);
-					}
-				})
-			})
-		})
-	</script>
-
 	<div id="users-popup" class="popup">
 		<div class="popup-wrapper">
 			<div class="popup-input">
@@ -69,30 +45,19 @@
 		</div> <!-- error div -->
 	</div>
 
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#edit-user-loc').click(function(event){
-				event.preventDefault();
-				// console.log('leo')
-
-				const userId = $('#user-id').val();
-				location.href = 'admin/edit-user?userId=' + userId;
-			})
-		})
-	</script>
-
 	<div class="left-menu">
 		<div class="left-menu-title">newsMK Admin</div>
 		<div class="logged-in-admin">
 			<div class="admin-image">
-				<img src="admin/leo-test" alt="">
+				<img id="admin-img" alt="">
 			</div> <!-- admin image -->
 
 			<div class="admin-name-wrapper">
-				<div class="admin-name">Leo Jakimovski</div>
-				<div class="admin-status"><span class="indicator indicator-color"></span><span class="online-status">ONLINE</span></div>
+				<div class="admin-name"></div>
+				<div class="admin-status"><span class="indicator indicator-color"></span><span class="online-status"></span></div>
 			</div> <!-- admin name wrapper -->
 		</div><!-- logged in admin -->
+		<br>
 
 		<a href="admin/dashboard"><div class="menu-item"><img src="admin/home-icon" width="50"><div class="menu-item-text">Home</div></div></a>
 
@@ -106,45 +71,20 @@
 		<a href="admin/new-post"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new post</div></div></a>
 
 		<div class="label">Slider posts</div>
-		<a href="admin/slider-post"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage posts</div></div></a>
+		<a href="admin/slider-post"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage slider posts</div></div></a>
 		<a href="admin/add-slider-post"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new slider post</div></div></a>
 
 		<div class="label">Post categories</div>
 		<a href="admin/categories"><div class="menu-item"><img src="admin/cubes-icon" style="filter: invert(100%);"><div class="menu-item-text">Categories</div></div></a>
 		<a href="admin/new-category"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new category</div></div></a>
 		<a id="edit-category"><div class="menu-item"><img src="admin/edit-svg" style="filter: invert(100%);"><div class="menu-item-text">Edit category</div></div></a>
+		<div class="add-new-admin-func"></div> <!-- head admin options -->
 		<br>
 		<a id="logout-btn"><div class="menu-item"><img src="admin/login-icon"><div class="menu-item-text">Logout</div></div></a>
 	</div> <!--left menu-->
 
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#logout-btn').click(function(event){
-				// console.log('leo');
-				$.ajax({
-					url: 'admins/logout',
-					success: function(data){
-						if(data.message == 'logged out'){
-							location.href = 'admin';
-						}
-					}
-				})
-			})
-
-			$('#edit-category').click(function(event){
-				event.preventDefault();
-
-				$('.page-mask').fadeIn('fast');
-				$('#category-popup').fadeIn('fast');
-			})
-
-			$('#edit-user').click(function(event){
-				event.preventDefault();
-
-				$('.page-mask').fadeIn('fast');
-				$('#users-popup').fadeIn('fast');
-			})
-
 			$('.page-mask').click(function(event){
 				event.preventDefault();
 
@@ -162,12 +102,12 @@
 			<div class="todays-results" style="width: 700px">
 				<label>Today's results</label>
 				<div class="boxes" style="justify-content: space-between; margin-top: 20px; width: 1000px;">
-					<div id="today-users" class="dashboard-box today-users" style="width: 480px;">
+					<div id="today-users" class="dashboard-box today-users" style="width: 470px;">
 						<div class="box-title today-users-title">Today's Posts</div>
 						<div id="today-users-numb" class="box-number today-users-number-label"></div>
 					</div>
 
-					<div id="overall-users" class="dashboard-box today-users overall-users-box" style="width: 480px;">
+					<div id="overall-users" class="dashboard-box today-users overall-users-box" style="width: 470px;">
 						<div class="box-title overall-users-label">Overall posts</div>
 						<div id="overall-users-numb" class="box-number"></div>
 					</div>

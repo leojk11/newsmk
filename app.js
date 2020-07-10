@@ -34,6 +34,10 @@ app.get('/admin/post-image', (req, res) => {
 	const imageQuery = req.query.image;
 	res.sendFile(__dirname + '/images/posts/' + imageQuery);
 })
+app.get('/admin/admin-image', (req, res) => {
+	const imageQuery = req.query.image;
+	res.sendFile(__dirname + '/images/admin/' + imageQuery);
+})
 /// admin public routes ///
 app.get('/admin', (req, res) => {
 	res.sendFile(__dirname + "/public/admin/login.html");
@@ -73,6 +77,32 @@ app.get('/admin/add-slider-post', middlewares.verifyTokenAdmin, (req, res) => {
 })
 app.get('/admin/slider-post', middlewares.verifyTokenAdmin, (req, res) => {
 	res.sendFile(__dirname + "/public/admin/slider-posts.html");
+})
+app.get('/admin/admins', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/admins.html");
+})
+app.get('/admin/new-admin', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/new-admin.html");
+})
+
+/// admin jss ///
+app.get('/admin-js/edit-cat-popup', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/js/edit-cat-popup.js");
+})
+app.get('/admin-js/edit-user-popup', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/js/edit-user-popup.js");
+})
+app.get('/admin-js/logged-in-admin-info', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/js/logged-in-admin-info.js");
+})
+app.get('/admin-js/logout', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/js/logout.js");
+})
+app.get('/admin-js/add-category', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/js/add-category.js");
+})
+app.get('/admin-js/add-post', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/js/add-post.js");
 })
 
 /// admin images ///
@@ -136,14 +166,32 @@ app.post('/post-img', (req, res) => {
 		res.redirect('http://localhost:3000/admin/posts');
 	}
 })
+app.post('/slider-img', (req, res) => {
+	if(req.files){
+		var file = req.files.fileToUpload,
+			filename = file.name;
 
+		file.mv('./images/posts/' + filename, function(error){
+			if(error){
+				res.json({ error });
+			} else {
+				res.redirect('http://localhost:3000/admin/slider-posts');
+			}
+		})
+	} else {
+		res.redirect('http://localhost:3000/admin/slider-posts');
+	}
+})
 
+////////////////////////
+/// client side urls ///
+///////////////////////
 /// client side css ///
 app.get('/css', (req, res) => {
 	res.sendFile(__dirname + "/public/user/css/style.css");
 })
 /// client side front routes ///
-app.get('/home', (req, res) => {
+app.get('/', (req, res) => {
 	res.sendFile(__dirname + "/public/user/index.html");
 })
 app.get('/post', (req, res) => {
@@ -151,6 +199,11 @@ app.get('/post', (req, res) => {
 })
 app.get('/category', (req, res) => {
 	res.sendFile(__dirname + "/public/user/category.html");
+})
+
+/// client side js files ///
+app.get('/user-header-js', (req, res) => {
+	res.sendFile(__dirname + "/public/user/js/user-header.js");
 })
 
 /// client side images ///
@@ -178,17 +231,23 @@ app.get('/client/user-icon', (req, res) => {
 app.get('/client/down-arrow-icon', (req, res) => {
 	res.sendFile(__dirname + "/public/user/icons/angle-down.svg");
 })
+app.get('/client/right-arrow-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/angle-right.svg");
+})
 app.get('/client/phone-icon', (req, res) => {
 	res.sendFile(__dirname + "/public/user/icons/phone.svg");
 })
 app.get('/client/login-icon', (req, res) => {
 	res.sendFile(__dirname + "/public/user/icons/login.svg");
 })
+app.get('/client/search-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/search.svg");
+})
+app.get('/client/hamb-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/hamb.png");
+})
 app.get('/client/test-img', (req, res) => {
 	res.sendFile(__dirname + "/public/user/images/test-img.jpg");
-})
-app.get('/client/test-img1', (req, res) => {
-	res.sendFile(__dirname + "/public/user/images/test-img1.jpg");
 })
 app.get('/client/test-img2', (req, res) => {
 	res.sendFile(__dirname + "/public/user/images/test-img2.jpg");
@@ -198,15 +257,6 @@ app.get('/client/test-img3', (req, res) => {
 })
 app.get('/client/test-img4', (req, res) => {
 	res.sendFile(__dirname + "/public/user/images/test-img4.jpg");
-})
-app.get('/client/test-img5', (req, res) => {
-	res.sendFile(__dirname + "/public/user/images/test-img5.jpg");
-})
-app.get('/client/test-img6', (req, res) => {
-	res.sendFile(__dirname + "/public/user/images/test-img6.png");
-})
-app.get('/client/test-img7', (req, res) => {
-	res.sendFile(__dirname + "/public/user/images/test-img7.png");
 })
 
 app.use(mainRouter);

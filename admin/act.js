@@ -76,13 +76,33 @@ adminLogout = async(req, res) => {
         res.status(200).json({ error });
     }
 }
+getLoggedInAdminInfo = async(req, res) => {
+    const loggedInUser = req.admin.adminId;
+
+    getSingleAdminQuery = (adminId) => {
+        const query = 'SELECT * FROM admin_users WHERE ID = ?';
+        return new Promise((res, rej) => {
+            con.query(query, [adminId], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            }) 
+        })
+    }
+
+    try {
+        const admin = await getSingleAdminQuery(loggedInUser);
+        res.status(200).json({ admin });
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+}
 
 
 /// get ///
 getAllAdmins = async(req, res) => {
-    const adminId = req.admin.adminId;
-    console.log(adminId);
-
     getAllAdminsQuery = () => {
         return new Promise((res, rej) => {
             con.query('SELECT * FROM admin_users', (error, results, fields) => {
@@ -325,6 +345,26 @@ getSinglePost = async(req, res) => {
         res.status(500).json({ error });
     }
 }
+getAllSliderPosts = async(req, res) => {
+    getAllSliderPosts = () => {
+        const query = 'SELECT * FROM slider_posts';
+        return new Promise((res, rej) => {
+            con.query(query, (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+    try {
+        const sliderPosts = await getAllSliderPosts();
+        res.status(200).json({ sliderPosts });
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+}
 
 
 /// post ///
@@ -513,6 +553,39 @@ addNewUser = async(req, res) => {
         res.status(500).json({ error });
     }
 }
+addNewAdmin = async(req, res) => {
+    const data = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password,
+        status: 'offline',
+        image: 'new-admin.jpg',
+        adminRole: req.body.role
+    }
+    console.log(data);
+
+    addNewAdminQuery = (data) => {
+        const query = "INSERT INTO admin_users(firstname, lastname, email, username, password, status, image, admin_role, date_added) VALUES(?,?,?,?,?,?,?,?,CURRENT_DATE())";
+        return new Promise((res, rej) => {
+            con.query(query, [data.firstname, data.lastname, data.email, data.username, data.password, data.status, data.image, data.adminRole], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    try {
+        await addNewAdminQuery(data);
+        res.status(200).json({ messae: 'admin added' });
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+}
 
 /// patch ///
 editCategory = async(req, res) => {
@@ -650,6 +723,7 @@ editPost = async(req, res) => {
         category: req.body.category,
         image: req.body.image
     }
+    console.log(postData);
 
     getSinglePostQuery = (postId) => {
         return new Promise((res, rej) => {
@@ -683,7 +757,7 @@ editPost = async(req, res) => {
             post.data = postData.category
         }
 
-        if(postData.image == ''){
+        if(postData.image == undefined){
             postData.image = post.image
         } else {
             post.image = postData.image
@@ -763,10 +837,33 @@ deletePost = async(req, res) => {
         res.status(500).json({ error });
     }
 }
+deleteSliderPost = async(req, res) => {
+    const postId = req.query.postId;
+
+    deleteSliderPostQuery = (postId) => {
+        const query = 'DELETE FROM slider_posts WHERE ID = ?';
+        return new Promise((res, rej) => {
+            con.query(query, [postId], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+    try {
+        await deleteSliderPostQuery(postId);
+        res.status(200).json({ message: 'post deleted' });
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+}
 module.exports = {
     /// basic ///
     adminLogin,
     adminLogout,
+    getLoggedInAdminInfo,
     
     /// get ///
     getAllAdmins,
@@ -778,12 +875,14 @@ module.exports = {
     getAllUsers,
     getSingleUser,
     seachUsers,
+    getAllSliderPosts,
 
     /// post ///
     addNewPost,
     addNewSliderPost,
     addNewCategory,
     addNewUser,
+    addNewAdmin,
 
     /// patch ///
     editCategory,
@@ -792,5 +891,6 @@ module.exports = {
 
     /// delete ///
     deleteCategory,
-    deletePost
+    deletePost,
+    deleteSliderPost
 }
