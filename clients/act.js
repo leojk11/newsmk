@@ -337,6 +337,30 @@ getRandomPosts = async(req, res) => {
     }
 }
 
+getAllPostFromSingleCategory = async(req, res) => {
+    const catId = req.query.id;
+
+    getPostsQuery = (catId) => {
+        const query = 'SELECT * FROM posts WHERE category_id = ?';
+        return new Promise((res, rej) => {
+            con.query(query, [catId], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results);
+                }
+            })
+        })
+    }
+
+    try {
+        const posts = await getPostsQuery(catId);
+        res.status(200).json({ posts });
+    } catch (error) {
+        res.status(500).json({ error })
+    }
+}
+
 /// post ///
 addComment = async(req, res) => {
     const data = {
@@ -384,6 +408,7 @@ module.exports = {
     getOneBigPost,
     firstTwoPostsFromToday,
     getRandomPosts,
+    getAllPostFromSingleCategory,
 
     /// post ///
     addComment

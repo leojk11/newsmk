@@ -19,6 +19,7 @@ router.get('/post-comments', actions.getCommentsForSinglePost);
 router.get('/big-post', actions.getOneBigPost);
 router.get('/two-posts', actions.firstTwoPostsFromToday);
 router.get('/random-posts', actions.getRandomPosts);
+router.get('/cat-posts', actions.getAllPostFromSingleCategory);
 
 /// post ///
 router.post('/add-comment', actions.addComment);

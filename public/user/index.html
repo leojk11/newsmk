@@ -250,102 +250,207 @@
         </div> <!-- main first -->
 
         <div class="main-first">
-            <div class="one-section">
-                <div class="section-title">Take a closer look</div><!-- section title -->
+            <div id="mkd" class="one-section">
+                <div class="section-title">Македонија</div><!-- section title -->
 
-                <div class="one-section-main-post">
+                <div id="mkd-main" class="one-section-main-post">
                     <div class="main-single-post">
-                        <div class="post-image"><img src="client/test-img3"></div> <!-- post image -->
-                        <div class="post-title">Glastonbury Festival fashion history: Remember when Kate Moss wore rain boots?</div> <!-- post title -->
+                        <div id="mkd-main-img" class="post-image"></div> <!-- post image -->
+                        <div id="mkd-main-title" class="post-title"></div> <!-- post title -->
                     </div> <!-- single post-->
                 </div> <!-- one section main post -->
 
-                <div class="one-section-small-posts">
-                    <div class="small-post">
-                        <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                        <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                    </div> <!-- small post -->
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $.ajax({
+                            url: 'users/cat-posts?id=2',
+                            success: function(data){
+                                console.log(data);
+                                const mainPost = data.posts;
 
-                    <div class="small-post">
-                        <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                        <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                    </div> <!-- small post -->
+                                const mainPostImage = $('<img>').attr({ 'src': 'admin/post-image?image=' + mainPost[0].image });
+                                $('#mkd-main-img').append(mainPostImage);
+                                $('#mkd-main-title').append(mainPost[0].title);
 
-                    <div class="small-post">
-                        <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                        <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                    </div> <!-- small post -->
+                                $()
 
-                    <div class="small-post">
-                        <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                        <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                    </div> <!-- small post -->
+                            }, error: function(error){
+                                console.log(error);
+                            }
+                        })
+                    })
+                </script>
+
+                <div id="mkd-posts" class="one-section-small-posts">
+                    <!-- <div class="small-post">
+                        <div class="small-post-image"><img src="client/test-img4" alt=""></div> 
+                        <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> 
+                    </div>  -->
+
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $.ajax({
+                            url: 'users/cat-posts?id=2',
+                            success: function(data){
+                                console.log(data);
+                                const posts = data.posts;
+
+                                var i = 0;
+                                while(i < posts.length){
+
+                                    const smallPost = $('<div>').addClass('small-post');
+                                        const smallPostImageDiv = $('<div>').addClass('small-post-image');
+                                            const smallPostImage = $('<img>').attr({ 'src': 'admin/post-image?image=' + posts[i].image });
+                                        smallPostImageDiv.append(smallPostImage);
+                                    smallPost.append(smallPostImageDiv);
+                                        const smallPostTitle = $('<div>').addClass('small-post-title').append(posts[i].title);
+                                    smallPost.append(smallPostTitle);
+                                    
+                                    $('#mkd-posts').append(smallPost);
+
+                                    i++;
+                                }
+
+                            }, error: function(error){
+                                console.log(error);
+                            }
+                        })
+                        })
+                    </script>
+
                 </div> <!-- one section small posts -->
             </div> <!-- one section -->
 
             <div class="one-section">
-                <div class="section-title">Featured</div><!-- section title -->
+                <div class="section-title">Свет</div><!-- section title -->
 
                 <div class="one-section-main-post">
                     <div class="main-single-post">
-                        <div class="post-image"><img src="client/test-img3"></div> <!-- post image -->
-                        <div class="post-title">Glastonbury Festival fashion history: Remember when Kate Moss wore rain boots?</div> <!-- post title -->
+                        <div id="w-main-img" class="post-image"></div> <!-- post image -->
+                        <div id="w-main-title" class="post-title"></div> <!-- post title -->
                     </div> <!-- single post-->
                 </div> <!-- one section main post -->
 
-                <div class="one-section-small-posts">
-                    <div class="small-post">
-                        <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                        <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                    </div> <!-- small post -->
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $.ajax({
+                            url: 'users/cat-posts?id=6',
+                            success: function(data){
+                                console.log(data);
+                                const mainPost = data.posts;
 
-                    <div class="small-post">
-                        <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                        <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                    </div> <!-- small post -->
+                                const mainPostImage = $('<img>').attr({ 'src': 'admin/post-image?image=' + mainPost[0].image });
+                                $('#w-main-img').append(mainPostImage);
+                                $('#w-main-title').append(mainPost[0].title);
 
-                    <div class="small-post">
-                        <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                        <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                    </div> <!-- small post -->
+                                $()
 
-                    <div class="small-post">
-                        <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                        <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                    </div> <!-- small post -->
+                            }, error: function(error){
+                                console.log(error);
+                            }
+                        })
+                    })
+                </script>
+
+                <div id="w-posts" class="one-section-small-posts">
+
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $.ajax({
+                                url: 'users/cat-posts?id=6',
+                                success: function(data){
+                                    console.log(data);
+                                    const posts = data.posts;
+
+                                    var i = 0;
+                                    while(i < posts.length){
+
+                                        const smallPost = $('<div>').addClass('small-post');
+                                            const smallPostImageDiv = $('<div>').addClass('small-post-image');
+                                                const smallPostImage = $('<img>').attr({ 'src': 'admin/post-image?image=' + posts[i].image });
+                                            smallPostImageDiv.append(smallPostImage);
+                                        smallPost.append(smallPostImageDiv);
+                                            const smallPostTitle = $('<div>').addClass('small-post-title').append(posts[i].title);
+                                        smallPost.append(smallPostTitle);
+                                        
+                                        $('#w-posts').append(smallPost);
+
+                                        i++;
+                                    }
+
+                                }, error: function(error){
+                                    console.log(error);
+                                }
+                            })
+                        })
+                    </script>
                 </div> <!-- one section small posts -->
             </div> <!-- one section -->
 
             <div class="one-section">
-                <div class="section-title">Take a break</div><!-- section title -->
+                <div class="section-title">Спорт</div><!-- section title -->
 
                 <div class="one-section-main-post">
                     <div class="main-single-post">
-                        <div class="post-image"><img src="client/test-img3"></div> <!-- post image -->
-                        <div class="post-title">Glastonbury Festival fashion history: Remember when Kate Moss wore rain boots?</div> <!-- post title -->
+                        <div id="s-main-img" class="post-image"></div> <!-- post image -->
+                        <div id="s-main-title" class="post-title"></div> <!-- post title -->
                     </div> <!-- single post-->
                 </div> <!-- one section main post -->
 
-                <div class="one-section-small-posts">
-                    <div class="small-post">
-                        <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                        <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                    </div> <!-- small post -->
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $.ajax({
+                            url: 'users/cat-posts?id=7',
+                            success: function(data){
+                                console.log(data);
+                                const mainPost = data.posts;
 
-                    <div class="small-post">
-                        <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                        <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                    </div> <!-- small post -->
+                                const mainPostImage = $('<img>').attr({ 'src': 'admin/post-image?image=' + mainPost[0].image });
+                                $('#s-main-img').append(mainPostImage);
+                                $('#s-main-title').append(mainPost[0].title);
 
-                    <div class="small-post">
-                        <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                        <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                    </div> <!-- small post -->
+                                $()
 
-                    <div class="small-post">
-                        <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                        <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                    </div> <!-- small post -->
+                            }, error: function(error){
+                                console.log(error);
+                            }
+                        })
+                    })
+                </script>
+
+                <div id="s-posts" class="one-section-small-posts">
+
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $.ajax({
+                                url: 'users/cat-posts?id=7',
+                                success: function(data){
+                                    console.log(data);
+                                    const posts = data.posts;
+
+                                    var i = 0;
+                                    while(i < posts.length){
+
+                                        const smallPost = $('<div>').addClass('small-post');
+                                            const smallPostImageDiv = $('<div>').addClass('small-post-image');
+                                                const smallPostImage = $('<img>').attr({ 'src': 'admin/post-image?image=' + posts[i].image });
+                                            smallPostImageDiv.append(smallPostImage);
+                                        smallPost.append(smallPostImageDiv);
+                                            const smallPostTitle = $('<div>').addClass('small-post-title').append(posts[i].title);
+                                        smallPost.append(smallPostTitle);
+                                        
+                                        $('#s-posts').append(smallPost);
+
+                                        i++;
+                                    }
+
+                                }, error: function(error){
+                                    console.log(error);
+                                }
+                            })
+                        })
+                    </script>
+
                 </div> <!-- one section small posts -->
             </div> <!-- one section -->
         </div><!-- main first -->

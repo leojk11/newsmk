@@ -3,8 +3,10 @@ $(document).ready(function(){
     $('.save-btn').click(function(event){
         // event.preventDefault();
         const title = $('#title').val();
-        const text = $('#text').val();
+        const text = $('#text').html();
         const category = $('#post-category').find(":selected").text();
+
+        // console.log(text);
 
         var input = $('#real-file')[0];
         var file = input.files[0];
