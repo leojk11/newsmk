@@ -104,6 +104,9 @@ app.get('/admin-js/add-category', middlewares.verifyTokenAdmin, (req, res) => {
 app.get('/admin-js/add-post', middlewares.verifyTokenAdmin, (req, res) => {
 	res.sendFile(__dirname + "/public/admin/js/add-post.js");
 })
+app.get('/admin-js/get-users', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/js/get-users.js");
+})
 
 /// admin images ///
 app.get('/admin/test-image', (req, res) => {
