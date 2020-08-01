@@ -179,6 +179,7 @@ getAllPartyPosts = async(req, res) => {
 
 getSinglePost = async(req, res) => {
     const postId = req.query.postId;
+    console.log(postId)
 
     getSinglePostQuery = (postId) => {
         const query = 'SELECT * FROM posts WHERE ID = ?';
@@ -271,7 +272,7 @@ getCommentsForSinglePost = async(req, res) => {
 getOneBigPost = async(req, res) => {
 
     getBigPostQuery = () => {
-        const query = 'SELECT * FROM big_posts ORDER BY ID DESC LIMIT 1';
+        const query = 'SELECT * FROM posts ORDER BY ID DESC LIMIT 1';
         return new Promise((res, rej) => {
             con.query(query, (error, results, fields) => {
                 if(error){
@@ -341,7 +342,7 @@ getAllPostFromSingleCategory = async(req, res) => {
     const catId = req.query.id;
 
     getPostsQuery = (catId) => {
-        const query = 'SELECT * FROM posts WHERE category_id = ?';
+        const query = 'SELECT * FROM posts WHERE category_id = ? ORDER BY ID DESC LIMIT 3';
         return new Promise((res, rej) => {
             con.query(query, [catId], (error, results, fields) => {
                 if(error){
@@ -358,6 +359,28 @@ getAllPostFromSingleCategory = async(req, res) => {
         res.status(200).json({ posts });
     } catch (error) {
         res.status(500).json({ error })
+    }
+}
+getPostsByViews = async(req, res) => {
+
+    getPostByViewsQuery = () => {
+        const query = 'SELECT * FROM posts ORDER BY views DESC LIMIT 3';
+        return new Promise((res, rej) => {
+            con.query(query, (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    try {
+        const posts = await getPostByViewsQuery();
+        res.status(200).json({ posts });
+    } catch(error) {
+        res.status(500).json({ error });
     }
 }
 
@@ -391,6 +414,48 @@ addComment = async(req, res) => {
     }
 }
 
+/// patch ///
+countPostViews = async(req, res) => {
+    const postId = req.query.postId;
+
+    getSinglePostQuery = (postId) => {
+        const query = 'SELECT * FROM posts WHERE ID = ?';
+        return new Promise((res, rej) => {
+            con.query(query, [postId], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+    const singlePost = await getSinglePostQuery(postId);
+    const singlePostViews = singlePost[0].views;
+    const singlePostViewsInt = parseInt(singlePostViews);
+
+    const addPostViews = singlePostViewsInt + 1;
+
+    updatePostViewsQuery = (addPostViews, postId) => {
+        const query = 'UPDATE posts SET views = ? WHERE ID = ?';
+        return new Promise((res, rej) => {
+            con.query(query, [addPostViews, postId], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    try {
+        await updatePostViewsQuery(addPostViews, postId);
+        res.status(200).json({ mess: 'views +1' });
+    } catch(error) {
+        res.status(500).json({ error });
+    }
+}
 module.exports = {
     /// get ///
     getAllCategories,
@@ -409,7 +474,11 @@ module.exports = {
     firstTwoPostsFromToday,
     getRandomPosts,
     getAllPostFromSingleCategory,
+    getPostsByViews,
 
     /// post ///
-    addComment
+    addComment,
+
+    /// patch ///
+    countPostViews
 }

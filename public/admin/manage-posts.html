@@ -13,6 +13,7 @@
 	<script src="admin-js/edit-user-popup"></script>
 	<script src="admin-js/logged-in-admin-info"></script>
 	<script src="admin-js/logout"></script>
+	<script src="admin-js/mobile-header"></script>
 </head>
 <body>
 	<div class="page-mask"></div><!--page mask-->
@@ -44,6 +45,11 @@
 			<div class="error">Category does not exist</div>
 		</div> <!-- error div -->
 	</div>
+
+	<div id="mobile-menu-wrapper"></div> <!-- mobile menu wrapper -->
+
+	<div id="mobile-drop-wrapper"></div> <!-- mobile drop wrapper -->
+
 
 	<div class="left-menu">
 		<div class="left-menu-title">newsMK Admin</div>
@@ -78,6 +84,9 @@
 		<a href="admin/categories"><div class="menu-item"><img src="admin/cubes-icon" style="filter: invert(100%);"><div class="menu-item-text">Categories</div></div></a>
 		<a href="admin/new-category"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new category</div></div></a>
 		<a id="edit-category"><div class="menu-item"><img src="admin/edit-svg" style="filter: invert(100%);"><div class="menu-item-text">Edit category</div></div></a>
+		<a href="admin/sub-cats"><div class="menu-item"><img src="admin/cubes-icon" style="filter: invert(100%);"><div class="menu-item-text">Sub-categories</div></div></a>
+		<a href="admin/new-sub-category"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new sub-category</div></div></a>
+		<a id="edit-sub-category"><div class="menu-item"><img src="admin/edit-svg" style="filter: invert(100%);"><div class="menu-item-text">Edit sub-category</div></div></a>
 		<div class="add-new-admin-func"></div> <!-- head admin options -->
 		<br>
 		<a id="logout-btn"><div class="menu-item"><img src="admin/login-icon"><div class="menu-item-text">Logout</div></div></a>
@@ -99,15 +108,15 @@
 		<div class="right-wrapper">
 			<div class="dashboard-title">Manage posts</div><br>
 
-			<div class="todays-results" style="width: 700px">
+			<div class="todays-results">
 				<label>Today's results</label>
-				<div class="boxes" style="justify-content: space-between; margin-top: 20px; width: 1000px;">
-					<div id="today-users" class="dashboard-box today-users" style="width: 470px;">
+				<div class="boxes" style="justify-content: space-between; margin-top: 20px;">
+					<div id="today-users" class="dashboard-box today-users">
 						<div class="box-title today-users-title">Today's Posts</div>
 						<div id="today-users-numb" class="box-number today-users-number-label"></div>
 					</div>
-
-					<div id="overall-users" class="dashboard-box today-users overall-users-box" style="width: 470px;">
+					<br>
+					<div id="overall-users" class="dashboard-box today-users overall-users-box">
 						<div class="box-title overall-users-label">Overall posts</div>
 						<div id="overall-users-numb" class="box-number"></div>
 					</div>

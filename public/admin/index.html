@@ -13,6 +13,8 @@
 	<script src="admin-js/edit-user-popup"></script>
 	<script src="admin-js/logged-in-admin-info"></script>
 	<script src="admin-js/logout"></script>
+	<script src="admin-js/mobile-header"></script>
+	<script src="admin-js/left-menu"></script>
 </head>
 <body>
 	<div class="page-mask"></div><!--page mask-->
@@ -45,99 +47,11 @@
 		</div> <!-- error div -->
 	</div>
 
-	<div class="mobile-menu">
-		<div class="mobile-title">newsMK Admin</div>
+	<div id="mobile-menu-wrapper"></div> <!-- mobile menu wrapper -->
 
-		<div id="menu-drop" class="hamb"><img src="client/hamb-icon" alt=""></div>
-	</div> <!-- mobile menu -->
+	<div id="mobile-drop-wrapper"></div> <!-- mobile drop wrapper -->
 
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#menu-drop').click(function(event){
-				$('#dropdown').slideToggle(500);
-			})
-		})
-	</script>
-
-	<div id="dropdown" class="dropdown">
-		<div class="dropdown-wrapper">
-			<a href="superadmin/dashboard"><div class="menu_label">Dashboard</div></a>
-			<div class="menu_label" id="users-activity">
-				Users
-				<div class="more-down" id="live-activity-arrow">
-					<img src="client/down-arrow-icon" style="filter: invert(100%)">
-				</div>
-			</div>
-			<div class="menu_label-under" id='users-drop'>
-				<a href="admin/users"><div class="menu_item_more">View Users</div></a>
-        		<a href="admin/new-user"><div class="menu_item_more">Add new user</div></a>
-        		<a id="edit-user"><div class="menu_item_more">Edit user</div></a>
-			</div>
-			<script type="text/javascript">
-				$(document).ready(function(){
-					$('#users-activity').click(function(){
-						$('#users-drop').slideToggle();
-					})
-				})
-			</script>
-
-			<div class="menu_label" id="posts">
-				Posts
-				<div class="more-down">
-					<img src="client/down-arrow-icon" style="filter: invert(100%)">
-				</div>
-			</div>
-			<div class="menu_label-under" id='posts-drop'>
-				<a href="admin/posts"><div class="menu_item_more">Manage Posts</div></a>
-        		<a href="admin/new-post"><div class="menu_item_more">Add new post</div></a>
-			</div>
-			<script type="text/javascript">
-				$(document).ready(function(){
-					$('#posts').click(function(){
-						$('#posts-drop').slideToggle();
-					})
-				})
-			</script>
-
-			<div class="menu_label" id="business-app">
-				Slider Posts
-				<div class="more-down">
-					<img src="client/down-arrow-icon" style="filter: invert(100%)">
-				</div>
-			</div>
-			<div class="menu_label-under" id='business-app-drop'>
-				<a href="admin/slider-post"><div class="menu_item_more">Manage Slider Posts</div></a>
-        		<a href="admin/add-slider-post"><div class="menu_item_more">Add new slider post</div></a>
-			</div>
-			<script type="text/javascript">
-				$(document).ready(function(){
-					$('#business-app').click(function(){
-						$('#business-app-drop').slideToggle();
-					})
-				})
-			</script>
-
-			<div class="menu_label" id="customer-managment">
-				Post Categories
-				<div class="more-down">
-					<img src="client/down-arrow-icon" style="filter: invert(100%)">
-				</div>
-			</div>
-			<div class="menu_label-under" id='customer-managment-drop'>
-				<a href="admin/categories"><div class="menu_item_more">Categories</div></a>
-				<a href="admin/new-category"><div class="menu_item_more">Add new category</div></a>
-        		<a id="edit-category"><div class="menu_item_more">Edit category</div></a>
-			</div>
-			<script type="text/javascript">
-				$(document).ready(function(){
-					$('#customer-managment').click(function(){
-						$('#customer-managment-drop').slideToggle();
-					})
-				})
-			</script>
-
-		</div>
-	</div> <!-- dropdown -->
+	<div id="left-menu-wrapper" style="display: none;"></div> <!-- left menu wrapper -->
 
 	<div class="left-menu">
 		<div class="left-menu-title">newsMK Admin</div>
@@ -172,6 +86,9 @@
 		<a href="admin/categories"><div class="menu-item"><img src="admin/cubes-icon" style="filter: invert(100%);"><div class="menu-item-text">Categories</div></div></a>
 		<a href="admin/new-category"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new category</div></div></a>
 		<a id="edit-category"><div class="menu-item"><img src="admin/edit-svg" style="filter: invert(100%);"><div class="menu-item-text">Edit category</div></div></a>
+		<a href="admin/sub-cats"><div class="menu-item"><img src="admin/cubes-icon" style="filter: invert(100%);"><div class="menu-item-text">Sub-categories</div></div></a>
+		<a href="admin/new-sub-category"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new sub-category</div></div></a>
+		<a id="edit-sub-category"><div class="menu-item"><img src="admin/edit-svg" style="filter: invert(100%);"><div class="menu-item-text">Edit sub-category</div></div></a>
 		<div class="add-new-admin-func"></div> <!-- head admin options -->
 		<br>
 		<a id="logout-btn"><div class="menu-item"><img src="admin/login-icon"><div class="menu-item-text">Logout</div></div></a>

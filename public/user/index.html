@@ -91,7 +91,7 @@
 
     <div class="main-section">
         <div class="main-first">
-            <a href="" class="big-post-wrapper">
+            <a id="big-post-wrapper" class="big-post-wrapper">
                 <div id="big-post" class="big-post"></div><!-- big post -->
             </a>
 
@@ -107,8 +107,10 @@
                             bigPostInfo.append(bigPostTitle);
                                 const bigPostSmallTitle = $('<div>').addClass('big-post-small-title').append(bigPost[0].small_title);
                             bigPostInfo.append(bigPostSmallTitle);
-                                const bigPostCategory = $('<div>').addClass('big-post-category').append('Спорт');
+                                const bigPostCategory = $('<a>').addClass('big-post-category').append(bigPost[0].category).attr({ 'href':'category?catId=' + bigPost[0].category_id });
                             bigPostInfo.append(bigPostCategory);
+
+                            $('#big-post-wrapper').attr({ 'href':'post?postId=' + bigPost[0].ID });
 
                             $('#big-post').append(bigPostInfo);
 

@@ -90,66 +90,200 @@
     </div><!-- login form -->
 
 
-    <div class="main-section" style="width: 60%;">
-        <div class="single-post-title">America shuts down again - - chosing reality over Trump's false claims</div>
+    <div class="main-section" style="width: 70%;">
+        <div id="single-post-title" class="single-post-title"></div>
 
         <div class="writer">
             <div class="writer-image"><img src="admin/admin-image?image=new-admin.jpg" alt=""></div>
             
             <div class="writer-other-info">
-                <div class="writer-name">Leo Jakimovski</div>
-                <div class="last-updated">14.07.2020 16:30</div>
+                <div id="writer-name" class="writer-name"></div>
+                <div id="last-update" class="last-updated"></div>
             </div>
         </div> <!-- writer -->
 
         <div class="wrapper-main-first">
             <div class="post-image-text">
-                <div class="post-image"><img src="client/test-img"></div>
+                <div id="single-post-image" class="post-image"></div>
                 
                 <div class="social-media-share">
-                    
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank"><div class="social-share"><img src="client/facebook-icon"></div></a>
+                    <div class="social-share social-space"><img src="client/twitter-icon"></div>
+                    <!-- <div class="social-share"><img src="client/facebook-icon"></div> -->
                 </div>
 
-                <div class="post-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis, expedita ducimus sint alias magni maxime dignissimos est quae suscipit, accusamus quisquam itaque! Perferendis provident atque qui, expedita voluptatem quis nesciunt. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis non, adipisci, necessitatibus laudantium porro, obcaecati ullam repellendus ut dolorem quisquam commodi recusandae eaque nulla! Mollitia voluptates blanditiis distinctio architecto quibusdam? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab unde quasi ut esse suscipit nihil vero autem tempora voluptatem, laboriosam perspiciatis animi, commodi rem quos placeat sapiente. Ex, aperiam explicabo!</div>
+                <div id="single-post-text" class="post-text"></div>
             </div> <!-- post image -->
 
-            <div class="one-section-small-posts" style="margin-left: 10px;">
-                <div class="small-post">
-                    <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                    <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                </div> <!-- small post -->
+            
 
-                <div class="small-post">
-                    <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                    <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                </div> <!-- small post -->
+            <div id="latest-posts" class="one-section-small-posts" style="margin-left: 10px;">
+                <div class="section-title-single-post">Latest</div>
 
-                <div class="small-post">
-                    <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                    <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                </div> <!-- small post -->
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $.ajax({
+                            url: 'users/last-posts',
+                            success: function(data){
+                                console.log(data);
+                                const latestPosts = data.lastPosts;
 
-                <div class="small-post">
-                    <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                    <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                </div> <!-- small post -->
+                                var i = 0;
+                                while (i < latestPosts.length) {
 
-                <div class="small-post">
-                    <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                    <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                </div> <!-- small post -->
+                                    const latestPostWrapper = $('<a>').addClass('small-post').attr({ 'href':'post?postId=' + latestPosts[i].ID });
+                                        const latestPostImageWrapper = $('<div>').addClass('small-post-image')
+                                            const latestPostImage = $('<img>').attr({ 'src':'admin/post-image?image=' + latestPosts[i].image });
+                                        latestPostImageWrapper.append(latestPostImage);
+                                    latestPostWrapper.append(latestPostImageWrapper);
+                                        const latestPostTitle = $('<div>').addClass('small-post-title').append(latestPosts[i].title);
+                                    latestPostWrapper.append(latestPostTitle);
 
-                <div class="small-post">
-                    <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                    <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                </div> <!-- small post -->
+                                    $('#latest-posts').append(latestPostWrapper);
 
-                <div class="small-post">
-                    <div class="small-post-image"><img src="client/test-img4" alt=""></div> <!-- small post image -->
-                    <div class="small-post-title">Lake Balaton and the endless summers of Hungary's communist riviera </div> <!-- small post title -->
-                </div> <!-- small post -->
+                                    i++;
+                                }
+                            }, error: function(error){
+                                console.log(error);
+                            }
+                        })
+                    })
+
+                </script>
+
             </div> <!-- one section small posts -->
         </div> <!-- wrapper main first -->
+
+        <div class="category-posts-wrapper">
+            <div id="post-category-section" class="section-title-single-post"></div><!-- section title -->
+
+            <div id="cat-posts" class="category-posts"></div> <!-- cat posts -->
+        </div>
+
+        <script type="text/javascript">
+                $(document).ready(function(){
+                    var url = document.location.href,
+                    params = url.split('?')[1].split('&'),
+                    data = {}, tmp;
+                    for(var i = 0, l = params.length; i < l; i++){
+                        tmp = params[i].split('=');
+                        data[tmp[0]] = tmp[1];
+                    }
+
+                    const postId = data.postId;
+                    console.log(postId);
+
+                    $.ajax({
+                        url: 'users/count-views?postId=' + postId,
+                        method: 'PATCH',
+                        success: function(data){
+                            console.log(data);
+                        }, error: function(error){
+                            console.log(error);
+                        }
+                    })
+
+                    $.ajax({
+                        url: 'users/single-post?postId=' + postId,
+                        success: function(response){
+                            console.log(response);
+                            const singlePost = response.singlePost;
+
+                            $('#single-post-title').append(singlePost[0].title);
+                            $('#writer-name').append(singlePost[0].writer);
+                            $('#last-update').append(singlePost[0].date_posted + ' | ' + singlePost[0].time_posted);
+
+                            const singlePostImage = $('<img>').attr({ 'src':'admin/post-image?image=' + singlePost[0].image });
+                            $('#single-post-image').append(singlePostImage);
+
+                            $('#single-post-text').append(singlePost[0].text);
+
+                            $('#post-category-section').append(singlePost[0].category)
+
+                            $.ajax({
+                                url: 'users/cat-posts?id=' + singlePost[0].category_id,
+                                success: function(data){
+                                    console.log(data);
+                                    const catPosts = data.posts;
+
+                                    var i = 0;
+                                    while(i< catPosts.length){
+                                        const catPostWrapper = $('<a>').addClass('single-post').attr({ 'href':'post?postId=' + catPosts[i].ID });
+                                            const catPostImageWrapper = $('<div>').addClass('post-image');
+                                                const catPostImage = $('<img>').attr({ 'src':'admin/post-image?image=' + catPosts[i].image });
+                                            catPostImageWrapper.append(catPostImage);
+                                        catPostWrapper.append(catPostImageWrapper);
+
+                                            const catPostTitle = $('<div>').addClass('post-title').append(catPosts[i].title);
+                                        catPostWrapper.append(catPostTitle);
+
+                                            const catPostSmallTitle = $('<div>').addClass('post-small-title').append(catPosts[i].title)
+                                        catPostWrapper.append(catPostSmallTitle);
+
+                                            const catPostTimePosted = $('<div>').addClass('post-cat-time').append(catPosts[i].time_posted + ' | ' + catPosts[i].date_posted);
+                                        catPostWrapper.append(catPostTimePosted);
+
+                                        $('#cat-posts').append(catPostWrapper);
+
+                                        i++;
+                                    }
+                                }, error: function(error){
+                                    console.log(error);
+                                }
+                            })
+
+                        }, error: function(error){
+                            // console.log(error);
+                        }
+                    })
+                })
+
+            </script>
+
+        <div class="category-posts-wrapper">
+            <div class="section-title-single-post">Можеби ќе те интересира</div><!-- section title -->
+
+            <div id="int-posts" class="category-posts"></div> <!-- cat posts -->
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $.ajax({
+                    url: 'users/int-posts',
+                    success: function(data){
+                        console.log(data);
+                        const posts = data.posts;
+                        // console.log(posts)
+
+                        var i = 0;
+                        while(i< posts.length){
+                            // console.log(posts)
+                            const catPostWrapper = $('<a>').addClass('single-post').attr({ 'href':'post?postId=' + posts[i].ID });
+                                const catPostImageWrapper = $('<div>').addClass('post-image');
+                                    const catPostImage = $('<img>').attr({ 'src':'admin/post-image?image=' + posts[i].image });
+                                catPostImageWrapper.append(catPostImage);
+                            catPostWrapper.append(catPostImageWrapper);
+
+                                const catPostTitle = $('<div>').addClass('post-title').append(posts[i].title);
+                            catPostWrapper.append(catPostTitle);
+
+                                const catPostSmallTitle = $('<div>').addClass('post-small-title').append(posts[i].title)
+                            catPostWrapper.append(catPostSmallTitle);
+
+                                const catPostTimePosted = $('<div>').addClass('post-cat-time').append(posts[i].time_posted + ' | ' + posts[i].date_posted);
+                            catPostWrapper.append(catPostTimePosted);
+
+                            $('#int-posts').append(catPostWrapper);
+
+                            i++;
+                        }
+                    }, error: function(error){
+                        console.log(error);
+                    }
+                })
+            })
+        </script>
+        
     </div> <!-- main section -->
 
 

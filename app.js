@@ -84,6 +84,15 @@ app.get('/admin/admins', middlewares.verifyTokenAdmin, (req, res) => {
 app.get('/admin/new-admin', middlewares.verifyTokenAdmin, (req, res) => {
 	res.sendFile(__dirname + "/public/admin/new-admin.html");
 })
+app.get('/admin/new-sub-category', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/add-sub-category.html");
+})
+app.get('/admin/sub-cats', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/sub-categories.html");
+})
+app.get('/admin/edit-sub-catergory', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/edit-sub-catergory.html");
+})
 
 /// admin jss ///
 app.get('/admin-js/edit-cat-popup', middlewares.verifyTokenAdmin, (req, res) => {
@@ -106,6 +115,12 @@ app.get('/admin-js/add-post', middlewares.verifyTokenAdmin, (req, res) => {
 })
 app.get('/admin-js/get-users', middlewares.verifyTokenAdmin, (req, res) => {
 	res.sendFile(__dirname + "/public/admin/js/get-users.js");
+})
+app.get('/admin-js/mobile-header', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/js/mobile-header.js");
+})
+app.get('/admin-js/left-menu', middlewares.verifyTokenAdmin, (req, res) => {
+	res.sendFile(__dirname + "/public/admin/js/left-menu.js");
 })
 
 /// admin images ///
@@ -216,8 +231,14 @@ app.get('/user-footer-js', (req, res) => {
 app.get('/client/facebook-icon', (req, res) => {
 	res.sendFile(__dirname + "/public/user/icons/facebook.svg");
 })
+app.get('/client/facebook-icon-color', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/fb-color.png");
+})
 app.get('/client/twitter-icon', (req, res) => {
 	res.sendFile(__dirname + "/public/user/icons/twitter.svg");
+})
+app.get('/client/twitter-icon-color', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/twitter-png.png");
 })
 app.get('/client/insta-icon', (req, res) => {
 	res.sendFile(__dirname + "/public/user/icons/instagram.svg");

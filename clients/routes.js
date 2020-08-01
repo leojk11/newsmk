@@ -14,14 +14,18 @@ router.get('/w-posts', actions.getAllWorldPosts);
 router.get('/s-posts', actions.getAllSportPosts);
 router.get('/s-s-posts', actions.getAllSmallSportPosts);
 router.get('/p-posts', actions.getAllPartyPosts);
-router.get('/post', actions.getSinglePost);
+router.get('/single-post', actions.getSinglePost);
 router.get('/post-comments', actions.getCommentsForSinglePost);
 router.get('/big-post', actions.getOneBigPost);
 router.get('/two-posts', actions.firstTwoPostsFromToday);
 router.get('/random-posts', actions.getRandomPosts);
 router.get('/cat-posts', actions.getAllPostFromSingleCategory);
+router.get('/int-posts', actions.getPostsByViews);
 
 /// post ///
 router.post('/add-comment', actions.addComment);
+
+/// patch ///
+router.patch('/count-views', actions.countPostViews);
 
 module.exports = router;

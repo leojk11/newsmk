@@ -365,9 +365,31 @@ getAllSliderPosts = async(req, res) => {
         res.status(500).json({ error });
     }
 }
+getAllSubCategories = async(req, res) => {
+
+    getAllSubCatsQuery = () => {
+        const query = 'SELECT * FROM sub_cats';
+        return new Promise((res, rej) => {
+            con.query(query, (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    try {
+        const subCats = await getAllSubCatsQuery();
+        res.status(200).json({ subCats });
+    } catch(error){
+        res.status(200).json({ error });
+    }
+}
 
 
-/// post ///
+/// post requests ///
 addNewPost = async(req, res) => {
     const adminId = req.admin.adminId;
 
@@ -523,6 +545,47 @@ addNewCategory = async(req, res) => {
         await addNewCategoryQuery(data);
         res.status(200).json({ message: 'cat added' });
     } catch (error) {
+        res.status(500).json({ error });
+    }
+}
+addNewSubCategory = async(req, res) => {
+    const subCatObj = {
+        category: req.body.category,
+        subCat: req.body.sub_cat
+    }
+
+    getSingleCatIdQuery = (category) => {
+        const query = 'SELECT * FROM categories WHERE name = ?';
+        return new Promise((res, rej) => {
+            con.query(query, [category], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+    const category = await getSingleCatIdQuery(subCatObj.category);
+    const catId = category[0].ID;
+
+    addNewSubCatQuery = (subCatObj, catId) => {
+        const query = 'INSERT INTO sub_cats(sub_cat, category, category_id) VALUES(?,?,?)';
+        return new Promise((res, rej) => {
+            con.query(query, [subCatObj.subCat, subCatObj.category, catId], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    try {
+        await addNewSubCatQuery(subCatObj, catId);
+        res.status(200).json({ mess: 'sub cat added' });
+    } catch(error) {
         res.status(500).json({ error });
     }
 }
@@ -890,6 +953,7 @@ module.exports = {
     getSingleUser,
     seachUsers,
     getAllSliderPosts,
+    getAllSubCategories,
 
     /// post ///
     addNewPost,
@@ -897,6 +961,7 @@ module.exports = {
     addNewCategory,
     addNewUser,
     addNewAdmin,
+    addNewSubCategory,
 
     /// patch ///
     editCategory,

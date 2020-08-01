@@ -15,6 +15,7 @@ router.get('/users', middlewares.verifyTokenAdmin, actions.getAllUsers);
 router.get('/single-user', middlewares.verifyTokenAdmin, actions.getSingleUser);
 router.get('/search-users', middlewares.verifyTokenAdmin, actions.seachUsers);
 router.get('/slider-posts', middlewares.verifyTokenAdmin, actions.getAllSliderPosts);
+router.get('/sub-cats', middlewares.verifyTokenAdmin, actions.getAllSubCategories);
 
 /// post ///
 router.post('/new-post', middlewares.verifyTokenAdmin, actions.addNewPost);
@@ -22,6 +23,7 @@ router.post('/new-slider-post', middlewares.verifyTokenAdmin, actions.addNewSlid
 router.post('/new-cat', middlewares.verifyTokenAdmin, actions.addNewCategory);
 router.post('/new-user', middlewares.verifyTokenAdmin, actions.addNewUser);
 router.post('/new-admin', middlewares.verifyTokenAdmin, actions.addNewAdmin);
+router.post('/new-sub-cat', middlewares.verifyTokenAdmin, actions.addNewSubCategory)
 
 /// patch ///
 router.patch('/edit-cat', middlewares.verifyTokenAdmin, actions.editCategory);
