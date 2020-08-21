@@ -81,10 +81,10 @@
 		<a href="admin/add-slider-post"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new slider post</div></div></a>
 
 		<div class="label">Post categories</div>
-		<a href="admin/categories"><div class="menu-item active-menu-item"><img src="admin/cubes-icon" style="filter: invert(100%);"><div class="menu-item-text">Categories</div></div></a>
+		<a href="admin/categories"><div class="menu-item"><img src="admin/cubes-icon" style="filter: invert(100%);"><div class="menu-item-text">Categories</div></div></a>
 		<a href="admin/new-category"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new category</div></div></a>
 		<a id="edit-category"><div class="menu-item"><img src="admin/edit-svg" style="filter: invert(100%);"><div class="menu-item-text">Edit category</div></div></a>
-		<a href="admin/sub-cats"><div class="menu-item"><img src="admin/cubes-icon" style="filter: invert(100%);"><div class="menu-item-text">Sub-categories</div></div></a>
+		<a href="admin/sub-cats"><div class="menu-item active-menu-item"><img src="admin/cubes-icon" style="filter: invert(100%);"><div class="menu-item-text">Sub-categories</div></div></a>
 		<a href="admin/new-sub-category"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new sub-category</div></div></a>
 		<a id="edit-sub-category"><div class="menu-item"><img src="admin/edit-svg" style="filter: invert(100%);"><div class="menu-item-text">Edit sub-category</div></div></a>
 		<div class="add-new-admin-func"></div> <!-- head admin options -->
@@ -128,7 +128,7 @@
 						catWrapper.append(category);
 
 							const buttons = $('<div>').addClass('buttons');
-								const editBtnLink = $('<a>').attr({ 'href':'admin/edit-category?catId=' + categories[i].ID });
+								const editBtnLink = $('<a>');
 									const editBtnWrapper = $('<div>').addClass('edit-wrapper').attr({ 'id':categories[i].ID });
 										const editIcon = $('<img>').attr({ 'src':'admin/edit-icon'});
 									editBtnWrapper.append(editIcon);
@@ -149,7 +149,7 @@
 
 					$('.edit-wrapper').click(function(event){
 						const catId = this.id;
-						console.log(catId);
+						// console.log(catId);
 					})
 					$('.delete-wrapper').click(function(event){
 						const catId = this.id;

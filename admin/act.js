@@ -389,6 +389,7 @@ getAllSubCategories = async(req, res) => {
 }
 
 
+
 /// post requests ///
 addNewPost = async(req, res) => {
     const adminId = req.admin.adminId;
@@ -420,6 +421,7 @@ addNewPost = async(req, res) => {
         title: req.body.title,
         text: req.body.text,
         category: req.body.category,
+        subCat: req.body.subCat,
         image: req.body.image,
         writer: userFullName,
         views: 0
@@ -442,9 +444,26 @@ addNewPost = async(req, res) => {
 
     data.catId = catId;
 
+    getSubCategoryIdQuery = (subCat) => {
+        const query = 'SELECT * FROM sub_cats WHERE sub_cat = ?';
+        return new Promise((res, rej) => {
+            con.query(query, [subCat], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results);
+                }
+            })
+        })
+    }
+    const subCat = await getSubCategoryIdQuery(req.body.subCat);
+    const subCatId = subCat[0].ID;
+
+    data.subCatId = subCatId;
+
     addNewPostQuery = (data) => {
         return new Promise((res, rej) => {
-            con.query('INSERT INTO posts(title, text, image, writer, views, date_posted, time_posted, category, category_id) VALUES(?,?,?,?,?,CURRENT_DATE,CURRENT_TIMESTAMP(),?,?)', [data.title, data.text, data.image, data.writer, data.views, data.category, data.catId], (error, results, fields) => {
+            con.query('INSERT INTO posts(title, text, image, writer, views, date_posted, time_posted, category, category_id, sub_cat, sub_cat_id) VALUES(?,?,?,?,?,CURRENT_DATE,CURRENT_TIMESTAMP(),?,?,?,?)', [data.title, data.text, data.image, data.writer, data.views, data.category, data.catId, data.subCat, data.subCatId], (error, results, fields) => {
                 if(error){
                     rej(error)
                 } else {

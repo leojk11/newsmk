@@ -5,8 +5,9 @@ $(document).ready(function(){
         const title = $('#title').val();
         const text = $('#text').html();
         const category = $('#post-category').find(":selected").text();
+        const subCategory = $('#post-sub-category').find(":selected").text();
 
-        // console.log(text);
+        // console.log(subCategory);
 
         var input = $('#real-file')[0];
         var file = input.files[0];
@@ -19,6 +20,7 @@ $(document).ready(function(){
                 title: title,
                 text: text,
                 category: category,
+                subCat: subCategory,
                 image: fileName
             },
             success: function(data){
@@ -44,6 +46,26 @@ $(document).ready(function(){
                 i++;
             }
 
+        }, error: function(error){
+            console.log(error);
+        }
+    })
+
+    // get all sub cats
+    $.ajax({
+        url: 'admins/sub-cats',
+        success: function(data){
+            // console.log(data)
+
+            const subCats = data.subCats;
+            // console.log(categories);
+
+            var i = 0;
+            while(i < subCats.length){
+                const categoryOption = $('<option>').attr({ 'value':subCats[i].ID }).append(subCats[i].sub_cat);
+                    $('#post-sub-category').append(categoryOption);
+                i++;
+            }
         }, error: function(error){
             console.log(error);
         }

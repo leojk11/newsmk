@@ -13,7 +13,7 @@
 	<script src="admin-js/edit-user-popup"></script>
 	<script src="admin-js/logged-in-admin-info"></script>
 	<script src="admin-js/logout"></script>
-	<script src="admin-js/add-category"></script>
+	<!-- <script src="admin-js/add-category"></script> -->
 	<script src="admin-js/mobile-header"></script>
 </head>
 <body>
@@ -82,10 +82,10 @@
 
 		<div class="label">Post categories</div>
 		<a href="admin/categories"><div class="menu-item"><img src="admin/cubes-icon" style="filter: invert(100%);"><div class="menu-item-text">Categories</div></div></a>
-		<a href="admin/new-category"><div class="menu-item active-menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new category</div></div></a>
+		<a href="admin/new-category"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new category</div></div></a>
 		<a id="edit-category"><div class="menu-item"><img src="admin/edit-svg" style="filter: invert(100%);"><div class="menu-item-text">Edit category</div></div></a>
 		<a href="admin/sub-cats"><div class="menu-item"><img src="admin/cubes-icon" style="filter: invert(100%);"><div class="menu-item-text">Sub-categories</div></div></a>
-		<a href="admin/new-sub-category"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new sub-category</div></div></a>
+		<a href="admin/new-sub-category"><div class="menu-item active-menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new sub-category</div></div></a>
 		<a id="edit-sub-category"><div class="menu-item"><img src="admin/edit-svg" style="filter: invert(100%);"><div class="menu-item-text">Edit sub-category</div></div></a>
 		<div class="add-new-admin-func"></div> <!-- head admin options -->
 		<br>
@@ -156,8 +156,8 @@
 		            data: { sub_cat: title, category: category },
 		            success: function(data){
 		                console.log(data.mess);
-		                if(data.message == 'sub cat added'){
-		                    location.href = 'admin/sub-categories'
+		                if(data.mess == 'sub cat added'){
+		                    location.href = 'admin/sub-cats'
 		                }
 		            }, error: function(error){
 		                console.log(error);

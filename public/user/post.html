@@ -9,12 +9,49 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
-    <script src="user-header-js"></script>
 </head>
 <body>
     <div id="page-mask"></div><!-- page mask -->
 
-    <div id="header-place"></div> <!-- header place -->
+    <div class="new-header">
+        <div class="big-header"><a href="/">newsMK<span class="big-header-part">.mk</span></a></div>
+
+        <div class="smaller-header">
+            <div id="cats-wrapper" class="header-categories"></div> <!-- categories wrapper -->
+
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $.ajax({
+                        url: 'users/all-categories',
+                        success: function(data){
+                            // console.log(data)
+
+                            const categories = data.categories;
+
+                            var i = 0;
+                            while( i < categories.length){
+
+                                const singleCategory = $('<a>').addClass('one-category').append(categories[i].name).attr({ 'href':'category?catId=' + categories[i].ID });
+
+                                $('#cats-wrapper').append(singleCategory);
+
+                                i++;
+                            }
+                        }, error: function(error){
+                            // console.log(error);
+                        }
+                    })
+                })
+            </script>
+
+            <div class="menu">
+                <div class="menu-item"><img src="client/search-icon"></div>
+                <div id="show-login" class="menu-item" onclick='showLogin()'><img src="client/user-icon"></div>
+                <div class="menu-item"><img src="client/hamb-icon" style="filter: invert(100%);"></div>
+            </div>
+        </div>
+        
+    </div> <!-- new header -->
 
     
 

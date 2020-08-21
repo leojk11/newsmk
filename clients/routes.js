@@ -21,6 +21,11 @@ router.get('/two-posts', actions.firstTwoPostsFromToday);
 router.get('/random-posts', actions.getRandomPosts);
 router.get('/cat-posts', actions.getAllPostFromSingleCategory);
 router.get('/int-posts', actions.getPostsByViews);
+router.get('/cat-big', actions.getPostWithMostViewsFromCategory);
+router.get('/cat-sub', actions.getSubCatFromCategory);
+router.get('/sub-posts', actions.getAllSubCatPosts);
+router.get('/sub-rand', actions.getBigPostForSubCat);
+router.get('/sub-four', actions.getFourFromSubCat);
 
 /// post ///
 router.post('/add-comment', actions.addComment);

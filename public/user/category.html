@@ -8,560 +8,287 @@
 	<link rel="stylesheet" href="css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="user-header-js"></script>
+    <script src="user-footer-js"></script>
 </head>
-<body onload="startTime()">
-    <div class="page-mask"></div><!-- page mask -->
-    <div class="login-form">
-        <div class="login-form-title">Логирај се</div>
-        <br>
-        <div class="login-inputs">
-            <div class="row">
-                <input type="text" placeholder="Емаил">
-            </div> <!-- row -->
-            <div class="row">
-                <input type="password" placeholder="Лозинка">
-            </div> <!-- row -->
-            
-        </div><!-- login inputs -->
+<body>
+    <div id="page-mask"></div> <!-- page mask -->
 
-        <div class="button-wrapper">
-            <div id="login-btn" class="button">ЛОГИРАЈ СЕ</div> <!-- button -->
-            <div class="forget-pass">
-                <a href=""><div class="forgotten-pass">Заборавена лозинка?</div><!-- forgotten pass --></a>
-            </div><!-- forget pass -->
-        </div><!-- button wrapper -->
-    </div> <!-- login form -->
-	<div class="header">
-        <div class="header-wrapper">
-            <div class="logo">
-                newsMK
-            </div> <!-- logo -->
+    <div class="new-header">
+        <div class="big-header"><a href="/">newsMK<span class="big-header-part">.mk</span></a></div>
 
-            <div class="categories">
-                <div class="single-category">
-                    <div class="cat-name">Македонија</div>
-                    <div class="cat-name">Свет</div>
-                    <div class="cat-name">Спорт</div>
-                    <div class="cat-name">Магазин</div>
-                    <div class="cat-name">Забава</div>
-                </div><!-- single category -->
-            </div><!-- categories -->
-
-            <div class="clock-wrapper">
-                <div class="clock-icon">
-                    <img src="client/clock-icon" alt="">
-                </div> <!-- clock icon -->
-                <div class="clock"></div><!-- clock -->
-            </div>
-
-            <div id="show-dropdown" class="user-menu">
-                <div class="user-menu-icon"><img src="client/user-icon" alt=""></div>
-                <div class="user-menu-down"><img src="client/down-arrow-icon" alt=""></div>
-            </div> <!-- user menu -->
+        <div class="smaller-header">
+            <div id="cats-wrapper" class="header-categories"></div> <!-- categories wrapper -->
 
             <script type="text/javascript">
                 $(document).ready(function(){
-                    $('#show-dropdown').click(function(event){
-                        event.preventDefault();
+                    $.ajax({
+                        url: 'users/all-categories',
+                        success: function(data){
+                            // console.log(data)
 
-                        $('#dropdown-menu').slideToggle(500);
+                            const categories = data.categories;
+
+                            var i = 0;
+                            while( i < categories.length){
+
+                                const singleCategory = $('<a>').addClass('one-category').append(categories[i].name).attr({ 'href':'category?catId=' + categories[i].ID });
+
+                                $('#cats-wrapper').append(singleCategory);
+
+                                i++;
+                            }
+                        }, error: function(error){
+                            // console.log(error);
+                        }
                     })
                 })
             </script>
-        </div><!-- header wrapper -->
-    </div> <!-- header -->
-    <div id="dropdown-menu" class="user-dropdown">
-        <div class="dropdown-item">Регистрирај се</div>
-        <div id="login-menu" class="dropdown-item"><img src="client/login-icon"><span>Логирај се</span></div>
-    </div><!-- user dropdown -->
+
+            <div class="menu">
+                <div class="menu-item"><img src="client/search-icon"></div>
+                <div id="show-login" class="menu-item" onclick='showLogin()'><img src="client/user-icon"></div>
+                <div class="menu-item"><img src="client/hamb-icon" style="filter: invert(100%);"></div>
+            </div>
+        </div>
+        
+    </div> <!-- new header -->
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#login-menu').click(function(event){
-                console.log('leo')
-                $('.page-mask').fadeIn('slow');
-                $('.login-form').fadeIn('slow');
-            });
+            $('#show-login').click(function(){
+                $('#page-mask').fadeIn('fast');
+                $('.login-wrapper').fadeIn('fast');
+            })
 
-            $('.page-mask').click(function(event){
-                $('.page-mask').fadeOut('slow');
-                $('.login-form').fadeOut('slow');
+            showLogin = () => {
+                $('#page-mask').fadeIn('fast');
+                $('#login-wrapper').fadeIn('fast');
+            }
+
+            $('#page-mask').click(function(){
+                $('.login-wrapper').fadeOut('slow');
+                $('#page-mask').fadeOut('slow');
             })
         })
+
+        $(document).keyup(function(e) {
+            if (e.key === "Escape") {
+                $('.login-wrapper').fadeOut('slow');
+                $('#page-mask').fadeOut('slow');
+            }
+        });
     </script>
 
-    <div class="main">
-        <div class="left">
-            <div class="latest-news">
-                <div class="latest-label">
-                    Последни
-                </div><!-- latest label-->
-
-                <div class="single-post">
-                    <a href="#" class="latest-category">Македонија</a>
-                    <a href="#" class="post-title-link">
-                        <div class="post-title">
-                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
-                        </div><!-- post title -->
-                    </a> <!-- title link -->
-
-                    <div class="today-date">
-                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                        <div class="date">13:50, 11-05-2020</div>
-                    </div> <!-- today date -->
-                </div><!-- single post -->
-
-                <div class="single-post">
-                    <a href="#" class="latest-category">Македонија</a>
-                    <a href="#" class="post-title-link">
-                        <div class="post-title">
-                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
-                        </div><!-- post title -->
-                    </a> <!-- title link -->
-
-                    <div class="today-date">
-                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                        <div class="date">13:50, 11-05-2020</div>
-                    </div> <!-- today date -->
-                </div><!-- single post -->
-
-                <div class="single-post">
-                    <a href="#" class="latest-category">Македонија</a>
-                    <a href="#" class="post-title-link">
-                        <div class="post-title">
-                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
-                        </div><!-- post title -->
-                    </a> <!-- title link -->
-
-                    <div class="today-date">
-                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                        <div class="date">11-05-2020</div>
-                    </div> <!-- today date -->
-                </div><!-- single post -->
-            </div><!-- latest -->
-
-            <div class="latest-news">
-                <div class="latest-label">
-                    Магазин
-                </div><!-- latest label-->
-
-                <div class="single-post">
-                    <div class="post-image">
-                        <div class="see-more">
-                            <div class="see-more-btn">see more</div><!-- see more btn -->
-                        </div><!-- see more -->
-
-                        <img src="client/test-img6" alt="">
-                    </div><!-- post image -->
-
-                    <div class="post-title">
-                        <b>Армани ги преместува работните простории од Париз во Милано</b>
-                    </div><!-- post title -->
-                </div><!-- single post -->
-
-                <div class="single-post">
-                    <div class="post-image">
-                        <div class="see-more">
-                            <div class="see-more-btn">see more</div><!-- see more btn -->
-                        </div><!-- see more -->
-
-                        <img src="client/test-img6" alt="">
-                    </div><!-- post image -->
-
-                    <div class="post-title">
-                        <b>Армани ги преместува работните простории од Париз во Милано</b>
-                    </div><!-- post title -->
-                </div><!-- single post -->
-
-                <div class="single-post">
-                    <div class="post-image">
-                        <div class="see-more">
-                            <div class="see-more-btn">see more</div><!-- see more btn -->
-                        </div><!-- see more -->
-                        
-                        <img src="client/test-img6" alt="">
-                    </div><!-- post image -->
-
-                    <div class="post-title">
-                        <b>Армани ги преместува работните простории од Париз во Милано</b>
-                    </div><!-- post title -->
-                </div><!-- single post -->
-            </div><!-- latest -->
-        </div><!-- left -->
-        
-        <div class="middle">
-            <div class="category-post">
-                <div class="cat-title">
-                   <a class="title-cat-link" href="#">Македонија</a> 
-                </div> <!-- cat title -->
-
-                <div class="posts-wrapper">
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
     
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
 
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
-    
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+    <div id="login-wrapper" class="login-wrapper">
+        <div class="login-top">
+            <div class="person-icon"><img src="client/user-icon" alt="user" style="filter:invert(100%)"></div> <!-- person icon -->
 
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
+            <div class="close-icon"></div> <!-- close icon -->
+        </div><!-- login top -->
 
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+        <div class="login-title">
+            <div class="login">Log In</div> <!-- log in -->
 
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
+            <div class="register">Need newsMK accound? <a href="#">Sign up</a></div><!-- register -->
+        </div> <!-- login title -->
 
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+        <div class="login-form">
+            <div class="row">
+                <div class="label">Email</div>
+                <input type="text">
+            </div>
 
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
+            <div class="row">
+                <div class="label">Password</div>
+                <input type="text">
+            </div>
 
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+            <div class="forgot-password"><a href="#">Forgot password?</a></div>
 
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
+            <div class="stay-logged">
+                <div id='checkbox' class="checkbox"></div> <!-- check box -->
 
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $('#checkbox').click(function(event){
+                            event.preventDefault();
 
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
+                            $('.checkbox').css({ 'background':'whitesmoke' })
 
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+                        })
+                    })
+                </script>
 
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
+                <!-- <input type="checkbox"> -->
+                <div class="stay-logged-label">Stay logged in</div>
+            </div> <!-- stay logged in -->
 
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+            <div class="login-btn">Log In</div><!-- login btn-->
+        </div> <!-- login form -->
+    </div><!-- login form -->
 
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
+    <div id="main-sec" class="main-section">
 
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+        <script type="text/javascript">
+            $(document).ready(function(){
+                // get item from url
+                var url = document.location.href,
+                    params = url.split('?')[1].split('&'),
+                    data = {}, tmp;
+                for (var i = 0, l = params.length; i < l; i++) {
+                    tmp = params[i].split('=');
+                    data[tmp[0]] = tmp[1];
+                }
 
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
+                const catId = data.catId;
 
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+                $.ajax ({
+                    url: 'users/cat-sub?catId=' + catId,
+                    success: function(data){
+                        // console.log(data);
+                        const subCats = data.subCats;
 
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
+                        var i = 0;
+                        while(i < subCats.length){
+                            const wrapper = $('<div>').addClass('sub-cats-wrapper');
 
-                    <div class="single-post-cat">
-                        <div class="post-image">
-                            <div class="see-more">
-                                <div class="see-more-btn">see more</div><!-- see more btn -->
-                            </div><!-- see more -->
+                            const sectionTitle = $('<div>').addClass('section-title').append(subCats[i].sub_cat);
 
-                            <img src="client/test-img2" alt="">
-                        </div><!-- post image -->
-                        
-                        <div class="post-other-info">
-                            <div class="post-title">
-                                <b>20 нови случаи на коронавирус во земјава, најмногу заболени во Скопје</b>
-                            </div><!-- post title -->
-                            <div class="today-date">
-                                <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                                <div class="date">11-05-2020</div>
-                            </div> <!-- today date -->
-                        </div><!-- post other info-->
-                    </div><!-- single post cat -->
-                </div><!-- posts wrapper -->
-            </div><!-- category post-->
+                            wrapper.append(sectionTitle);
+                            console.log(subCats[i].ID)
 
-            </div><!-- middle -->
+                            const postSection = $('<div>').addClass('rand-section-wrapper');
 
-        <div class="right">
-            <div class="latest-news">
-                <div class="latest-label">
-                    Топ вести
-                </div><!-- latest label-->
 
-                <div class="single-post">
-                    <a href="#" class="latest-category">Македонија</a>
-                    <a href="#" class="post-title-link">
-                        <div class="post-title">
-                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
-                        </div><!-- post title -->
-                    </a> <!-- title link -->
+                            $.ajax({
+                                url: 'users/sub-rand?subCatId=' + subCats[i].ID,
+                                success: function(data){
+                                    console.log(data);
+                                    const randPost = data.randPost;
 
-                    <div class="today-date">
-                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                        <div class="date">13:50, 11-05-2020</div>
-                    </div> <!-- today date -->
-                </div><!-- single post -->
+                                            const bigPost = $('<div>').addClass('cat-rand-big');
+                                                const bigLeft = $('<div>').addClass('big-left');
+                                                    const bigLeftImgDiv = $('<div>').addClass('big-left-img');
+                                                        const bigLeftImg = $('<img>').attr({ 'src':'admin/post-image?image=' + randPost[0].image });
+                                                    bigLeftImgDiv.append(bigLeftImg);
+                                                    const bigLeftTitle = $('<div>').addClass('big-left-title caption-with-shadow').append(randPost[0].title);
+                                                bigLeft.append(bigLeftImgDiv);
+                                                bigLeft.append(bigLeftTitle);
+                                            bigPost.append(bigLeft);
+                                        postSection.append(bigPost);
 
-                <div class="single-post">
-                    <a href="#" class="latest-category">Македонија</a>
-                    <a href="#" class="post-title-link">
-                        <div class="post-title">
-                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
-                        </div><!-- post title -->
-                    </a> <!-- title link -->
+                                        wrapper.append(postSection);
 
-                    <div class="today-date">
-                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                        <div class="date">13:50, 11-05-2020</div>
-                    </div> <!-- today date -->
-                </div><!-- single post -->
+                                }, error: function(error){
+                                    console.log(error);
+                                }
+                            })
 
-                <div class="single-post">
-                    <a href="#" class="latest-category">Македонија</a>
-                    <a href="#" class="post-title-link">
-                        <div class="post-title">
-                            <b>ФОТО: СДСМ не ги почитува мерките и препораките за спречување на ширењето на корона вирусот</b>
-                        </div><!-- post title -->
-                    </a> <!-- title link -->
 
-                    <div class="today-date">
-                        <div class="clock-icon"><img src="client/clock-icon" alt=""></div>
-                        <div class="date">11-05-2020</div>
-                    </div> <!-- today date -->
-                </div><!-- single post -->
-            </div><!-- latest -->
+                            const rightSmaller = $('<div>').addClass('right-smaller');
+                                const smallerTop = $('<div>').addClass('smaller-top').attr({ 'id':'first' });
+                                const smallerBtm = $('<div>').addClass('smaller-top').attr({ 'id':'last' }).css({ 'margin-top':'5px' })
 
-            <div class="latest-news space-arount">
-                <div class="latest-label">
-                    Спорт
-                </div><!-- latest label-->
 
-                <div class="single-post-small">
-                    <div class="post-small-image">
-                        <img src="client/test-img5" alt="">
-                    </div> <!-- small post image -->
+                            $.ajax({
+                                url: 'users/sub-four?id=' + subCats[i].ID,
+                                success: function(data){
+                                    console.log(data);
+                                    // const posts = data.subPosts;
+                                    const first = data.firstTwo;
+                                    const last = data.lastTwo;
 
-                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
-                </div><!-- small post -->
+                                    var i = 0;
+                                    while(i < first.length){
 
-                <div class="single-post-small">
-                    <div class="post-small-image">
-                        <img src="client/test-img5" alt="">
-                    </div> <!-- small post image -->
+                                        const smallerPost = $('<div>').addClass('smaller-post');
+                                            const smallerImgDiv = $('<div>').addClass('smaller-img');
+                                                const smallerImg = $('<img>').attr({ 'src':'admin/post-image?image=' + first[i].image });
+                                            smallerImgDiv.append(smallerImg);
+                                        smallerPost.append(smallerImgDiv);
+                                            const smallerTitle = $('<div>').addClass('smaller-title caption-with-shadow').append(first[i].title);
+                                        smallerPost.append(smallerTitle);
 
-                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
-                </div><!-- small post -->
+                                        smallerTop.append(smallerPost);
 
-                <div class="single-post-small">
-                    <div class="post-small-image">
-                        <img src="client/test-img5" alt="">
-                    </div> <!-- small post image -->
+                                        i++;
+                                    }
+                                    var j = 0;
+                                    while(j < last.length){
 
-                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
-                </div><!-- small post -->
+                                        const smallerPost = $('<div>').addClass('smaller-post');
+                                            const smallerImgDiv = $('<div>').addClass('smaller-img');
+                                                const smallerImg = $('<img>').attr({ 'src':'admin/post-image?image=' + last[j].image });
+                                            smallerImgDiv.append(smallerImg);
+                                        smallerPost.append(smallerImgDiv);
+                                            const smallerTitle = $('<div>').addClass('smaller-title caption-with-shadow').append(last[j].title);
+                                        smallerPost.append(smallerTitle);
 
-                <div class="single-post-small">
-                    <div class="post-small-image">
-                        <img src="client/test-img5" alt="">
-                    </div> <!-- small post image -->
+                                        smallerBtm.append(smallerPost);
 
-                    <div class="post-small-title">Мејер: Однесувањето на играчите на и надвор од теренот ќе биде клучно за завршување на сезоната</div><!-- small post title -->
-                </div><!-- small post -->
-            </div><!-- latest -->
-        </div><!-- right -->
-    </div><!-- main -->
+                                        j++;
+                                    }
+
+
+
+
+                                }, error: function(error){
+                                    console.log(error);
+                                }
+                            })
+
+                            rightSmaller.append(smallerTop);
+                            rightSmaller.append(smallerBtm);
+
+                            postSection.append(rightSmaller);
+
+                            $('#main-sec').append(wrapper);
+
+                            i++;
+                        }
+                    }, error: function(error){
+                        console.log(error);
+                    }
+                })
+            })
+        </script>
+
+
+    </div> <!-- main section -->
 
     <div class="footer">
-        <div class="menu">
-            <div class="footer-item">
-                КОНТАКТ
+        <div class="footer-wrapper" style="border-bottom: 1px solid whitesmoke; padding-bottom: 30px">
+            <div class="footer-logo">newsMK</div>
+
+            <div class="footer-right-wrapper">
+                <div class="social-media">
+                    <div class="social-media-icon"><img src="client/facebook-icon"></div>
+                    <div class="social-media-icon"><img src="client/insta-icon"></div>
+                    <div class="social-media-icon"><img src="client/twitter-icon"></div>
+                </div>
             </div>
-        </div> <!-- menu -->
+        </div>
 
-        <div class="social-media-top-menu">
-            <div class="social-menu-item"><img src="client/facebook-icon"></div>
-            <div class="social-menu-item"><img src="client/twitter-icon"></div>
-            <div class="social-menu-item"><img src="client/insta-icon"></div>
-            <!-- <div class="social-menu-item"><img src="client/phone-icon"></div> -->
-        </div><!-- social media top menu -->
-
-        <div class="copyright">
-            © Copyright 2020 newsmk.mk
-        </div> <!-- copyright -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-item">Terms of use</div>
+            <div class="footer-bottom-item">Privacy policy</div>
+            <div class="footer-bottom-item">Accessibillity & CC</div>
+            <div class="footer-bottom-item">AdChoices</div>
+            <div class="footer-bottom-item">About Us</div>
+            <div class="footer-bottom-item">Moder Slavery Act Statement</div>
+            <div class="footer-bottom-item">Advertise with us</div>
+            <div class="footer-bottom-item">newsMK Store</div>
+            <div class="footer-bottom-item">Newsletter</div>
+            <div class="footer-bottom-item">Trascripts</div>
+            <div class="footer-bottom-item">License Footage</div>
+            <div class="footer-bottom-item">newsMK Newsource</div>
+            <div class="footer-bottom-item">Sitemap</div>
+        </div>
     </div> <!-- footer -->
-
-    <script>
-        function startTime() {
-            var today = new Date();
-            var h = today.getHours();
-            var m = today.getMinutes();
-            var s = today.getSeconds();
-            m = checkTime(m);
-            s = checkTime(s);
-            document.querySelector('.clock').innerHTML = h + ":" + m + ":" + s;
-            var t = setTimeout(startTime, 500);
-          }
-          function checkTime(i) {
-            if (i < 10) {i = "0" + i};
-            return i;
-          }
-    </script>
+    
 </body>
 </html>

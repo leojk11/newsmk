@@ -383,6 +383,158 @@ getPostsByViews = async(req, res) => {
         res.status(500).json({ error });
     }
 }
+getPostWithMostViewsFromCategory = async(req, res) => {
+    const catId = req.query.catId;
+
+    postWithMostViewsQuery = (catId) => {
+        const query = 'SELECT * FROM posts WHERE category_id = ? ORDER BY views DESC LIMIT 1';
+        return new Promise((res, rej) => {
+            con.query(query, [catId], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    try {
+        const post = await postWithMostViewsQuery(catId);
+        res.status(200).json({ post });
+    } catch(error) {
+        res.status(500).json({ error });
+    }
+}
+getSubCatFromCategory = async(req, res) => {
+    const catId = req.query.catId;
+
+    getSubCatsQuery = (catId) => {
+        const query = 'SELECT * FROM sub_cats WHERE category_id = ?';
+        return new Promise((res, rej) => {
+            con.query(query, [catId], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    try {
+        const subCats = await getSubCatsQuery(catId);
+        res.status(200).json({ subCats });
+    } catch(error){
+        res.status(500).json({ error })
+    }
+}
+getAllSubCatPosts = async(req, res) => {
+    const subCatId = req.query.subCatId;
+
+    getAllSubCatPosts = (subCatId) => {
+        const query = 'SELECT * FROM posts WHERE sub_cat_id = ?';
+        return new Promise((res, rej) => {
+            con.query(query, [subCatId], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    try {
+        const subCatPosts = await getAllSubCatPosts(subCatId);
+        res.status(200).json({ subCatPosts });
+    } catch(error){
+        res.status(500).json({ error })
+    }
+}
+getLastFourSubCatPosts = async(req, res) => {
+    const id = req.query.id;
+
+    getFourPostsQuery = (id) => {
+        const query = 'SELECT * FROM posts WHERE sub_cat_id = ? ORDER BY ID DESC LIMIT 4';
+        return new Promise((res, rej) => {
+            con.query(query, [id], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    try {
+        const subPosts = await getFourPostsQuery(id);
+        res.status(200).json({ subPosts });
+    } catch(error){
+        res.status(500).json({ error });
+    }
+}
+getBigPostForSubCat = async(req, res) => {
+    const subCatId = req.query.subCatId;
+
+    getOnePostQuery = (subCatId) => {
+        const query = 'SELECT * FROM posts WHERE sub_cat_id = ? ORDER BY RAND() LIMIT 1';
+        return new Promise((res, rej) => {
+            con.query(query, [subCatId], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    try {
+        const randPost = await getOnePostQuery(subCatId);
+        res.status(200).json({ randPost });
+    } catch(error){
+        res.status(500).json({ error })
+    }
+}
+getFourFromSubCat = async(req, res) => {
+    const subId = req.query.id;
+
+    getFirstTwoQuery = (id) => {
+        const query = 'SELECT * FROM posts WHERE sub_cat_id = ? AND date_posted = CURRENT_DATE() LIMIT 2';
+        return new Promise((res, rej) => {
+            con.query(query, [id], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    getLastTwoQuery = (id) => {
+        const query = 'SELECT * FROM posts WHERE sub_cat_id = ? AND date_posted = CURRENT_DATE() ORDER BY ID DESC LIMIT 2';
+        return new Promise((res, rej) => {
+            con.query(query, [id], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
+
+    try {
+        const firstTwo = await getFirstTwoQuery(subId);
+        const lastTwo = await getLastTwoQuery(subId);
+        res.status(200).json({ firstTwo, lastTwo });
+    } catch(error) {
+        res.status(500).json({ error });
+    }
+}
 
 /// post ///
 addComment = async(req, res) => {
@@ -475,6 +627,12 @@ module.exports = {
     getRandomPosts,
     getAllPostFromSingleCategory,
     getPostsByViews,
+    getPostWithMostViewsFromCategory,
+    getSubCatFromCategory,
+    getAllSubCatPosts,
+    getBigPostForSubCat,
+    getLastFourSubCatPosts,
+    getFourFromSubCat,
 
     /// post ///
     addComment,
