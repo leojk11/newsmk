@@ -683,6 +683,10 @@ a {
     text-decoration: underline;
 }
 
+.mobile-header {
+    display: none;
+}
+
 @media only screen and (max-width: 992px) {
     html, body {
         max-width: 100%;
@@ -826,4 +830,97 @@ a {
         width: 100%;
         text-align: center;
     }
+
+    .footer-logo {
+        display: none;  
+    }
+    .footer-right-wrapper {
+        width: 100%;
+    }
+    .social-media {
+        width: 50%;
+        margin: 0 auto;
+        margin-top: 50px;
+    }
+    .social-media-icon {
+        width: 80px;
+    }
+
+    .new-header {
+        display: none;
+    }
+    .mobile-header {
+        display: flex;
+        background: black;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .mobile-header .hamb-icon {
+        width: 100px;
+    }
+    .mobile-header .hamb-icon img {
+        width: 100%;
+    }
+    .mobile-header-search-icon {
+        width: 100px;
+    }
+    .mobile-header-search-icon img {
+        width: 100%;
+    }
+    .big-header {
+        font-size: 50px;
+    }
+    .big-header-part {
+        font-size: 50px;
+    }
+
+    .mobile-menu {
+        width: 70%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        background-color: black;
+        color: whitesmoke;
+        padding: 20px;
+        z-index: 999;
+    }
+    .mobile-menu-cats {
+        margin-top: 150px;
+        display: flex;
+        flex-direction: column;
+    }
+    .mobile-menu-single-cat {
+        font-size: 3rem;
+        margin-top: 50px;
+        text-align: center;
+    }
+
+    .mobile-menu-close {
+        width: 100px;
+        position: absolute;
+        right: 20px;
+    }
+    .mobile-menu-close img {
+        width: 100%;
+    }
+
+    .mobile-search {
+        width: 100%;
+        padding: 20px;
+        background: black;
+        color: whitesmoke;
+    }
+    .mobile-search input {
+        width: 100%;
+        padding: 20px;
+        background: black;
+        color: whitesmoke;
+        font-size: 2.5rem;
+        border: none;
+        outline: none;
+    }
+
 }

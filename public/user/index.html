@@ -46,8 +46,10 @@
                             while( i < categories.length){
 
                                 const singleCategory = $('<a>').addClass('one-category').append(categories[i].name).attr({ 'href':'category?catId=' + categories[i].ID });
-
                                 $('#cats-wrapper').append(singleCategory);
+
+                                const mobileSingleCategory = $('<a>').addClass('mobile-menu-single-cat').append(categories[i].name).attr({ 'href':'category?catId=' + categories[i].ID });
+                                $('#mobile-cats').append(mobileSingleCategory);
 
                                 i++;
                             }
@@ -66,6 +68,55 @@
         </div>
         
     </div> <!-- new header -->
+
+    <div class="mobile-header">
+        <div id="show-mobile-menu" class="hamb-icon"><img src="client/hamb-icon"></div>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#show-mobile-menu').click(function(event){
+                    $('#mobile-menu').animate({width:'toggle'},550);
+                    $('#mobile-cats').fadeIn('slow');
+                    $('#page-mask').fadeIn('fast');
+                })
+            })
+        </script>
+
+        <div class="big-header"><a href="/">newsMK<span class="big-header-part">.mk</span></a></div>
+
+        <div id="show-search" class="mobile-header-search-icon"><img src="client/search-icon" style="filter: invert(100%);"></div>
+    </div> <!-- mobile header -->
+
+    <div id="mobile-menu" class="mobile-menu" style="display: none;">
+        <div id="mobile-menu-close" class="mobile-menu-close"><img src="client/close-icon" style="filter: invert(100%);"></div>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#mobile-menu-close').click(function(event){
+                    $('#mobile-menu').animate({ width:'toggle' },550);
+                    $('#mobile-cats').fadeOut('fast');
+                    $('#page-mask').fadeOut('fast');
+                })
+            })
+        </script>
+
+        <div id="mobile-cats" class="mobile-menu-cats" style="display: none;"></div> <!-- mobile menu cats -->
+
+        <div class="mobile-menu-social-media"></div> <!-- mobile menu social media -->
+    </div> <!-- mobile menu -->
+
+    <div id="mobile-search-menu" class="mobile-search" style="display: none;">
+        <input class="mobile-search-input" type="text" placeholder="Search..">
+    </div> <!-- mobile search -->
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#show-search').click(function(event){
+                $('#mobile-search-menu').slideToggle();
+            })
+        })
+    </script>
+    
 
     <script type="text/javascript">
         $(document).ready(function(){
