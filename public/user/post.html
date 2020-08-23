@@ -32,7 +32,6 @@
                             while( i < categories.length){
 
                                 const singleCategory = $('<a>').addClass('one-category').append(categories[i].name).attr({ 'href':'category?catId=' + categories[i].ID });
-
                                 $('#cats-wrapper').append(singleCategory);
 
                                 const mobileSingleCategory = $('<a>').addClass('mobile-menu-single-cat').append(categories[i].name).attr({ 'href':'category?catId=' + categories[i].ID });
@@ -176,7 +175,7 @@
     </div><!-- login form -->
 
 
-    <div class="main-section" style="width: 70%;">
+    <div id="post-main-section" class="main-section">
         <div id="single-post-title" class="single-post-title"></div>
 
         <div class="writer">
@@ -203,7 +202,7 @@
 
             
 
-            <div id="latest-posts" class="one-section-small-posts" style="margin-left: 10px;">
+            <div id="latest-posts" class="one-section-small-posts">
                 <div class="section-title-single-post">Latest</div>
 
                 <script type="text/javascript">
@@ -276,6 +275,8 @@
                             const singlePost = response.singlePost;
 
                             $('#single-post-title').append(singlePost[0].title);
+                            document.title = singlePost[0].title;
+
                             $('#writer-name').append(singlePost[0].writer);
                             $('#last-update').append(singlePost[0].date_posted + ' | ' + singlePost[0].time_posted);
 
@@ -371,6 +372,36 @@
         </script>
         
     </div> <!-- main section -->
+
+    <div class="footer">
+        <div class="footer-wrapper" style="border-bottom: 1px solid whitesmoke; padding-bottom: 30px">
+            <div class="footer-logo">newsMK</div>
+
+            <div class="footer-right-wrapper">
+                <div class="social-media">
+                    <div class="social-media-icon"><img src="client/facebook-icon"></div>
+                    <div class="social-media-icon"><img src="client/insta-icon"></div>
+                    <div class="social-media-icon"><img src="client/twitter-icon"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-item">Terms of use</div>
+            <div class="footer-bottom-item">Privacy policy</div>
+            <div class="footer-bottom-item">Accessibillity & CC</div>
+            <div class="footer-bottom-item">AdChoices</div>
+            <div class="footer-bottom-item">About Us</div>
+            <div class="footer-bottom-item">Moder Slavery Act Statement</div>
+            <div class="footer-bottom-item">Advertise with us</div>
+            <div class="footer-bottom-item">newsMK Store</div>
+            <div class="footer-bottom-item">Newsletter</div>
+            <div class="footer-bottom-item">Trascripts</div>
+            <div class="footer-bottom-item">License Footage</div>
+            <div class="footer-bottom-item">newsMK Newsource</div>
+            <div class="footer-bottom-item">Sitemap</div>
+        </div>
+    </div> <!-- footer -->
 
 
 </body>
