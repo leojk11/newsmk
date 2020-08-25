@@ -73,8 +73,8 @@
 		<a id="edit-user"><div class="menu-item"><img src="admin/edit-svg" style="filter: invert(100%);"><div class="menu-item-text">Edit user</div></div></a>
 
 		<div class="label">Posts</div>
-		<a href="admin/posts"><div class="menu-item active-menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage posts</div></div></a>
-		<a href="admin/new-post"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new post</div></div></a>
+		<a href="admin/posts"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage posts</div></div></a>
+		<a href="admin/new-post"><div class="menu-item active-menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new post</div></div></a>
 
 		<div class="label">Slider posts</div>
 		<a href="admin/slider-post"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage slider posts</div></div></a>
@@ -115,7 +115,15 @@
 				</div>
 				<br>
 				<div class="row">
-					<input id="title" class="new-post-input" type="text" placeholder="Title">
+					<input id="title" class="new-post-input" type="text" placeholder="Title" name="title">
+				</div>
+				<br>
+				<div class="row">
+					<input id="small_title" class="new-post-input" type="text" placeholder="Small title" name="small title">
+				</div>
+				<br>
+				<div class="row">
+					<input id="source" class="new-post-input" type="text" placeholder="Source" name="source">
 				</div>
 				<br>
 				<div class="row">

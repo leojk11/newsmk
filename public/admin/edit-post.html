@@ -72,7 +72,7 @@
 		<a id="edit-user"><div class="menu-item"><img src="admin/edit-svg" style="filter: invert(100%);"><div class="menu-item-text">Edit user</div></div></a>
 
 		<div class="label">Posts</div>
-		<a href="admin/posts"><div class="menu-item active-menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage posts</div></div></a>
+		<a href="admin/posts"><div class="menu-item"><img src="admin/calendar-icon" style="filter: invert(100%);"><div class="menu-item-text">Manage posts</div></div></a>
 		<a href="admin/new-post"><div class="menu-item"><img src="admin/add-new-icon" style="filter: invert(100%);"><div class="menu-item-text">Add new post</div></div></a>
 
 		<div class="label">Slider posts</div>
@@ -114,17 +114,41 @@
 				</div>
 				<br>
 				<div class="row">
-					<input id="title" class="new-post-input" type="text" placeholder="Title">
+					<label class="cms-edit-label">Title</label>
+					<input id="title" class="new-post-input" type="text" placeholder="Title" name="title">
 				</div>
 				<br>
 				<div class="row">
+					<label class="cms-edit-label">Small title</label>
+					<input id="small_title" class="new-post-input" type="text" placeholder="Small title" name="small title">
+				</div>
+				<br>
+				<div class="row">
+					<label class="cms-edit-label">Source</label>
+					<input id="source" class="new-post-input" type="text" placeholder="Source" name="source">
+				</div>
+				<br>
+				<div class="row">
+					<label class="cms-edit-label">Category</label>
 					<!-- <input id="category" class="new-post-input" type="text" placeholder="Category"> -->
 					<select name="category" id="post-category" class="new-post-input" placeholder="Select category">
-						<option id="post-cat" value=""></option>
+						<option value="" id="post-primary-category"></option>
 					</select>
 				</div>
 				<br>
-				<textarea id="text" class="new-post-input" name="text" id="text" cols="30" rows="10" placeholder="Text"></textarea>
+				<div class="row">
+					<label class="cms-edit-label">Sub-category</label>
+					<!-- <input id="category" class="new-post-input" type="text" placeholder="Category"> -->
+					<select name="category" id="post-sub-category" class="new-post-input" placeholder="Select category">
+						<option value="" id="post-primary-sub-cat"></option>
+					</select>
+				</div>
+				<br>
+				<div class="row">
+					<label class="cms-edit-label">Text</label>
+					<div id="text" class="new-post-input" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" autocorrect="true"></div>
+				</div>
+				<!-- <textarea id="text" class="new-post-input" name="text" id="text" cols="30" rows="10" placeholder="Text"></textarea> -->
 				<br>
 				<br>
 				<button class="save-btn"><img src="admin/add-new-icon"><span>Save</span></button>
@@ -155,6 +179,11 @@
                     $('#title').val(post[0].title);
                     $('#post-cat').append(post[0].category);
                     $('#text').append(post[0].text);
+					$('#small_title').val(post[0].small_title);
+					$('#source').val(post[0].source);
+
+					$('#post-primary-category').append(post[0].category);
+					$('#post-primary-sub-cat').append(post[0].sub_cat)
 
                     $('#custom-button').attr({ 'src':'admin/post-image?image=' + post[0].image });
                 }
@@ -180,9 +209,12 @@
 			})
 
 			$('.save-btn').click(function(event){
-                const title = $('#title').val();
-                const text = $('#text').val();
-                const category = $('#category').val();
+				const title = $('#title').val();
+				const smallTitle = $('#small_title').val();
+        		const source = $('#source').val();
+                const text = $('#text').html();
+                const category = $('#post-category').find(":selected").text();
+        		const subCat = $('#post-sub-category').find(":selected").text();
 
                 var input = $('#real-file')[0];
                 var file = input.files[0];
@@ -195,7 +227,7 @@
                 $.ajax({
                     url: 'admins/edit-post?postId=' + postId,
                     method: 'patch',
-                    data: { title, text, category, image },
+                    data: { title, text, category, image, smallTitle, source, subCat },
                     success: function(data){
                         console.log(data);
                     }, error: function(error){

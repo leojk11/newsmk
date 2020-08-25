@@ -424,7 +424,9 @@ addNewPost = async(req, res) => {
         subCat: req.body.subCat,
         image: req.body.image,
         writer: userFullName,
-        views: 0
+        views: 0,
+        source: req.body.source,
+        smallTitle: req.body.smallTitle
     };
     console.log(data);
 
@@ -463,7 +465,7 @@ addNewPost = async(req, res) => {
 
     addNewPostQuery = (data) => {
         return new Promise((res, rej) => {
-            con.query('INSERT INTO posts(title, text, image, writer, views, date_posted, time_posted, category, category_id, sub_cat, sub_cat_id) VALUES(?,?,?,?,?,CURRENT_DATE,CURRENT_TIMESTAMP(),?,?,?,?)', [data.title, data.text, data.image, data.writer, data.views, data.category, data.catId, data.subCat, data.subCatId], (error, results, fields) => {
+            con.query('INSERT INTO posts(title, text, image, writer, views, date_posted, time_posted, category, category_id, sub_cat, sub_cat_id, source, small_title) VALUES(?,?,?,?,?,CURRENT_DATE,CURRENT_TIMESTAMP(),?,?,?,?,?,?)', [data.title, data.text, data.image, data.writer, data.views, data.category, data.catId, data.subCat, data.subCatId, data.source, data.smallTitle], (error, results, fields) => {
                 if(error){
                     rej(error)
                 } else {
@@ -803,7 +805,10 @@ editPost = async(req, res) => {
         title: req.body.title,
         text: req.body.text,
         category: req.body.category,
-        image: req.body.image
+        image: req.body.image,
+        smallTitle: req.body.smallTitle,
+        source: req.body.source,
+        subCat: req.body.subCat
     }
     console.log(postData);
 
@@ -845,15 +850,27 @@ editPost = async(req, res) => {
             post.image = postData.image
         }
 
+        if(postData.source == ''){
+            postData.source = post.source
+        } else {
+            post.source = postData.source
+        }
+
+        if(postData.smallTitle == '') {
+            postData.smallTitle = post.smallTitle
+        } else {
+            post.smallTitle = postData.smallTitle
+        }
+
         return post;
     })
 
     const finalResults = editPost[0];
 
     editPostQuery = (data, postId) => {
-        const query = 'UPDATE posts SET title = ?, text = ?, category = ?, image = ? WHERE ID = ?';
+        const query = 'UPDATE posts SET title = ?, text = ?, category = ?, image = ?, small_title = ?, source = ?, sub_cat = ? WHERE ID = ?';
         return new Promise((res, rej) => {
-            con.query(query, [data.title, data.text, data.category, data.image, postId], (error, results, fields) => {
+            con.query(query, [data.title, data.text, data.category, data.image, data.smallTitle, data.source, data.subCat, postId], (error, results, fields) => {
                 if(error){
                     rej(error)
                 } else {

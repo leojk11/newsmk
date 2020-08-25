@@ -3,6 +3,8 @@ $(document).ready(function(){
     $('.save-btn').click(function(event){
         // event.preventDefault();
         const title = $('#title').val();
+        const smallTitle = $('#small_title').val();
+        const source = $('#source').val();
         const text = $('#text').html();
         const category = $('#post-category').find(":selected").text();
         const subCategory = $('#post-sub-category').find(":selected").text();
@@ -21,7 +23,9 @@ $(document).ready(function(){
                 text: text,
                 category: category,
                 subCat: subCategory,
-                image: fileName
+                image: fileName,
+                source: source,
+                smallTitle: smallTitle
             },
             success: function(data){
                 console.log(data);

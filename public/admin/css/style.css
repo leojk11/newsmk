@@ -556,6 +556,17 @@ a {
 	display: none;
 }
 
+.row {
+	display: flex;
+	flex-direction: column;
+}
+.cms-edit-label {
+	font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #999;
+}
+
 @media only screen and (max-width: 992px) {
     /* header */
 
