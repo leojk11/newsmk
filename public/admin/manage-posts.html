@@ -218,6 +218,21 @@
 						category.append(catName);
 					postWrapper.append(category);
 
+
+					if(posts[i].primary_post == 1) {
+							const makePrimary = $('<div>').addClass('primary').attr({ 'id': posts[i].ID });
+								const makePrimaryLabel = $('<div>').addClass('make-primary-label').append('Primary post');
+							makePrimary.append(makePrimaryLabel);
+						postWrapper.append(makePrimary);
+					} else {
+							const makePrimary = $('<div>').addClass('make-primary').attr({ 'id': posts[i].ID });
+								const makePrimaryLabel = $('<div>').addClass('make-primary-label').append('Make primary');
+							makePrimary.append(makePrimaryLabel);
+						postWrapper.append(makePrimary);
+					}
+
+					
+
 						const buttons = $('<div>').addClass('buttons');
 							const editBtnLink = $('<a>').attr({ 'href':'admin/edit-post?postId=' + posts[i].ID });
 								const editBtnWrapper = $('<div>').addClass('edit-wrapper').attr({ 'id':posts[i].ID });
@@ -236,6 +251,23 @@
 					$('.all-posts').append(postWrapper);
 					i++;
 				}
+
+				$('.make-primary').click(function(event){
+					const postId = this.id;
+					console.log(postId);
+
+					$.ajax({
+						url: 'admins/make-primary?postId=' + postId,
+						method: 'PATCH',
+						success: function(data){
+							if(data.mess == 'primary'){
+								location.reload();
+							}
+						}, error: function(error){
+							console.log(error)
+						}
+					})
+				})
 			}
 		})
 	</script>

@@ -272,7 +272,7 @@ getCommentsForSinglePost = async(req, res) => {
 getOneBigPost = async(req, res) => {
 
     getBigPostQuery = () => {
-        const query = 'SELECT * FROM posts ORDER BY ID DESC LIMIT 1';
+        const query = 'SELECT * FROM posts WHERE primary_post = 1';
         return new Promise((res, rej) => {
             con.query(query, (error, results, fields) => {
                 if(error){

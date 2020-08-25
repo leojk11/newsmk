@@ -240,7 +240,7 @@ a {
 	padding: 3px;
 }
 .post-wrapper {
-	width: 1000px;
+	width: 1200px;
 	border:1px solid whitesmoke;
 	display: flex;
 	justify-content: space-between;
@@ -250,6 +250,40 @@ a {
 	width: 200px;
 	background: #dcdcdc;
 	padding-top: 55px;
+}
+.make-primary {
+	width: 200px;
+	background: red;
+	color: white;
+	display: flex;
+	align-items: center;
+	height: 80px;
+	margin-top: 36px;
+}
+.primary {
+	width: 200px;
+	background: red;
+	color: white;
+	display: flex;
+	align-items: center;
+	height: 80px;
+	margin-top: 36px;
+}
+.make-primary-label {
+	width: 100%;
+	text-align: center;
+}
+.make-primary:hover {
+	cursor: pointer;
+	/* filter: brightness(150%); */
+	transition: 0.4s;
+	background: #c22727;
+}
+.primary:hover {
+	cursor: pointer;
+	/* filter: brightness(150%); */
+	transition: 0.4s;
+	background: #c22727;
 }
 .post-image-wrapper {
 	width: 200px;

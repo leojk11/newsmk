@@ -29,6 +29,7 @@ router.post('/new-sub-cat', middlewares.verifyTokenAdmin, actions.addNewSubCateg
 router.patch('/edit-cat', middlewares.verifyTokenAdmin, actions.editCategory);
 router.patch('/edit-user', middlewares.verifyTokenAdmin, actions.editUser);
 router.patch('/edit-post', middlewares.verifyTokenAdmin, actions.editPost);
+router.patch('/make-primary', actions.makePostPrimary);
 
 /// delete ///
 router.delete('/delete-cat', middlewares.verifyTokenAdmin, actions.deleteCategory);

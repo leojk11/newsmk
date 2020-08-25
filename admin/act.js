@@ -893,11 +893,35 @@ makePostPrimary = async(req, res) => {
     const postId = req.query.postId;
 
     makePrimaryPostQuery = (postId) => {
+        const query = 'UPDATE posts SET primary_post = 1 WHERE ID = ?';
+        return new Promise((res, re) => {
+            con.query(query, [postId], (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
+    }
 
+    changePrimaryQuery = () => {
+        const query = 'UPDATE posts SET primary_post = 0 WHERE primary_post = 1';
+        return new Promise((res, rej) => {
+            con.query(query, (error, results, fields) => {
+                if(error){
+                    rej(error)
+                } else {
+                    res(results)
+                }
+            })
+        })
     }
 
     try {
-        
+        await changePrimaryQuery();
+        await makePrimaryPostQuery(postId);
+        res.status(200).json({ mess: 'primary' }) 
     } catch (error) {
         res.status(500).json({ error });
     }
@@ -1003,6 +1027,7 @@ module.exports = {
     editCategory,
     editUser,
     editPost,
+    makePostPrimary,
 
     /// delete ///
     deleteCategory,
