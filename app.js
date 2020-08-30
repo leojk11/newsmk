@@ -276,6 +276,9 @@ app.get('/client/hamb-icon', (req, res) => {
 app.get('/client/close-icon', (req, res) => {
 	res.sendFile(__dirname + "/public/user/icons/close_icon.png");
 })
+app.get('/client/eye-icon', (req, res) => {
+	res.sendFile(__dirname + "/public/user/icons/eye.svg");
+})
 app.get('/client/test-img', (req, res) => {
 	res.sendFile(__dirname + "/public/user/images/test-img.jpg");
 })

@@ -570,8 +570,8 @@ addComment = async(req, res) => {
 countPostViews = async(req, res) => {
     const postId = req.query.postId;
 
-    getSinglePostQuery = (postId) => {
-        const query = 'SELECT * FROM posts WHERE ID = ?';
+    updatePostViewsQuery = (postId) => {
+        const query = 'UPDATE posts SET views = views + 1 WHERE ID = ?';
         return new Promise((res, rej) => {
             con.query(query, [postId], (error, results, fields) => {
                 if(error){
@@ -582,27 +582,9 @@ countPostViews = async(req, res) => {
             })
         })
     }
-    const singlePost = await getSinglePostQuery(postId);
-    const singlePostViews = singlePost[0].views;
-    const singlePostViewsInt = parseInt(singlePostViews);
-
-    const addPostViews = singlePostViewsInt + 1;
-
-    updatePostViewsQuery = (addPostViews, postId) => {
-        const query = 'UPDATE posts SET views = ? WHERE ID = ?';
-        return new Promise((res, rej) => {
-            con.query(query, [addPostViews, postId], (error, results, fields) => {
-                if(error){
-                    rej(error)
-                } else {
-                    res(results)
-                }
-            })
-        })
-    }
 
     try {
-        await updatePostViewsQuery(addPostViews, postId);
+        await updatePostViewsQuery(postId);
         res.status(200).json({ mess: 'views +1' });
     } catch(error) {
         res.status(500).json({ error });

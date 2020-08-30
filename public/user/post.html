@@ -179,26 +179,37 @@
         <div id="single-post-title" class="single-post-title"></div>
 
         <div class="writer">
-            <div class="writer-image"><img src="admin/admin-image?image=new-admin.jpg" alt=""></div>
+            <!-- <div class="writer-image"><img src="admin/admin-image?image=new-admin.jpg" alt=""></div> -->
             
-            <div class="writer-other-info">
+            <!-- <div class="writer-other-info">
                 <div id="writer-name" class="writer-name"></div>
                 <div id="last-update" class="last-updated"></div>
-            </div>
+            </div> -->
         </div> <!-- writer -->
 
         <div class="wrapper-main-first">
             <div class="post-image-text">
                 <div id="single-post-image" class="post-image"></div>
                 
-                <div class="social-media-share">
+                <!-- <div class="social-media-share">
                     <a href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank"><div class="social-share"><img src="client/facebook-icon"></div></a>
                     <div class="social-share social-space"><img src="client/twitter-icon"></div>
-                    <!-- <div class="social-share"><img src="client/facebook-icon"></div> -->
-                </div>
+                </div> -->
+
+                <div class="post-posted-info">
+                    <div id="post-source" class=" post-info-item-no-border post-info-item"></div> <!-- post source -->
+    
+                    <div id="date-posted" class="post-info-item"></div> <!-- date posted -->
+    
+                    <div id="time-posted" class="post-info-item"></div> <!-- time posted -->
+    
+                    <div id="post-views" class="post-info-item views-display"><img src="client/eye-icon"><span id="post-views-number" class="post-views-number"></span></div> <!-- views -->
+                </div> <!-- post posted info  -->
 
                 <div id="single-post-text" class="post-text"></div>
             </div> <!-- post image -->
+
+           
 
             
 
@@ -277,15 +288,21 @@
                             $('#single-post-title').append(singlePost[0].title);
                             document.title = singlePost[0].title;
 
-                            $('#writer-name').append(singlePost[0].writer);
-                            $('#last-update').append(singlePost[0].date_posted + ' | ' + singlePost[0].time_posted);
+                            // $('#writer-name').append(singlePost[0].writer);
+                            // $('#last-update').append(singlePost[0].date_posted + ' | ' + singlePost[0].time_posted);
 
                             const singlePostImage = $('<img>').attr({ 'src':'admin/post-image?image=' + singlePost[0].image });
                             $('#single-post-image').append(singlePostImage);
 
+                            $('#post-source').append(singlePost[0].source);
+                            $('#date-posted').append(singlePost[0].date_posted);
+                            $('#time-posted').append(singlePost[0].time_posted);
+                            $('#post-views-number').append(singlePost[0].views);
+
                             $('#single-post-text').append(singlePost[0].text);
 
-                            $('#post-category-section').append(singlePost[0].category)
+                            $('#post-category-section').append(singlePost[0].category);
+
 
                             $.ajax({
                                 url: 'users/cat-posts?id=' + singlePost[0].category_id,
